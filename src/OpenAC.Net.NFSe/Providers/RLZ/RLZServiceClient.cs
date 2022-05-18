@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="RLZServiceClient.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		    Copyright (c) 2014 - 2021 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -32,24 +32,23 @@
 using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.DFe.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace OpenAC.Net.NFSe.Providers
 {
-    internal sealed class RLZServiceClient : NFSeSOAP11ServiceClient, IServiceClient
+    internal sealed class RLZServiceClient : NFSeSoapServiceClient, IServiceClient
     {
         #region Constructors
-        public RLZServiceClient(ProviderRLZ provider, TipoUrl tipoUrl) : base(provider, tipoUrl)
-        {
 
+        public RLZServiceClient(ProviderRLZ provider, TipoUrl tipoUrl) : base(provider, tipoUrl, SoapVersion.Soap11)
+        {
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Methods
+
         public string CancelarNFSe(string cabec, string msg)
         {
             var message = new StringBuilder();
@@ -163,7 +162,7 @@ namespace OpenAC.Net.NFSe.Providers
             return Execute("SubstituirNfseEnvio", message.ToString(), "SubstituirNfseResponse");
         }
 
-        protected override string TratarRetorno(XDocument xmlDocument, string[] responseTag)
+        protected override string TratarRetorno(XElement xmlDocument, string[] responseTag)
         {
             var element = xmlDocument.ElementAnyNs("Fault");
             if (element != null)
@@ -179,7 +178,6 @@ namespace OpenAC.Net.NFSe.Providers
             return Execute(soapAction, message, "", responseTag, "xmlns:nfse=\"http://nfse.abrasf.org.br\"");
         }
 
-
-        #endregion
+        #endregion Methods
     }
 }

@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="NaturezaOperacao.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		    Copyright (c) 2014 - 2021 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -229,7 +229,7 @@ namespace OpenAC.Net.NFSe.Nota
         /// <summary>
         /// Obtém as Natureza de Operação da ABRASAF v1.
         /// </summary>
-        public static NtABRASF ABRASF => abrasf ?? (abrasf = new NtABRASF());
+        public static NtABRASF ABRASF => abrasf ??= new NtABRASF();
 
         /// <summary>
         /// Obtém as Natureza de Operação do Ginfes.
@@ -239,12 +239,12 @@ namespace OpenAC.Net.NFSe.Nota
         /// <summary>
         /// Obtém as Natureza de Operação do DSF.
         /// </summary>
-        public static NtDSF DSF => dsf ?? (dsf = new NtDSF());
+        public static NtDSF DSF => dsf ??= new NtDSF();
 
         /// <summary>
         /// Obtém as Natura de Operações do Sigis
         /// </summary>
-        public static NtSigiss Sigiss => sigiss ?? (sigiss = new NtSigiss());
+        public static NtSigiss Sigiss => sigiss ??= new NtSigiss();
 
         #endregion Properties
     }

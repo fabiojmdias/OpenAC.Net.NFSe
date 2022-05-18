@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="ConfigWebServicesNFSe.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		    Copyright (c) 2014 - 2021 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -77,6 +77,8 @@ namespace OpenAC.Net.NFSe.Configuracao
         /// <value>The uf.</value>
         public string Municipio { get; private set; }
 
+        public NFSeProvider Provider { get; private set; } = NFSeProvider.Nenhum;
+
         public string Usuario { get; set; }
 
         public string Senha { get; set; }
@@ -103,6 +105,7 @@ namespace OpenAC.Net.NFSe.Configuracao
 
                 codigoMunicipio = value;
                 Municipio = municipio.Nome;
+                Provider = municipio.Provedor;
             }
         }
 

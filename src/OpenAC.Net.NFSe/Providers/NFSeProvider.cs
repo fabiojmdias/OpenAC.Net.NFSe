@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="NFSeProvider.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		    Copyright (c) 2014 - 2021 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -30,12 +30,19 @@
 // ***********************************************************************
 
 using System.ComponentModel;
+using OpenAC.Net.DFe.Core.Attributes;
 
 namespace OpenAC.Net.NFSe.Providers
 {
-    public enum NFSeProvider : byte
+    public enum NFSeProvider : sbyte
     {
+        Nenhum = -1,
+
+        Americana = 29,
+
         Abaco = 0,
+
+        AssessorPublico = 33,
 
         Betha = 1,
 
@@ -66,6 +73,8 @@ namespace OpenAC.Net.NFSe.Providers
 
         ISSNet = 18,
 
+        Mitra = 34,
+
         [Description("NFe Cidades")]
         NFeCidades = 6,
 
@@ -81,6 +90,8 @@ namespace OpenAC.Net.NFSe.Providers
         [Description("SmarAPD ABRASF")]
         SmarAPDABRASF = 14,
 
+        SIAPNet = 35,
+
         Sigiss = 20,
 
         SimplISS = 24,
@@ -95,6 +106,11 @@ namespace OpenAC.Net.NFSe.Providers
         [Description("Goiania")]
         Goiania = 22,
 
+        SigissWeb = 30,
+
+        [Description("RLZ Informática")]
+        RLZ = 31,
+
         [Description("Vitoria")]
         Vitoria = 13,
 
@@ -103,11 +119,7 @@ namespace OpenAC.Net.NFSe.Providers
         [Description("WebIss v2")]
         WebIss2 = 11,
 
-        Americana = 29,
-
-        SigissWeb = 30,
-
-        [Description("RLZ Informática")]
-        RLZ
+        [Description("Porto Velho")]
+        PVH = 32
     }
 }

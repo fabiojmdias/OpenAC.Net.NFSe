@@ -37,7 +37,11 @@ namespace OpenAC.Net.NFSe.Providers
         {
             Guard.Against<XmlException>(xml == null, "Xml invalido.");
 
-            var ret = new NotaServico(Configuracoes);
+            var ret = new NotaServico(Configuracoes)
+            {
+                XmlOriginal = xml.AsString()
+            };
+
             var xmlElement = xml.ElementAnyNs("Nota");
 
             ret.Competencia = xmlElement.ElementAnyNs("DtEmiNf")?.GetValue<DateTime>() ?? DateTime.MinValue;
@@ -192,10 +196,7 @@ namespace OpenAC.Net.NFSe.Providers
                 reg20Item.AddChild(AdicionarTag(TipoCampo.Str, "", "InscricaoMunicipal", 1, 20, Ocorrencia.Obrigatoria, nota.Tomador.InscricaoMunicipal));
 
                 if (
-                    !string.IsNullOrEmpty(nota.EnderecoPrestacao.Logradouro) && (
-                        nota.EnderecoPrestacao.Numero != nota.Tomador.Endereco.Numero ||
-                        nota.EnderecoPrestacao.Cep.ZeroFill(8) != nota.Tomador.Endereco.Cep.ZeroFill(8)
-                    )
+                    !string.IsNullOrEmpty(nota.EnderecoPrestacao.Logradouro)
                 )
                 {
                     if (
@@ -348,9 +349,9 @@ namespace OpenAC.Net.NFSe.Providers
 
             foreach (var nota in notas)
             {
-                var xmlRps = WriteXmlRps(nota, false, false);
-                xmlLoteRps.Append(xmlRps);
-                GravarRpsEmDisco(xmlRps, $"Rps-{nota.IdentificacaoRps.DataEmissao:yyyyMMdd}-{nota.IdentificacaoRps.Numero}.xml", nota.IdentificacaoRps.DataEmissao);
+                nota.XmlOriginal = WriteXmlRps(nota, false, false);
+                xmlLoteRps.Append(nota.XmlOriginal);
+                GravarRpsEmDisco(nota.XmlOriginal, $"Rps-{nota.IdentificacaoRps.DataEmissao:yyyyMMdd}-{nota.IdentificacaoRps.Numero}.xml", nota.IdentificacaoRps.DataEmissao);
             }
 
             var xmlLote = new StringBuilder();
@@ -398,8 +399,6 @@ namespace OpenAC.Net.NFSe.Providers
             // Analisa mensagem de retorno// Analisa mensagem de retorno
             var xmlRet = XDocument.Parse(retornoWebservice.XmlRetorno);
             var sucesso = true;
-
-            
 
             var xmlElement = xmlRet.Root.ElementAnyNs("Sdt_consultaprotocoloout");
 
@@ -545,7 +544,7 @@ namespace OpenAC.Net.NFSe.Providers
             MensagemErro2(retornoWebservice, xmlRet);
             if (retornoWebservice.Erros.Any()) return;
 
-            var xmlElement = xmlRet.ElementAnyNs("Info");
+            var xmlElement = xmlRet.ElementAnyNs("SDT_IMPRESSAO_OUT");
 
             var listaNfse = xmlElement.ElementAnyNs("Lista_Notas");
             if (listaNfse == null)
@@ -604,7 +603,7 @@ namespace OpenAC.Net.NFSe.Providers
             MensagemErro2(retornoWebservice, xmlRet);
             if (retornoWebservice.Erros.Any()) return;
 
-            var xmlElement = xmlRet.ElementAnyNs("Info");
+            var xmlElement = xmlRet.ElementAnyNs("SDT_IMPRESSAO_OUT");
 
             var listaNfse = xmlElement.ElementAnyNs("Lista_Notas");
             if (listaNfse == null)
@@ -789,10 +788,10 @@ namespace OpenAC.Net.NFSe.Providers
 
         private static void MensagemErro2(RetornoWebservice retornoWs, XContainer xmlRet)
         {
-            if (xmlRet.ElementAnyNs("Info").ElementAnyNs("Sucesso").GetValue<bool>())
+            if (xmlRet.ElementAnyNs("SDT_IMPRESSAO_OUT").ElementAnyNs("Sucesso").GetValue<bool>())
                 return;
 
-            var mensagem = xmlRet.ElementAnyNs("Info").ElementAnyNs("Message");
+            var mensagem = xmlRet.ElementAnyNs("SDT_IMPRESSAO_OUT").ElementAnyNs("Message");
 
             var evento = new Evento
             {

@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="NFeCidadesServiceClient.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		    Copyright (c) 2014 - 2021 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -36,11 +36,11 @@ using OpenAC.Net.Core.Extensions;
 
 namespace OpenAC.Net.NFSe.Providers
 {
-    internal sealed class AmericanaServiceClient : NFSeSOAP11ServiceClient, IServiceClient
+    internal sealed class AmericanaServiceClient : NFSeSoapServiceClient, IServiceClient
     {
         #region Constructors
 
-        public AmericanaServiceClient(ProviderAmericana provider, TipoUrl tipoUrl) : base(provider, tipoUrl)
+        public AmericanaServiceClient(ProviderAmericana provider, TipoUrl tipoUrl) : base(provider, tipoUrl, provider.Certificado, SoapVersion.Soap11)
         {
         }
 
@@ -60,10 +60,7 @@ namespace OpenAC.Net.NFSe.Providers
             return Execute("http://www.nfe.com.br/RecepcionarLoteRps", message.ToString(), "RecepcionarLoteRpsResponse");
         }
 
-        public string EnviarSincrono(string cabec, string msg)
-        {
-            throw new NotImplementedException();
-        }
+        public string EnviarSincrono(string cabec, string msg) => throw new NotImplementedException();
 
         public string ConsultarSituacao(string cabec, string msg)
         {
@@ -145,7 +142,7 @@ namespace OpenAC.Net.NFSe.Providers
             return Execute(soapAction, message, "", responseTag, "xmlns:nfe=\"http://www.nfe.com.br/\"", "xmlns=\"http://www.nfe.com.br/WSNacional/XSD/1/nfse_municipal_v01.xsd\"");
         }
 
-        protected override string TratarRetorno(XDocument xmlDocument, string[] responseTag)
+        protected override string TratarRetorno(XElement xmlDocument, string[] responseTag)
         {
             return xmlDocument.ElementAnyNs(responseTag[0]).ElementAnyNs("outputXML").Value;
         }

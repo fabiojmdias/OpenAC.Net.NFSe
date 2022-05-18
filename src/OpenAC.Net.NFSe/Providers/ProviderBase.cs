@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="ProviderBase.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		    Copyright (c) 2014 - 2021 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -208,7 +208,7 @@ namespace OpenAC.Net.NFSe.Providers
             }
         }
 
-        public X509Certificate2 Certificado => certificado ?? (certificado = Configuracoes.Certificados.ObterCertificado());
+        public X509Certificate2 Certificado => certificado ??= Configuracoes.Certificados.ObterCertificado();
 
         #endregion Propriedades
 
@@ -237,10 +237,8 @@ namespace OpenAC.Net.NFSe.Providers
                 }
                 else
                 {
-                    using (var sr = new StreamReader(xml, encoding))
-                    {
-                        doc = XDocument.Load(sr);
-                    }
+                    using var sr = new StreamReader(xml, encoding);
+                    doc = XDocument.Load(sr);
                 }
             }
             else
@@ -583,6 +581,8 @@ namespace OpenAC.Net.NFSe.Providers
         /// <param name="serie"></param>
         /// <param name="tipo"></param>
         /// <param name="notas"></param>
+        /// <param name="anoCompetencia"></param>
+        /// <param name="mesCompetencia"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public RetornoConsultarNFSeRps ConsultaNFSeRps(int numero, string serie, TipoRps tipo, NotaServicoCollection notas, int anoCompetencia, int mesCompetencia)
@@ -644,6 +644,7 @@ namespace OpenAC.Net.NFSe.Providers
         /// <param name="inicio"></param>
         /// <param name="fim"></param>
         /// <param name="numeroNfse"></param>
+        /// <param name="serieNfse"></param>
         /// <param name="pagina"></param>
         /// <param name="cnpjTomador"></param>
         /// <param name="imTomador"></param>
@@ -1159,7 +1160,7 @@ namespace OpenAC.Net.NFSe.Providers
                     throw new ArgumentOutOfRangeException();
             }
 
-            return ret.Replace("?wsdl", "");
+            return ret?.Replace("?wsdl", "");
         }
 
         /// <summary>
@@ -1167,10 +1168,7 @@ namespace OpenAC.Net.NFSe.Providers
         /// </summary>
         /// <param name="tipo"></param>
         /// <returns></returns>
-        protected virtual bool PrecisaValidarSchema(TipoUrl tipo)
-        {
-            return true;
-        }
+        protected virtual bool PrecisaValidarSchema(TipoUrl tipo) => true;
 
         /// <summary>
         /// Retornar o XML da assinatura ou nulo caso não tenha nada.
@@ -1444,9 +1442,7 @@ namespace OpenAC.Net.NFSe.Providers
 
                 XElement xmlTag = null;
                 if (ocorrencia == Ocorrencia.Obrigatoria && estaVazio)
-                {
                     xmlTag = GetElement(tag, string.Empty, ns);
-                }
 
                 return estaVazio ? xmlTag : GetElement(tag, conteudoProcessado, ns);
             }

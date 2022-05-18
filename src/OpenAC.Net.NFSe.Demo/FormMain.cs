@@ -447,35 +447,70 @@ namespace OpenAC.Net.NFSe.Demo
             var municipio = cmbCidades.GetSelectedValue<OpenMunicipioNFSe>();
             if (municipio == null) return;
 
-            openNFSe.NotasServico.Clear();
-            var nfSe = openNFSe.NotasServico.AddNew();
             var numeroRps = "1";
             if (InputBox.Show("Nº RPS", "Informe o número do RPS.", ref numeroRps).Equals(DialogResult.Cancel)) return;
+
+            openNFSe.NotasServico.Clear();
+            var nfSe = openNFSe.NotasServico.AddNew();
+
             nfSe.IdentificacaoRps.Numero = numeroRps;
-            nfSe.IdentificacaoRps.Serie = municipio.Provedor.IsIn(NFSeProvider.Curitiba) ? "F" : "B";
+
+            // Setar a serie de acordo com o provedor.
+            switch (municipio.Provedor)
+            {
+                case NFSeProvider.Curitiba:
+                    nfSe.IdentificacaoRps.Serie = "F";
+                    break;
+
+                case NFSeProvider.DSF:
+                    nfSe.IdentificacaoRps.Serie = "NF";
+                    nfSe.IdentificacaoRps.SeriePrestacao = "99";
+                    break;
+
+                default:
+                    nfSe.IdentificacaoRps.Serie = "1";
+                    break;
+            }
+
             nfSe.IdentificacaoRps.Tipo = TipoRps.RPS;
             nfSe.IdentificacaoRps.DataEmissao = DateTime.Now;
-            nfSe.Competencia = DateTime.Today;
             nfSe.Situacao = SituacaoNFSeRps.Normal;
-            nfSe.NaturezaOperacao = NaturezaOperacao.ABRASF.TributacaoNoMunicipio;
-            // fabio alterado
-            //nfSe.RegimeEspecialTributacao = RegimeEspecialTributacao.MicroEmpresarioEmpresaPP;
+
+            // Setar a natureza de operação de acordo com o provedor.
+            switch (municipio.Provedor)
+            {
+                case NFSeProvider.DSF:
+                    nfSe.NaturezaOperacao = NaturezaOperacao.DSF.SemDeducao;
+                    break;
+
+                default:
+                    nfSe.NaturezaOperacao = NaturezaOperacao.ABRASF.TributacaoNoMunicipio;
+                    break;
+            }
+
             nfSe.RegimeEspecialTributacao = RegimeEspecialTributacao.SimplesNacional;
             nfSe.IncentivadorCultural = NFSeSimNao.Nao;
 
-
-            var itemListaServico = municipio.Provedor.IsIn(NFSeProvider.Betha, NFSeProvider.ISSe, NFSeProvider.Curitiba, NFSeProvider.Coplan) ? "1401" : "14.01";
+            var itemListaServico = municipio.Provedor.IsIn(NFSeProvider.Betha, NFSeProvider.ISSe, NFSeProvider.Curitiba) ? "0107" : "01.07";
             if (InputBox.Show("Item na lista de serviço", "Informe o item na lista de serviço.", ref itemListaServico).Equals(DialogResult.Cancel)) return;
+
+            // Setar o cnae de acordo com o schema aceito pelo provedor.
+            var cnae = municipio.Provedor.IsIn(NFSeProvider.SIAPNet) ? "5211701" : "861010101";
+            if (InputBox.Show("CNAE", "Informe o codigo CNAE.", ref cnae).Equals(DialogResult.Cancel)) return;
+            nfSe.Servico.CodigoCnae = cnae;
+
+            var CodigoTributacaoMunicipio = municipio.Provedor.IsIn(NFSeProvider.SIAPNet) ? "5211701" : "01.07.00 / 00010700";
+
             nfSe.Servico.ItemListaServico = itemListaServico;
-
-            nfSe.Servico.CodigoTributacaoMunicipio = itemListaServico;
-            //nfSe.Servico.CodigoTributacaoMunicipio = "107";
-            nfSe.Servico.CodigoCnae = "4520001";
-            nfSe.Servico.CodigoMunicipio = 5101803;//municipio.Codigo;
-            nfSe.Servico.MunicipioIncidencia = 5101803;//municipio.Codigo;
-            //nfSe.Servico.CodigoPais = 1058;
-
-            nfSe.Servico.Discriminacao = " LUBRIFICAÇÃO, LIMPEZA, LUSTRAÇÃO, REVISÃO, CARGA E RECARGA, CONSERTO, RESTAURAÇÃO, BLINDAGEM, MANUTENÇÃO E CONSERVAÇÃO DE MÁQUINAS";
+            nfSe.Servico.CodigoTributacaoMunicipio = CodigoTributacaoMunicipio;
+            nfSe.Servico.Discriminacao = "MANUTENCAO TÉCNICA / VOCÊ PAGOU APROXIMADAMENTE R$ 41,15 DE TRIBUTOS FEDERAIS, R$ 8,26 DE TRIBUTOS MUNICIPAIS, R$ 256,57 PELOS PRODUTOS/SERVICOS, FONTE: IBPT.";
+            nfSe.Servico.CodigoMunicipio = municipio.Provedor == NFSeProvider.DSF ? municipio.CodigoSiafi : municipio.Codigo;
+            nfSe.Servico.Municipio = municipio.Nome;
+            if (municipio.Provedor.IsIn(NFSeProvider.SIAPNet))
+            {
+                nfSe.Servico.ResponsavelRetencao = ResponsavelRetencao.Prestador;
+                nfSe.Servico.MunicipioIncidencia = nfSe.Servico.CodigoMunicipio;
+            }
 
             nfSe.Servico.Valores.ValorServicos = 100;
             nfSe.Servico.Valores.ValorDeducoes = 0;
@@ -485,44 +520,42 @@ namespace OpenAC.Net.NFSe.Demo
             nfSe.Servico.Valores.ValorIr = 0;
             nfSe.Servico.Valores.ValorCsll = 0;
             nfSe.Servico.Valores.IssRetido = SituacaoTributaria.Normal;
-            nfSe.Servico.Valores.ValorIss = 0;
+            nfSe.Servico.Valores.ValorIss = municipio.Provedor == NFSeProvider.SIAPNet ? 2 : 0;
             nfSe.Servico.Valores.ValorOutrasRetencoes = 0;
             nfSe.Servico.Valores.BaseCalculo = 100;
-            nfSe.Servico.Valores.Aliquota = 5;
+            nfSe.Servico.Valores.Aliquota = 2;
             nfSe.Servico.Valores.ValorLiquidoNfse = 100;
             nfSe.Servico.Valores.ValorIssRetido = 0;
             nfSe.Servico.Valores.DescontoCondicionado = 0;
             nfSe.Servico.Valores.DescontoIncondicionado = 0;
             nfSe.ValorCredito = 0;
-            //nfSe.Servico.ExigibilidadeIss = ExigibilidadeIss.SuspensaProcessoAdministrativo;
-            /*
 
+            if (municipio.Provedor == NFSeProvider.DSF)
+            {
+                var servico = nfSe.Servico.ItensServico.AddNew();
+                servico.Descricao = "Teste";
+                servico.Quantidade = 1M;
+                servico.ValorTotal = 100;
+                servico.Tributavel = NFSeSimNao.Sim;
+            }
 
-        ,
-        ,
-        ,
-        
-             
-             
-             */
-
-            nfSe.Tomador.CpfCnpj = "02726560000587";
+            nfSe.Tomador.CpfCnpj = "44854962283";
             nfSe.Tomador.InscricaoMunicipal = "";
-            nfSe.Tomador.RazaoSocial = "TRANSPORTADORA BRASIL CENTRAL LTDA";
+            nfSe.Tomador.RazaoSocial = "Nome";
 
             nfSe.Tomador.Endereco.TipoLogradouro = "";
             nfSe.Tomador.Endereco.Logradouro = "INDEPENDENCIA";
             nfSe.Tomador.Endereco.Numero = "123";
             nfSe.Tomador.Endereco.Complemento = "SL 10";
             nfSe.Tomador.Endereco.Bairro = "VILA SEIXAS";
-            nfSe.Tomador.Endereco.CodigoMunicipio = 5101803;//municipio.Codigo;
+            nfSe.Tomador.Endereco.CodigoMunicipio = municipio.Codigo;
             nfSe.Tomador.Endereco.Municipio = municipio.Nome;
             nfSe.Tomador.Endereco.Uf = municipio.UF.ToString();
-            nfSe.Tomador.Endereco.Cep = "78750540";
+            nfSe.Tomador.Endereco.Cep = "14020010";
             nfSe.Tomador.Endereco.CodigoPais = 1058;
             nfSe.Tomador.Endereco.Pais = "BRASIL";
 
-            nfSe.Tomador.DadosContato.DDD = "65";
+            nfSe.Tomador.DadosContato.DDD = "16";
             nfSe.Tomador.DadosContato.Telefone = "30111234";
             nfSe.Tomador.DadosContato.Email = "NOME@EMPRESA.COM.BR";
         }
@@ -757,7 +790,7 @@ namespace OpenAC.Net.NFSe.Demo
                 MaxArchiveFiles = 93,
                 ArchiveEvery = FileArchivePeriod.Day,
                 ArchiveNumbering = ArchiveNumberingMode.Date,
-                ArchiveFileName = "${basedir}/Logs/Archive/${date:format=yyyy}/${date:format=MM}/ACBrNFSe_{{#}}.log",
+                ArchiveFileName = "${basedir}/Logs/Archive/${date:format=yyyy}/${date:format=MM}/NFSe_{{#}}.log",
                 ArchiveDateFormat = "dd.MM.yyyy"
             };
 
@@ -784,8 +817,8 @@ namespace OpenAC.Net.NFSe.Demo
             txtComplemento.Text = config.Get("PrestadorComplemento", string.Empty);
             txtBairro.Text = config.Get("PrestadorBairro", string.Empty);
 
-            txtWebserviceUsuario.Text = config.Get("LoginREST", string.Empty);
-            txtWebserviceSenha.Text = config.Get("SenhaREST", string.Empty);
+            txtWebserviceUsuario.Text = config.Get("UsuarioWebservice", string.Empty);
+            txtWebserviceSenha.Text = config.Get("SenhaWebservice", string.Empty);
 
             var codMunicipio = config.Get("Municipio", 0);
             if (codMunicipio > 0)
@@ -807,7 +840,6 @@ namespace OpenAC.Net.NFSe.Demo
             txtArquivoCidades.Text = config.Get("ArquivoCidades", string.Empty);
             chkSalvarArquivos.Checked = config.Get("SalvarNfse", string.Empty) == "1";
             txtPathXml.Text = config.Get("CaminhoXML", string.Empty);
-
         }
 
         private void SaveConfig()
