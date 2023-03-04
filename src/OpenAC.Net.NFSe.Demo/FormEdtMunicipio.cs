@@ -58,7 +58,7 @@ namespace OpenAC.Net.NFSe.Demo
             nudCodIBGE.Value = target.Codigo;
             nudCodSiafi.Value = target.CodigoSiafi;
             nudIdEntidade.Value = target.IdEntidade;
-            cmbProvedor.EnumDataSource(target.Provedor);
+            cmbProvedor.EnumDataSourceSorted(target.Provedor);
 
             txtPEnviar.Text = target.UrlProducao[TipoUrl.Enviar];
             txtPEnviarSincrono.Text = target.UrlProducao[TipoUrl.EnviarSincrono];
@@ -120,5 +120,23 @@ namespace OpenAC.Net.NFSe.Demo
         }
 
         #endregion Methods
+        
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            string novoLink = "";
+            if (InputBox.Show("Atualização de todos os endereços de produção", "Digite o link, se quiser alterar em tela, todos os campos com dados", ref novoLink).Equals(DialogResult.Cancel)) return;
+
+            if (!string.IsNullOrWhiteSpace(txtPEnviar.Text)) txtPEnviar.Text = novoLink;
+            if (!string.IsNullOrWhiteSpace(txtPCancelaNFSe.Text)) txtPCancelaNFSe.Text = novoLink;
+            if (!string.IsNullOrWhiteSpace(txtPCancelaNFSeLote.Text)) txtPCancelaNFSeLote.Text = novoLink;
+            if (!string.IsNullOrWhiteSpace(txtPConsultaNFSeRps.Text)) txtPConsultaNFSeRps.Text = novoLink;
+            if (!string.IsNullOrWhiteSpace(txtPConsultarSituacao.Text)) txtPConsultarSituacao.Text = novoLink;
+            if (!string.IsNullOrWhiteSpace(txtPEnviarSincrono.Text)) txtPEnviarSincrono.Text = novoLink;
+            if (!string.IsNullOrWhiteSpace(txtPConsultaNFSe.Text)) txtPConsultaNFSe.Text = novoLink;
+            if (!string.IsNullOrWhiteSpace(txtPConsultrLoteRps.Text)) txtPConsultrLoteRps.Text = novoLink;
+            if (!string.IsNullOrWhiteSpace(txtPConsultarSequencialRps.Text)) txtPConsultarSequencialRps.Text = novoLink;
+            if (!string.IsNullOrWhiteSpace(txtPSubstituirNFSe.Text)) txtPSubstituirNFSe.Text = novoLink;
+            if (!string.IsNullOrWhiteSpace(txtPAutenticacao.Text)) txtPAutenticacao.Text = novoLink;
+        }
     }
 }

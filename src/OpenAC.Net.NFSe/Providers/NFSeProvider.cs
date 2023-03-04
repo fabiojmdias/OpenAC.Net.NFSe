@@ -42,6 +42,8 @@ namespace OpenAC.Net.NFSe.Providers
 
         Abaco = 0,
 
+        ABase = 39,
+
         AssessorPublico = 33,
 
         Betha = 1,
@@ -61,13 +63,19 @@ namespace OpenAC.Net.NFSe.Providers
 
         DSF = 4,
 
+        DSFSJC = 38,
+
         Equiplano = 15,
 
         Fiorilli = 16,
 
+        Fisco = 42,
+
         FissLex = 12,
 
         Ginfes = 5,
+
+        IPM = 36,
 
         ISSe = 23,
 
@@ -84,6 +92,9 @@ namespace OpenAC.Net.NFSe.Providers
         [Description("Pronim v2")]
         Pronim2 = 17,
 
+        [Description("Pronim v2.03")]
+        Pronim203 = 43,
+
         [Description("São Paulo")]
         SaoPaulo = 9,
 
@@ -94,7 +105,11 @@ namespace OpenAC.Net.NFSe.Providers
 
         Sigiss = 20,
 
+        Sigiss2 = 44,
+
         SimplISS = 24,
+
+        Sintese = 37,
 
         SpeedGov = 25,
 
@@ -120,6 +135,11 @@ namespace OpenAC.Net.NFSe.Providers
         WebIss2 = 11,
 
         [Description("Porto Velho")]
-        PVH = 32
+        PVH = 32,
+
+        [Description("Metro Web")]
+        MetropolisWeb = 40,
+
+        Thema = 41
     }
 }

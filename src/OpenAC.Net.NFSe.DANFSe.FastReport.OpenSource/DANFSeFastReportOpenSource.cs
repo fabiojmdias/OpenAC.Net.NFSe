@@ -277,12 +277,12 @@ namespace OpenAC.Net.NFSe.DANFSe.FastReport.OpenSource
 
             this.Log().Debug("Passando configurações para o relatório.");
 
-            internalReport.SetParameterValue("Logo", Configuracoes.Logo.ToByteArray());
-            internalReport.SetParameterValue("LogoPrefeitura", Configuracoes.LogoPrefeitura.ToByteArray());
-            internalReport.SetParameterValue("MunicipioPrestador", Configuracoes.NFSe.WebServices.Municipio);
+            internalReport.SetParameterValue("Logo", Configuracoes.Logo?.ToByteArray() ?? new byte[0]);
+            internalReport.SetParameterValue("LogoPrefeitura", Configuracoes.LogoPrefeitura?.ToByteArray() ?? new byte[0]);
+            internalReport.SetParameterValue("MunicipioPrestador", Configuracoes.NFSe.WebServices.Municipio ?? "");
             internalReport.SetParameterValue("Ambiente", (int)Configuracoes.NFSe.WebServices.Ambiente);
-            internalReport.SetParameterValue("SoftwareHouse", Configuracoes.SoftwareHouse);
-            internalReport.SetParameterValue("Site", Configuracoes.Site);
+            internalReport.SetParameterValue("SoftwareHouse", Configuracoes.SoftwareHouse ?? "");
+            internalReport.SetParameterValue("Site", Configuracoes.Site ?? "");
 
             settings = new PrinterSettings { Copies = (short)Math.Max(Configuracoes.NumeroCopias, 1) };
 
