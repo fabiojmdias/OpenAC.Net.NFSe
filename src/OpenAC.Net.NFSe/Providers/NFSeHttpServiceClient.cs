@@ -181,6 +181,9 @@ namespace OpenAC.Net.NFSe.Providers
                     streamWriter.Flush();
                 }
 
+                if(!string.IsNullOrWhiteSpace(Provider.UserAgent))
+                    request.UserAgent = Provider.UserAgent;
+
                 var response = request.GetResponse();
                 EnvelopeRetorno = GetResponse(response);
 

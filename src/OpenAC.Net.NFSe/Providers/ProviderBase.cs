@@ -210,6 +210,8 @@ namespace OpenAC.Net.NFSe.Providers
 
         public X509Certificate2 Certificado => certificado ??= Configuracoes.Certificados.ObterCertificado();
 
+        public string UserAgent { get; protected set; }
+
         #endregion Propriedades
 
         #region Methods

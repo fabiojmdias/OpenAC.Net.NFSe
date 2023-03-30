@@ -30,6 +30,9 @@
 // ***********************************************************************
 
 using System;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml.Linq;
@@ -161,6 +164,41 @@ namespace OpenAC.Net.NFSe.Providers
             }
 
             return xmlDocument.ElementAnyNs(responseTag[0] + "Response").ElementAnyNs(responseTag[0] + "Result").Value;
+        }
+
+        protected override string Execute(string soapAction, string message, string soapHeader, string[] responseTag, params string[] soapNamespaces)
+        {
+            string contentType;
+            NameValueCollection headers;
+            contentType = $"text/xml; charset={CharSet}";
+            headers = null;
+
+            var envelope = new StringBuilder();
+            envelope.Append("<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\"");
+
+            envelope.Append(soapNamespaces.Aggregate("", (atual, next) => atual + $" {next}", namespaces => namespaces + ">"));
+            envelope.Append(soapHeader.IsEmpty() ? "<soap12:Header/>" : $"<soap12:Header>{soapHeader}</soap12:Header>");
+            envelope.Append("<soap12:Body>");
+            envelope.Append(message);
+            envelope.Append("</soap12:Body>");
+            envelope.Append("</soap12:Envelope>");
+            EnvelopeEnvio = envelope.ToString();
+
+            Execute(contentType, "POST", headers);
+
+            if (!EnvelopeRetorno.IsValidXml())
+                throw new OpenDFeCommunicationException("Erro ao processar o xml do envelope SOAP => " + EnvelopeRetorno);
+
+            var xmlDocument = XDocument.Parse(EnvelopeRetorno);
+            var body = xmlDocument.ElementAnyNs("Envelope").ElementAnyNs("Body");
+            var retorno = TratarRetorno(body, responseTag);
+            if (retorno.IsValidXml()) return retorno;
+
+            if (retorno != null)
+                throw new OpenDFeCommunicationException(retorno);
+            else
+                throw new OpenDFeCommunicationException(EnvelopeRetorno);
+
         }
 
         #endregion Methods

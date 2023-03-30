@@ -53,6 +53,7 @@ namespace OpenAC.Net.NFSe.Providers
         public ProviderISSNet(ConfigNFSe config, OpenMunicipioNFSe municipio) : base(config, municipio)
         {
             Name = "ISSNet";
+            UserAgent = "OpenAC.Net.NFSe/1.5";
         }
 
         #endregion Constructors
@@ -328,7 +329,7 @@ namespace OpenAC.Net.NFSe.Providers
             loteBuilder.Append("</Prestador>");
 
             if (retornoWebservice.NumeroNFse > 0)
-                loteBuilder.Append($"<NumeroNfse>{retornoWebservice.NumeroNFse}</tc:NumeroNfse>");
+                loteBuilder.Append($"<NumeroNfse>{retornoWebservice.NumeroNFse}</NumeroNfse>");
 
             if (retornoWebservice.Inicio.HasValue && retornoWebservice.Fim.HasValue)
             {
