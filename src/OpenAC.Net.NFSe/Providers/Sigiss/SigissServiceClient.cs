@@ -121,6 +121,11 @@ namespace OpenAC.Net.NFSe.Providers
 
         protected override bool ValidarCertificadoServidor() => false;
 
+        public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion Methods
     }
 }

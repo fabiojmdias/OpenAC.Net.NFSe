@@ -155,6 +155,11 @@ namespace OpenAC.Net.NFSe.Providers
 
         protected override string TratarRetorno(XElement xmlDocument, string[] responseTag) => xmlDocument.ElementAnyNs(responseTag[0]).ElementAnyNs("return").Value;
 
+        public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion Methods
     }
 }

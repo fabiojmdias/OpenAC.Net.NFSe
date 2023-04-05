@@ -120,7 +120,9 @@ namespace OpenAC.Net.NFSe.Demo
         {
             ExecuteSafe(() =>
             {
-                var ret = openNFSe.ConsultaNFSePeriodo(DateTime.Today.AddDays(-7), DateTime.Today);
+                //var ret = openNFSe.ConsultaNFSePeriodo(DateTime.Today.AddDays(-7), DateTime.Today);
+                DateTime dtbase = new DateTime(2023, 03, 15);
+                var ret = openNFSe.ConsultaNFSePeriodo(dtbase, dtbase.AddDays(7), 1);
                 ProcessarRetorno(ret);
             });
         }
@@ -480,7 +482,7 @@ namespace OpenAC.Net.NFSe.Demo
                     break;
 
                 default:
-                    nfSe.IdentificacaoRps.Serie = "1";
+                    nfSe.IdentificacaoRps.Serie = "8";
                     break;
             }
 
@@ -500,23 +502,24 @@ namespace OpenAC.Net.NFSe.Demo
                     break;
             }
 
-            nfSe.RegimeEspecialTributacao = RegimeEspecialTributacao.SimplesNacional;
+            nfSe.RegimeEspecialTributacao = RegimeEspecialTributacao.MicroEmpresaMunicipal;
             nfSe.IncentivadorCultural = NFSeSimNao.Nao;
 
-            var itemListaServico = municipio.Provedor.IsIn(NFSeProvider.Betha, NFSeProvider.ISSe, NFSeProvider.Curitiba) ? "0107" : "01.07";
+            var itemListaServico = municipio.Provedor.IsIn(NFSeProvider.Betha, NFSeProvider.ISSe, NFSeProvider.Curitiba) ? "17.01" : "17.01";
             if (InputBox.Show("Item na lista de serviço", "Informe o item na lista de serviço.", ref itemListaServico).Equals(DialogResult.Cancel)) return;
 
             // Setar o cnae de acordo com o schema aceito pelo provedor.
-            var cnae = municipio.Provedor.IsIn(NFSeProvider.SIAPNet, NFSeProvider.Sintese, NFSeProvider.ABase, NFSeProvider.Pronim203) ? "5211701" : "861010101";
+            var cnae = municipio.Provedor.IsIn(NFSeProvider.SIAPNet, NFSeProvider.Sintese, NFSeProvider.ABase, NFSeProvider.Pronim203) ? "6399200" : "6399200";
             if (InputBox.Show("CNAE", "Informe o codigo CNAE.", ref cnae).Equals(DialogResult.Cancel)) return;
             nfSe.Servico.CodigoCnae = cnae;
 
-            var CodigoTributacaoMunicipio = municipio.Provedor.IsIn(NFSeProvider.SIAPNet, NFSeProvider.ABase) ? "5211701" : "01.07.00 / 00010700";
+            var CodigoTributacaoMunicipio = municipio.Provedor.IsIn(NFSeProvider.SIAPNet, NFSeProvider.ABase) ? "6399200" : "6399200";
 
             nfSe.Servico.ItemListaServico = itemListaServico;
             nfSe.Servico.CodigoTributacaoMunicipio = CodigoTributacaoMunicipio;
             nfSe.Servico.Discriminacao = "MANUTENCAO TÉCNICA / VOCÊ PAGOU APROXIMADAMENTE R$ 41,15 DE TRIBUTOS FEDERAIS, R$ 8,26 DE TRIBUTOS MUNICIPAIS, R$ 256,57 PELOS PRODUTOS/SERVICOS, FONTE: IBPT.";
-            nfSe.Servico.CodigoMunicipio = municipio.Provedor == NFSeProvider.DSF ? municipio.CodigoSiafi : municipio.Codigo;
+            //nfSe.Servico.CodigoMunicipio = municipio.Provedor == NFSeProvider.DSF ? municipio.CodigoSiafi : municipio.Codigo;
+            nfSe.Servico.CodigoMunicipio = 999;
             nfSe.Servico.Municipio = municipio.Nome;
             if (municipio.Provedor.IsIn(NFSeProvider.SIAPNet))
             {
@@ -535,7 +538,7 @@ namespace OpenAC.Net.NFSe.Demo
             nfSe.Servico.Valores.ValorIss = municipio.Provedor == NFSeProvider.SIAPNet ? 2 : 0;
             nfSe.Servico.Valores.ValorOutrasRetencoes = 0;
             nfSe.Servico.Valores.BaseCalculo = 100;
-            nfSe.Servico.Valores.Aliquota = 2;
+            nfSe.Servico.Valores.Aliquota = 5;
             nfSe.Servico.Valores.ValorLiquidoNfse = 100;
             nfSe.Servico.Valores.ValorIssRetido = 0;
             nfSe.Servico.Valores.DescontoCondicionado = 0;
@@ -551,9 +554,9 @@ namespace OpenAC.Net.NFSe.Demo
                 servico.Tributavel = NFSeSimNao.Sim;
             }
 
-            nfSe.Tomador.CpfCnpj = "44854962283";
+            nfSe.Tomador.CpfCnpj = "30795932000139";
             nfSe.Tomador.InscricaoMunicipal = "";
-            nfSe.Tomador.RazaoSocial = "Nome";
+            nfSe.Tomador.RazaoSocial = "ZCODER SISTEMAS";
 
             nfSe.Tomador.Endereco.TipoLogradouro = "";
             nfSe.Tomador.Endereco.Logradouro = "INDEPENDENCIA";
@@ -563,11 +566,11 @@ namespace OpenAC.Net.NFSe.Demo
             nfSe.Tomador.Endereco.CodigoMunicipio = municipio.Codigo;
             nfSe.Tomador.Endereco.Municipio = municipio.Nome;
             nfSe.Tomador.Endereco.Uf = municipio.UF.ToString();
-            nfSe.Tomador.Endereco.Cep = "14020010";
+            nfSe.Tomador.Endereco.Cep = "78020010";
             nfSe.Tomador.Endereco.CodigoPais = 1058;
             nfSe.Tomador.Endereco.Pais = "BRASIL";
 
-            nfSe.Tomador.DadosContato.DDD = "16";
+            nfSe.Tomador.DadosContato.DDD = "65";
             nfSe.Tomador.DadosContato.Telefone = "30111234";
             nfSe.Tomador.DadosContato.Email = "NOME@EMPRESA.COM.BR";
         }
@@ -692,6 +695,14 @@ namespace OpenAC.Net.NFSe.Demo
                         rtLogResposta.AppendLine($"Chave : {ret.Nota.IdentificacaoNFSe.Chave}");
                         rtLogResposta.AppendLine($"Data Emissão : {ret.Nota.IdentificacaoNFSe.DataEmissao:G}");
                     }
+                    break;
+
+                case RetornoConsultarUrlVisualizacaoNfse ret:
+                    rtLogResposta.AppendLine("Metodo : Consultar Url Visualização NFSe");
+                    rtLogResposta.AppendLine($"Numero NFSe : {ret.NumeroNFSe}");
+                    rtLogResposta.AppendLine($"Códito Tributacao : {ret.CodigoTributacaoMunicipio}");
+                    rtLogResposta.AppendLine($"Url Impressão : {ret.Url}");
+                    rtLogResposta.AppendLine($"Sucesso : {ret.Sucesso}");
                     break;
             }
 
@@ -902,5 +913,33 @@ namespace OpenAC.Net.NFSe.Demo
         }
 
         #endregion Methods
+
+        private void btnConsultarNFSePeloNumero_Click(object sender, EventArgs e)
+        {
+            ExecuteSafe(() =>
+            {
+                var numero = 10;
+                if (InputBox.Show("Numero da Nota", "Digite o numero da NFSe.", ref numero).Equals(DialogResult.Cancel)) return;
+                var serie = "0";
+                if (InputBox.Show("Serie da Nota", "Digite o numero da serie da NFSe.", ref serie).Equals(DialogResult.Cancel)) return;
+
+                var ret = openNFSe.ConsultaNFSe(numero);
+                ProcessarRetorno(ret);
+            });
+        }
+
+        private void btnConsultarUrlImpressao_Click(object sender, EventArgs e)
+        {
+            ExecuteSafe(() =>
+            {
+                var numero = "6";
+                if (InputBox.Show("Numero da Nota", "Digite o numero da NFSe.", ref numero).Equals(DialogResult.Cancel)) return;
+                var codigoTributacao = "4543900";
+                if (InputBox.Show("Serie da Nota", "Digite o numero da serie da NFSe.", ref codigoTributacao).Equals(DialogResult.Cancel)) return;
+
+                var ret = openNFSe.ConsultarUrlVisualizacaoNfse(numero, codigoTributacao);
+                ProcessarRetorno(ret);
+            });
+        }
     }
 }

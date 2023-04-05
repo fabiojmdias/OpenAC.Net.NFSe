@@ -201,6 +201,11 @@ namespace OpenAC.Net.NFSe.Providers
             return reader.ReadInnerXml().Replace("ns2:", string.Empty);
         }
 
+        public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion Methods
     }
 }

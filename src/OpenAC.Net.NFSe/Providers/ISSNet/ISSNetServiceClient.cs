@@ -201,6 +201,19 @@ namespace OpenAC.Net.NFSe.Providers
 
         }
 
+        public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
+        {
+            var message = new StringBuilder();
+            message.Append("<ConsultarUrlVisualizacaoNfse xmlns=\"http://www.issnetonline.com.br/webservice/nfd\">");
+            message.Append("<xml>");
+            message.AppendCData("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + msg);
+            message.Append("</xml>");
+            message.Append("</ConsultarUrlVisualizacaoNfse>");
+            return Execute("http://www.issnetonline.com.br/webservice/nfd/ConsultarUrlVisualizacaoNfse", message.ToString(), "ConsultarUrlVisualizacaoNfse");
+        }
+
+
+
         #endregion Methods
     }
 }

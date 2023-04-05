@@ -1563,6 +1563,11 @@ namespace OpenAC.Net.NFSe.Providers
 
         #endregion Protected
 
+        public virtual RetornoConsultarUrlVisualizacaoNfse ConsultarUrlVisualizacaoNfse(string numeroNFSe, string codigoTributacaoMunicipio)
+        {
+            throw new NotImplementedException();
+        }
+
         #region Dispose
 
         /// <inheritdoc />

@@ -30,6 +30,7 @@
 // ***********************************************************************
 
 using System;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using OpenAC.Net.Core.Extensions;
@@ -435,8 +436,115 @@ namespace OpenAC.Net.NFSe.Providers
             }
         }
 
+        protected override void TratarRetornoConsultarLoteRps(RetornoConsultarLoteRps retornoWebservice, NotaServicoCollection notas)
+        {
+            // Analisa mensagem de retorno
+            var xmlRet = XDocument.Parse(retornoWebservice.XmlRetorno);
+            MensagemErro(retornoWebservice, xmlRet.Root);
+            if (retornoWebservice.Erros.Any()) return;
+
+            var retornoLote = xmlRet.ElementAnyNs("ConsultarLoteRpsResposta");
+            var listaNfse = retornoLote?.ElementAnyNs("ListaNfse");
+
+            if (listaNfse == null)
+            {
+                retornoWebservice.Erros.Add(new Evento { Codigo = "0", Descricao = "Lista de NFSe não encontrada! (ListaNfse)" });
+                return;
+            }
+
+            retornoWebservice.Sucesso = true;
+
+            foreach (var compNfse in listaNfse.ElementsAnyNs("CompNfse"))
+            {
+                var nfse = compNfse.ElementAnyNs("Nfse").ElementAnyNs("InfNfse");
+                var numeroNFSe = nfse.ElementAnyNs("Numero")?.GetValue<string>() ?? string.Empty;
+                var chaveNFSe = nfse.ElementAnyNs("CodigoVerificacao")?.GetValue<string>() ?? string.Empty;
+                var dataEmissao = nfse.ElementAnyNs("DataEmissao")?.GetValue<DateTime>() ?? DateTime.Now;
+                var numeroRps = nfse?.ElementAnyNs("IdentificacaoRps")?.ElementAnyNs("Numero")?.GetValue<string>() ?? string.Empty;
+                GravarNFSeEmDisco(compNfse.AsString(true), $"NFSe-{numeroNFSe}-{chaveNFSe}-.xml", dataEmissao);
+
+                var nota = notas.FirstOrDefault(x => x.IdentificacaoRps.Numero == numeroRps);
+                if (nota == null)
+                {
+                    notas.Load(compNfse.ToString());
+                }
+                else
+                {
+                    nota.IdentificacaoNFSe.Numero = numeroNFSe;
+                    nota.IdentificacaoNFSe.Chave = chaveNFSe;
+                    nota.IdentificacaoNFSe.DataEmissao = dataEmissao;
+                    nota.XmlOriginal = compNfse.AsString();
+                }
+            }
+            retornoWebservice.Notas = notas.ToArray();
+        }
+
         #endregion Protected Methods
 
+        public override RetornoConsultarUrlVisualizacaoNfse ConsultarUrlVisualizacaoNfse(string numeroNFSe, string codigoTributacaoMunicipio)
+        {
+            var retornoWebservice = new RetornoConsultarUrlVisualizacaoNfse()
+            {
+                NumeroNFSe = numeroNFSe,
+                CodigoTributacaoMunicipio = codigoTributacaoMunicipio,
+            };
+
+            try
+            {
+                PrepararConsultarUrlVisualizacaoNfse(retornoWebservice);
+                if (retornoWebservice.Erros.Any()) return retornoWebservice;
+                if (Configuracoes.Geral.RetirarAcentos)
+                    retornoWebservice.XmlEnvio = retornoWebservice.XmlEnvio.RemoveAccent();
+                GravarArquivoEmDisco(retornoWebservice.XmlEnvio, $"ConsultarUrlVisualizacaoNfse-{numeroNFSe}-env.xml");
+                // Remover a declaração do Xml se tiver
+                retornoWebservice.XmlEnvio = retornoWebservice.XmlEnvio.RemoverDeclaracaoXml();
+
+                // Verifica Schema (Não precisa)
+
+                // Recebe mensagem de retorno
+                using (var cliente = GetClient(TipoUrl.ConsultarNFSe))   //Não tem uma url especifica
+                {
+                    retornoWebservice.XmlRetorno = cliente.ConsultarUrlVisualizacaoNfse(GerarCabecalho(), retornoWebservice.XmlEnvio);
+                    retornoWebservice.EnvelopeEnvio = cliente.EnvelopeEnvio;
+                    retornoWebservice.EnvelopeRetorno = cliente.EnvelopeRetorno;
+                }
+
+                GravarArquivoEmDisco(retornoWebservice.XmlRetorno, $"ConsultarUrlVisualizacaoNfse-{numeroNFSe}-ret.xml");
+                TratarRetornoConsultarUrlVisualizacaoNfse(retornoWebservice);
+                return retornoWebservice;
+            }
+            catch (Exception ex)
+            {
+                retornoWebservice.Erros.Add(new Evento { Codigo = "0", Descricao = ex.Message });
+                return retornoWebservice;
+            }
+        }
+
+        private void TratarRetornoConsultarUrlVisualizacaoNfse(RetornoConsultarUrlVisualizacaoNfse retornoWebservice)
+        {
+            var xmlRet = XDocument.Parse(retornoWebservice.XmlRetorno);
+            MensagemErro(retornoWebservice, xmlRet.Root);
+            if (retornoWebservice.Erros.Any()) return;
+            var retornoRoot = xmlRet.ElementAnyNs("ConsultarUrlVisualizacaoNfseResposta");
+            var url = retornoRoot.ElementAnyNs("UrlVisualizacao")?.GetValue<string>() ?? string.Empty;
+            retornoWebservice.Url = url;
+            retornoWebservice.Sucesso = true;
+        }
+
+        private void PrepararConsultarUrlVisualizacaoNfse(RetornoConsultarUrlVisualizacaoNfse retornoWebservice)
+        {
+            var loteBuilder = new StringBuilder();
+            loteBuilder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+            loteBuilder.Append("<ConsultarUrlVisualizacaoNfseEnvio xmlns=\"http://www.issnetonline.com.br/webserviceabrasf/vsd/servico_consultar_url_visualizacao_nfse_envio.xsd\" xmlns:tc=\"http://www.issnetonline.com.br/webserviceabrasf/vsd/tipos_complexos.xsd\">");
+            loteBuilder.Append("<Prestador>");
+            loteBuilder.Append($"<tc:CpfCnpj><tc:Cnpj>{Configuracoes.PrestadorPadrao.CpfCnpj.ZeroFill(14)}</tc:Cnpj></tc:CpfCnpj>");
+            loteBuilder.Append($"<tc:InscricaoMunicipal>{Configuracoes.PrestadorPadrao.InscricaoMunicipal}</tc:InscricaoMunicipal>");
+            loteBuilder.Append("</Prestador>");
+            loteBuilder.Append($"<Numero>{retornoWebservice.NumeroNFSe}</Numero>");
+            loteBuilder.Append($"<CodigoTributacaoMunicipio>{retornoWebservice.CodigoTributacaoMunicipio}</CodigoTributacaoMunicipio>");
+            loteBuilder.Append("</ConsultarUrlVisualizacaoNfseEnvio>");
+            retornoWebservice.XmlEnvio = loteBuilder.ToString();
+        }
         #endregion Methods
     }
 }

@@ -169,6 +169,11 @@ namespace OpenAC.Net.NFSe.Providers.Thema
             throw new OpenDFeCommunicationException(exMessage);
         }
 
+        public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion Methods
     }
 }

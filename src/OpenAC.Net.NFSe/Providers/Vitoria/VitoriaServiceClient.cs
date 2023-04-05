@@ -157,6 +157,11 @@ namespace OpenAC.Net.NFSe.Providers
             return xmlDocument.ElementAnyNs(responseTag[0] + "Response").ElementAnyNs(responseTag[0] + "Result").Value;
         }
 
+        public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion Methods
     }
 }

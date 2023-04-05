@@ -80,6 +80,11 @@ namespace OpenAC.Net.NFSe.Providers
             return "Basic " + base64EncodedAuthenticationString;
         }
 
+        public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion Methods
     }
 }

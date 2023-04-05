@@ -170,4 +170,11 @@ namespace OpenAC.Net.NFSe.Providers
 
         public NotaServico Nota { get; internal set; }
     }
+
+    public sealed class RetornoConsultarUrlVisualizacaoNfse : RetornoWebservice
+    {
+        public string CodigoTributacaoMunicipio { get; internal set; }
+        public string NumeroNFSe { get; internal set; }
+        public string Url { get; internal set; }
+    }
 }

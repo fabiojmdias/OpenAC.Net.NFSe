@@ -561,6 +561,32 @@ namespace OpenAC.Net.NFSe
             }
         }
 
+        public RetornoConsultarUrlVisualizacaoNfse ConsultarUrlVisualizacaoNfse(string numeroNFSe, string codigoTributacaoMunicipio)
+        {
+            Guard.Against<OpenException>(numeroNFSe.IsEmpty(), "O Numero da nota não pode ser vazio.");
+            Guard.Against<OpenException>(codigoTributacaoMunicipio.IsEmpty(), "O código de tributação não pode ser vazio.");
+
+            var provider = ProviderManager.GetProvider(Configuracoes);
+            var oldProtocol = ServicePointManager.SecurityProtocol;
+
+            try
+            {
+                ServicePointManager.SecurityProtocol = Configuracoes.WebServices.Protocolos;
+  
+                return provider.ConsultarUrlVisualizacaoNfse(numeroNFSe, codigoTributacaoMunicipio);
+            }
+            catch (Exception exception)
+            {
+                this.Log().Error("[ConsultarUrlVisualizacaoNfse]", exception);
+                throw;
+            }
+            finally
+            {
+                ServicePointManager.SecurityProtocol = oldProtocol;
+                provider.Dispose();
+            }
+        }
+
         #endregion Methods
     }
 }

@@ -37,6 +37,8 @@ namespace OpenAC.Net.NFSe.Providers
 
         string SubstituirNFSe(string cabec, string msg);
 
+        string ConsultarUrlVisualizacaoNfse(string cabec, string msg);
+
         #endregion Methods
     }
 }

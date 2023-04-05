@@ -108,6 +108,11 @@ namespace OpenAC.Net.NFSe.Providers
             return element.ToString();
         }
 
+        public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion Methods
     }
 }

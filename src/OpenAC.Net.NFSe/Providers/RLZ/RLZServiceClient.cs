@@ -120,6 +120,11 @@ namespace OpenAC.Net.NFSe.Providers
             throw new NotImplementedException();
         }
 
+        public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
+        {
+            throw new NotImplementedException();
+        }
+
         public string Enviar(string cabec, string msg)
         {
             var message = new StringBuilder();

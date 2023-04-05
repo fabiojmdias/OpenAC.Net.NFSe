@@ -165,6 +165,11 @@ namespace OpenAC.Net.NFSe.Providers
             return Execute("", message, "", "", "xmlns:end=\"http://endpoint.nfse.ws.webservicenfse.edza.com.br/\"");
         }
 
+        public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion Methods
     }
 }
