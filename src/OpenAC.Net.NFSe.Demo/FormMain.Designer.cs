@@ -41,6 +41,7 @@ namespace OpenAC.Net.NFSe.Demo
             btnGerarEnviarLoteRps = new System.Windows.Forms.Button();
             btnGerarRps = new System.Windows.Forms.Button();
             tabPage15 = new System.Windows.Forms.TabPage();
+            btnConsultarUrlImpressao = new System.Windows.Forms.Button();
             btnConsultarNFSePeloNumero = new System.Windows.Forms.Button();
             btnConsultarNFSeRps = new System.Windows.Forms.Button();
             btnConsultarLote = new System.Windows.Forms.Button();
@@ -100,6 +101,8 @@ namespace OpenAC.Net.NFSe.Demo
             txtIM = new System.Windows.Forms.TextBox();
             txtCPFCNPJ = new System.Windows.Forms.TextBox();
             tabPage4 = new System.Windows.Forms.TabPage();
+            txtChaveDigital = new System.Windows.Forms.TextBox();
+            label23 = new System.Windows.Forms.Label();
             label21 = new System.Windows.Forms.Label();
             btnGetCertificate = new System.Windows.Forms.Button();
             txtNumeroSerie = new System.Windows.Forms.TextBox();
@@ -152,7 +155,6 @@ namespace OpenAC.Net.NFSe.Demo
             cmhProvedor = new System.Windows.Forms.ColumnHeader();
             lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             statusStrip1 = new System.Windows.Forms.StatusStrip();
-            btnConsultarUrlImpressao = new System.Windows.Forms.Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabControl2.SuspendLayout();
@@ -338,6 +340,17 @@ namespace OpenAC.Net.NFSe.Demo
             tabPage15.TabIndex = 1;
             tabPage15.Text = "Consultas";
             tabPage15.UseVisualStyleBackColor = true;
+            // 
+            // btnConsultarUrlImpressao
+            // 
+            btnConsultarUrlImpressao.Location = new System.Drawing.Point(434, 40);
+            btnConsultarUrlImpressao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            btnConsultarUrlImpressao.Name = "btnConsultarUrlImpressao";
+            btnConsultarUrlImpressao.Size = new System.Drawing.Size(207, 26);
+            btnConsultarUrlImpressao.TabIndex = 35;
+            btnConsultarUrlImpressao.Text = "Consultar Url";
+            btnConsultarUrlImpressao.UseVisualStyleBackColor = true;
+            btnConsultarUrlImpressao.Click += btnConsultarUrlImpressao_Click;
             // 
             // btnConsultarNFSePeloNumero
             // 
@@ -978,6 +991,8 @@ namespace OpenAC.Net.NFSe.Demo
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(txtChaveDigital);
+            tabPage4.Controls.Add(label23);
             tabPage4.Controls.Add(label21);
             tabPage4.Controls.Add(btnGetCertificate);
             tabPage4.Controls.Add(txtNumeroSerie);
@@ -995,6 +1010,24 @@ namespace OpenAC.Net.NFSe.Demo
             tabPage4.TabIndex = 1;
             tabPage4.Text = "Certificado";
             tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // txtChaveDigital
+            // 
+            txtChaveDigital.Location = new System.Drawing.Point(7, 199);
+            txtChaveDigital.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            txtChaveDigital.Name = "txtChaveDigital";
+            txtChaveDigital.Size = new System.Drawing.Size(264, 23);
+            txtChaveDigital.TabIndex = 17;
+            txtChaveDigital.TextChanged += txtChaveDigital_TextChanged;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new System.Drawing.Point(7, 181);
+            label23.Name = "label23";
+            label23.Size = new System.Drawing.Size(77, 15);
+            label23.TabIndex = 16;
+            label23.Text = "Chave Digital";
             // 
             // label21
             // 
@@ -1524,17 +1557,6 @@ namespace OpenAC.Net.NFSe.Demo
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
             // 
-            // btnConsultarUrlImpressao
-            // 
-            btnConsultarUrlImpressao.Location = new System.Drawing.Point(434, 40);
-            btnConsultarUrlImpressao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            btnConsultarUrlImpressao.Name = "btnConsultarUrlImpressao";
-            btnConsultarUrlImpressao.Size = new System.Drawing.Size(207, 26);
-            btnConsultarUrlImpressao.TabIndex = 35;
-            btnConsultarUrlImpressao.Text = "Consultar Url";
-            btnConsultarUrlImpressao.UseVisualStyleBackColor = true;
-            btnConsultarUrlImpressao.Click += btnConsultarUrlImpressao_Click;
-            // 
             // FormMain
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1712,6 +1734,8 @@ namespace OpenAC.Net.NFSe.Demo
         private System.Windows.Forms.TextBox txtProvedor;
         private System.Windows.Forms.Button btnConsultarNFSePeloNumero;
         private System.Windows.Forms.Button btnConsultarUrlImpressao;
+        private System.Windows.Forms.TextBox txtChaveDigital;
+        private System.Windows.Forms.Label label23;
     }
 }
 

@@ -10417,93 +10417,97 @@
       <IdEntidade>0</IdEntidade>
       <Nome>Rondonopolis</Nome>
       <UF>MT</UF>
-      <Provedor>Coplan</Provedor>
+      <Provedor>Agili</Provedor>
+      <Cnpj>03347101000121</Cnpj>
       <UrlHomologacao>
         <Item>
           <TipoUrl>Enviar</TipoUrl>
-          <Url>https://www.gp.srv.br/tributario/homologacao/anfse_web_service?wsdl</Url>
+          <Url>https://homologacaonfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>EnviarSincrono</TipoUrl>
-          <Url>https://www.gp.srv.br/tributario/homologacao/anfse_web_service?wsdl</Url>
+          <Url>https://homologacaonfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>CancelarNFSe</TipoUrl>
-          <Url>https://www.gp.srv.br/tributario/homologacao/anfse_web_service?wsdl</Url>
+          <Url>https://homologacaonfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>CancelarNFSeLote</TipoUrl>
+          <Url>https://homologacaonfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarNFSe</TipoUrl>
-          <Url>https://www.gp.srv.br/tributario/homologacao/anfse_web_service?wsdl</Url>
+          <Url>https://homologacaonfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarNFSeRps</TipoUrl>
-          <Url>https://www.gp.srv.br/tributario/homologacao/anfse_web_service?wsdl</Url>
+          <Url>https://homologacaonfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarLoteRps</TipoUrl>
-          <Url>https://www.gp.srv.br/tributario/homologacao/anfse_web_service?wsdl</Url>
+          <Url>https://homologacaonfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarSituacao</TipoUrl>
-          <Url>https://www.gp.srv.br/tributario/homologacao/anfse_web_service?wsdl</Url>
+          <Url>https://homologacaonfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarSequencialRps</TipoUrl>
-          <Url>https://www.gp.srv.br/tributario/homologacao/anfse_web_service?wsdl</Url>
+          <Url>https://homologacaonfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>SubstituirNFSe</TipoUrl>
-          <Url>https://www.gp.srv.br/tributario/homologacao/anfse_web_service?wsdl</Url>
+          <Url>https://homologacaonfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>Autenticacao</TipoUrl>
+          <Url>https://homologacaonfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
       </UrlHomologacao>
       <UrlProducao>
         <Item>
           <TipoUrl>Enviar</TipoUrl>
-          <Url>http://intranet.rondonopolis.mt.gov.br/tributario_rondonopolis/servlet/anfse_web_service?wsdl</Url>
+          <Url>https://nfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>EnviarSincrono</TipoUrl>
-          <Url>http://intranet.rondonopolis.mt.gov.br/tributario_rondonopolis/servlet/anfse_web_service?wsdl</Url>
+          <Url>https://nfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>CancelarNFSe</TipoUrl>
-          <Url>http://intranet.rondonopolis.mt.gov.br/tributario_rondonopolis/servlet/anfse_web_service?wsdl</Url>
+          <Url>https://nfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>CancelarNFSeLote</TipoUrl>
         </Item>
         <Item>
           <TipoUrl>ConsultarNFSe</TipoUrl>
-          <Url>http://intranet.rondonopolis.mt.gov.br/tributario_rondonopolis/servlet/anfse_web_service?wsdl</Url>
+          <Url>https://nfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarNFSeRps</TipoUrl>
-          <Url>http://intranet.rondonopolis.mt.gov.br/tributario_rondonopolis/servlet/anfse_web_service?wsdl</Url>
+          <Url>https://nfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarLoteRps</TipoUrl>
-          <Url>http://intranet.rondonopolis.mt.gov.br/tributario_rondonopolis/servlet/anfse_web_service?wsdl</Url>
+          <Url>https://nfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarSituacao</TipoUrl>
-          <Url>http://intranet.rondonopolis.mt.gov.br/tributario_rondonopolis/servlet/anfse_web_service?wsdl</Url>
+          <Url>https://nfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarSequencialRps</TipoUrl>
-          <Url>http://intranet.rondonopolis.mt.gov.br/tributario_rondonopolis/servlet/anfse_web_service?wsdl</Url>
+          <Url>https://nfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>SubstituirNFSe</TipoUrl>
-          <Url>http://intranet.rondonopolis.mt.gov.br/tributario_rondonopolis/servlet/anfse_web_service?wsdl</Url>
+          <Url>https://nfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
         <Item>
           <TipoUrl>Autenticacao</TipoUrl>
+          <Url>https://nfse.rondonopolis.mt.gov.br/api/</Url>
         </Item>
       </UrlProducao>
     </Municipio>

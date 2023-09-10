@@ -127,6 +127,14 @@ namespace OpenAC.Net.NFSe.Providers
         public NFSeProvider Provedor { get; set; }
 
         /// <summary>
+        /// Define ou retorna o cnpj da Prefeitura
+        /// Obrigatório no provedor Agili
+        /// </summary>
+        /// <value>The cnpj.</value>
+        [DFeElement(TipoCampo.Str, "Cnpj")]
+        public string Cnpj { get; set; }
+
+        /// <summary>
         /// Lista de url de homologação dos serviços.
         /// </summary>
         /// <value>The URL homologacao.</value>

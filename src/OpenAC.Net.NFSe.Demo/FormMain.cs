@@ -482,7 +482,7 @@ namespace OpenAC.Net.NFSe.Demo
                     break;
 
                 default:
-                    nfSe.IdentificacaoRps.Serie = "8";
+                    nfSe.IdentificacaoRps.Serie = "NFS";  //Teste rondonopolis Agili
                     break;
             }
 
@@ -505,7 +505,7 @@ namespace OpenAC.Net.NFSe.Demo
             nfSe.RegimeEspecialTributacao = RegimeEspecialTributacao.MicroEmpresaMunicipal;
             nfSe.IncentivadorCultural = NFSeSimNao.Nao;
 
-            var itemListaServico = municipio.Provedor.IsIn(NFSeProvider.Betha, NFSeProvider.ISSe, NFSeProvider.Curitiba) ? "17.01" : "17.01";
+            var itemListaServico = municipio.Provedor.IsIn(NFSeProvider.Betha, NFSeProvider.ISSe, NFSeProvider.Curitiba) ? "14.04" : "14.04";
             if (InputBox.Show("Item na lista de serviço", "Informe o item na lista de serviço.", ref itemListaServico).Equals(DialogResult.Cancel)) return;
 
             // Setar o cnae de acordo com o schema aceito pelo provedor.
@@ -517,9 +517,9 @@ namespace OpenAC.Net.NFSe.Demo
 
             nfSe.Servico.ItemListaServico = itemListaServico;
             nfSe.Servico.CodigoTributacaoMunicipio = CodigoTributacaoMunicipio;
-            nfSe.Servico.Discriminacao = "MANUTENCAO TÉCNICA / VOCÊ PAGOU APROXIMADAMENTE R$ 41,15 DE TRIBUTOS FEDERAIS, R$ 8,26 DE TRIBUTOS MUNICIPAIS, R$ 256,57 PELOS PRODUTOS/SERVICOS, FONTE: IBPT.";
+            nfSe.Servico.Discriminacao = "SERVIÇO TESTE DE MIGRAÇÃO WEBSERVICE - AGILI";
             //nfSe.Servico.CodigoMunicipio = municipio.Provedor == NFSeProvider.DSF ? municipio.CodigoSiafi : municipio.Codigo;
-            nfSe.Servico.CodigoMunicipio = 999;
+            nfSe.Servico.CodigoMunicipio = municipio.Codigo;
             nfSe.Servico.Municipio = municipio.Nome;
             if (municipio.Provedor.IsIn(NFSeProvider.SIAPNet))
             {
@@ -527,7 +527,7 @@ namespace OpenAC.Net.NFSe.Demo
                 nfSe.Servico.MunicipioIncidencia = nfSe.Servico.CodigoMunicipio;
             }
 
-            nfSe.Servico.Valores.ValorServicos = 100;
+            nfSe.Servico.Valores.ValorServicos = 1;
             nfSe.Servico.Valores.ValorDeducoes = 0;
             nfSe.Servico.Valores.ValorPis = 0;
             nfSe.Servico.Valores.ValorCofins = 0;
@@ -539,7 +539,7 @@ namespace OpenAC.Net.NFSe.Demo
             nfSe.Servico.Valores.ValorOutrasRetencoes = 0;
             nfSe.Servico.Valores.BaseCalculo = 100;
             nfSe.Servico.Valores.Aliquota = 5;
-            nfSe.Servico.Valores.ValorLiquidoNfse = 100;
+            nfSe.Servico.Valores.ValorLiquidoNfse = 1;
             nfSe.Servico.Valores.ValorIssRetido = 0;
             nfSe.Servico.Valores.DescontoCondicionado = 0;
             nfSe.Servico.Valores.DescontoIncondicionado = 0;
@@ -559,10 +559,10 @@ namespace OpenAC.Net.NFSe.Demo
             nfSe.Tomador.RazaoSocial = "ZCODER SISTEMAS";
 
             nfSe.Tomador.Endereco.TipoLogradouro = "";
-            nfSe.Tomador.Endereco.Logradouro = "INDEPENDENCIA";
-            nfSe.Tomador.Endereco.Numero = "123";
-            nfSe.Tomador.Endereco.Complemento = "SL 10";
-            nfSe.Tomador.Endereco.Bairro = "VILA SEIXAS";
+            nfSe.Tomador.Endereco.Logradouro = "ANTONIO HORTOLANI";
+            nfSe.Tomador.Endereco.Numero = "52-N";
+            nfSe.Tomador.Endereco.Complemento = "";
+            nfSe.Tomador.Endereco.Bairro = "CENTRO";
             nfSe.Tomador.Endereco.CodigoMunicipio = municipio.Codigo;
             nfSe.Tomador.Endereco.Municipio = municipio.Nome;
             nfSe.Tomador.Endereco.Uf = municipio.UF.ToString();
@@ -572,7 +572,7 @@ namespace OpenAC.Net.NFSe.Demo
 
             nfSe.Tomador.DadosContato.DDD = "65";
             nfSe.Tomador.DadosContato.Telefone = "30111234";
-            nfSe.Tomador.DadosContato.Email = "NOME@EMPRESA.COM.BR";
+            nfSe.Tomador.DadosContato.Email = "fabio@zcodersistemas.com.br";
         }
 
         private void ProcessarRetorno(RetornoWebservice retorno)
@@ -858,6 +858,7 @@ namespace OpenAC.Net.NFSe.Demo
             txtCertificado.Text = config.Get("Certificado", string.Empty);
             txtSenha.Text = config.Get("Senha", string.Empty);
             txtNumeroSerie.Text = config.Get("NumeroSerie", string.Empty);
+            txtChaveDigital.Text = config.Get("ChaveDigital", string.Empty);
 
             txtSchemas.Text = config.Get("PastaSchemas", string.Empty);
             txtArquivoCidades.Text = config.Get("ArquivoCidades", string.Empty);
@@ -885,6 +886,7 @@ namespace OpenAC.Net.NFSe.Demo
             config.Set("Certificado", txtCertificado.Text);
             config.Set("Senha", txtSenha.Text);
             config.Set("NumeroSerie", txtNumeroSerie.Text);
+            config.Set("ChaveDigital", txtChaveDigital.Text);
 
             config.Set("UsuarioWebservice", txtWebserviceUsuario.Text);
             config.Set("SenhaWebservice", txtWebserviceSenha.Text);
@@ -940,6 +942,11 @@ namespace OpenAC.Net.NFSe.Demo
                 var ret = openNFSe.ConsultarUrlVisualizacaoNfse(numero, codigoTributacao);
                 ProcessarRetorno(ret);
             });
+        }
+
+        private void txtChaveDigital_TextChanged(object sender, EventArgs e)
+        {
+            openNFSe.Configuracoes.PrestadorPadrao.NumeroEmissorRps = txtChaveDigital.Text;
         }
     }
 }

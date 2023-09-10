@@ -59,6 +59,7 @@ namespace OpenAC.Net.NFSe.Demo
             nudCodSiafi.Value = target.CodigoSiafi;
             nudIdEntidade.Value = target.IdEntidade;
             cmbProvedor.EnumDataSourceSorted(target.Provedor);
+            txtMunicipioCnpj.Text = target.Cnpj;
 
             txtPEnviar.Text = target.UrlProducao[TipoUrl.Enviar];
             txtPEnviarSincrono.Text = target.UrlProducao[TipoUrl.EnviarSincrono];
@@ -91,6 +92,7 @@ namespace OpenAC.Net.NFSe.Demo
             target.UF = cmbUf.GetSelectedValue<DFeSiglaUF>();
             target.Codigo = (int)nudCodIBGE.Value;
             target.CodigoSiafi = (int)nudCodSiafi.Value;
+            target.Cnpj = txtMunicipioCnpj.Text;
 
             target.Provedor = cmbProvedor.GetSelectedValue<NFSeProvider>();
 
@@ -120,7 +122,7 @@ namespace OpenAC.Net.NFSe.Demo
         }
 
         #endregion Methods
-        
+
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             string novoLink = "";
