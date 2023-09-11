@@ -39,6 +39,8 @@ namespace OpenAC.Net.NFSe.Nota
         Exportacao,
         Imunidade,
         SuspensaDecisaoJudicial,
-        SuspensaProcessoAdministrativo
+        SuspensaProcessoAdministrativo,
+        Fixo,
+        IsentoPorLeiEspecifica
     }
 }

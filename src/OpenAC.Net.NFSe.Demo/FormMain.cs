@@ -502,7 +502,7 @@ namespace OpenAC.Net.NFSe.Demo
                     break;
             }
 
-            nfSe.RegimeEspecialTributacao = RegimeEspecialTributacao.MicroEmpresaMunicipal;
+            nfSe.RegimeEspecialTributacao = RegimeEspecialTributacao.SimplesNacional;
             nfSe.IncentivadorCultural = NFSeSimNao.Nao;
 
             var itemListaServico = municipio.Provedor.IsIn(NFSeProvider.Betha, NFSeProvider.ISSe, NFSeProvider.Curitiba) ? "14.04" : "14.04";
@@ -521,6 +521,7 @@ namespace OpenAC.Net.NFSe.Demo
             //nfSe.Servico.CodigoMunicipio = municipio.Provedor == NFSeProvider.DSF ? municipio.CodigoSiafi : municipio.Codigo;
             nfSe.Servico.CodigoMunicipio = municipio.Codigo;
             nfSe.Servico.Municipio = municipio.Nome;
+            nfSe.Servico.MunicipioIncidencia = nfSe.Servico.CodigoMunicipio;
             if (municipio.Provedor.IsIn(NFSeProvider.SIAPNet))
             {
                 nfSe.Servico.ResponsavelRetencao = ResponsavelRetencao.Prestador;
@@ -537,8 +538,8 @@ namespace OpenAC.Net.NFSe.Demo
             nfSe.Servico.Valores.IssRetido = SituacaoTributaria.Normal;
             nfSe.Servico.Valores.ValorIss = municipio.Provedor == NFSeProvider.SIAPNet ? 2 : 0;
             nfSe.Servico.Valores.ValorOutrasRetencoes = 0;
-            nfSe.Servico.Valores.BaseCalculo = 100;
-            nfSe.Servico.Valores.Aliquota = 5;
+            nfSe.Servico.Valores.BaseCalculo = 1;
+            nfSe.Servico.Valores.Aliquota = 2;
             nfSe.Servico.Valores.ValorLiquidoNfse = 1;
             nfSe.Servico.Valores.ValorIssRetido = 0;
             nfSe.Servico.Valores.DescontoCondicionado = 0;

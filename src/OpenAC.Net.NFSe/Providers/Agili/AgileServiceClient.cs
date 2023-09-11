@@ -26,6 +26,11 @@ namespace OpenAC.Net.NFSe.Providers.Agili
             return Post("ConsultarNfseFaixa", msg, _contentType);
         }
 
+        public string EnviarSincrono(string cabec, string msg)
+        {
+            return Post("GerarNfse", msg, _contentType);
+        }
+
         #region not implemented
 
         public string CancelarNFSe(string cabec, string msg)
@@ -59,11 +64,6 @@ namespace OpenAC.Net.NFSe.Providers.Agili
         }
 
         public string Enviar(string cabec, string msg)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string EnviarSincrono(string cabec, string msg)
         {
             throw new NotImplementedException();
         }
