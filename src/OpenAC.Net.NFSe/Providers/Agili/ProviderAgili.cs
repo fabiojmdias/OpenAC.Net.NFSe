@@ -4,14 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using OpenAC.Net.NFSe.Providers.Agili;
 using OpenAC.Net.Core.Extensions;
-using System.ServiceModel.Channels;
-using System.Xml;
 using OpenAC.Net.DFe.Core.Serializer;
-using OpenAC.Net.Core;
 
 namespace OpenAC.Net.NFSe.Providers
 {
@@ -42,7 +38,7 @@ namespace OpenAC.Net.NFSe.Providers
             result.Append("<IdentificacaoRps>");
             result.Append($"<Numero>{nota.IdentificacaoRps.Numero}</Numero>");
             result.Append($"<Serie>{nota.IdentificacaoRps.Serie}</Serie>");
-            int tipoRpsAgili = -2; //RPS
+            int tipoRpsAgili;
             switch (nota.IdentificacaoRps.Tipo)
             {
                 case TipoRps.NFConjugada:
@@ -351,7 +347,7 @@ namespace OpenAC.Net.NFSe.Providers
             var xmlRet = XDocument.Parse(retornoWebservice.XmlRetorno);
             MensagemErro(retornoWebservice, xmlRet, "ConsultarNfseRpsResposta");
             if (retornoWebservice.Erros.Any()) return;
-            var nfse = xmlRet.ElementAnyNs("Nfse");
+            var nfse = xmlRet.ElementAnyNs("ConsultarNfseRpsResposta")?.ElementAnyNs("Nfse");
             if (nfse == null)
             {
                 retornoWebservice.Erros.Add(new Evento { Codigo = "0", Descricao = "NFSe não encontrada! (ListaNfse)" });
@@ -503,7 +499,7 @@ namespace OpenAC.Net.NFSe.Providers
             MensagemErro(retornoWebservice, xmlRet, "GerarNfseResposta");
             if (retornoWebservice.Erros.Any()) return;
 
-            var nfse = xmlRet.ElementAnyNs("Nfse");
+            var nfse = xmlRet.ElementAnyNs("GerarNfseResposta")?.ElementAnyNs("Nfse");
             if (nfse == null)
             {
                 retornoWebservice.Erros.Add(new Evento { Codigo = "0", Descricao = "NFSe não encontrada! (ListaNfse)" });
