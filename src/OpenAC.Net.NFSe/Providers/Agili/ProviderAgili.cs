@@ -227,7 +227,7 @@ namespace OpenAC.Net.NFSe.Providers
             dadosServico.AddChild(AdicionarTag(TipoCampo.Str, "", "CodigoCnae", 1, 140, Ocorrencia.NaoObrigatoria, nota.Servico.CodigoCnae));
             dadosServico.AddChild(AdicionarTag(TipoCampo.De2, "", "Quantidade", 1, 18, Ocorrencia.Obrigatoria, 1)); //Fixo
             dadosServico.AddChild(AdicionarTag(TipoCampo.De2, "", "ValorServico", 1, 18, Ocorrencia.Obrigatoria, nota.Servico.Valores.ValorServicos));
-            //dadosServico.AddChild(AdicionarTag(TipoCampo.De2, "", "ValorDesconto", 1, 8, Ocorrencia.Obrigatoria, nota.Servico.Valores.DescontoIncondicionado)); //Não precisa informar
+            dadosServico.AddChild(AdicionarTag(TipoCampo.De2, "", "ValorDesconto", 1, 8, Ocorrencia.MaiorQueZero, nota.Servico.Valores.DescontoIncondicionado)); //Não precisa informar
             return listaServico.ToString(SaveOptions.DisableFormatting);
         }
 

@@ -3714,43 +3714,43 @@
       <UrlProducao>
         <Item>
           <TipoUrl>Enviar</TipoUrl>
-          <Url>https://wscuiaba.issnetonline.com.br/webserviceabrasf/cuiaba/servicos.asmx</Url>
+          <Url>https://wscuiaba.issnetonline.com.br/webservicenfse204/nfse.asmx</Url>
         </Item>
         <Item>
           <TipoUrl>EnviarSincrono</TipoUrl>
-          <Url>https://wscuiaba.issnetonline.com.br/webserviceabrasf/cuiaba/servicos.asmx</Url>
+          <Url>https://wscuiaba.issnetonline.com.br/webservicenfse204/nfse.asmx</Url>
         </Item>
         <Item>
           <TipoUrl>CancelarNFSe</TipoUrl>
-          <Url>https://wscuiaba.issnetonline.com.br/webserviceabrasf/cuiaba/servicos.asmx</Url>
+          <Url>https://wscuiaba.issnetonline.com.br/webservicenfse204/nfse.asmx</Url>
         </Item>
         <Item>
           <TipoUrl>CancelarNFSeLote</TipoUrl>
-          <Url>https://wscuiaba.issnetonline.com.br/webserviceabrasf/cuiaba/servicos.asmx</Url>
+          <Url>https://wscuiaba.issnetonline.com.br/webservicenfse204/nfse.asmx</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarNFSe</TipoUrl>
-          <Url>https://wscuiaba.issnetonline.com.br/webserviceabrasf/cuiaba/servicos.asmx</Url>
+          <Url>https://wscuiaba.issnetonline.com.br/webservicenfse204/nfse.asmx</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarNFSeRps</TipoUrl>
-          <Url>https://wscuiaba.issnetonline.com.br/webserviceabrasf/cuiaba/servicos.asmx</Url>
+          <Url>https://wscuiaba.issnetonline.com.br/webservicenfse204/nfse.asmx</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarLoteRps</TipoUrl>
-          <Url>https://wscuiaba.issnetonline.com.br/webserviceabrasf/cuiaba/servicos.asmx</Url>
+          <Url>https://wscuiaba.issnetonline.com.br/webservicenfse204/nfse.asmx</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarSituacao</TipoUrl>
-          <Url>https://wscuiaba.issnetonline.com.br/webserviceabrasf/cuiaba/servicos.asmx</Url>
+          <Url>https://wscuiaba.issnetonline.com.br/webservicenfse204/nfse.asmx</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarSequencialRps</TipoUrl>
-          <Url>https://wscuiaba.issnetonline.com.br/webserviceabrasf/cuiaba/servicos.asmx</Url>
+          <Url>https://wscuiaba.issnetonline.com.br/webservicenfse204/nfse.asmx</Url>
         </Item>
         <Item>
           <TipoUrl>SubstituirNFSe</TipoUrl>
-          <Url>https://wscuiaba.issnetonline.com.br/webserviceabrasf/cuiaba/servicos.asmx</Url>
+          <Url>https://wscuiaba.issnetonline.com.br/webservicenfse204/nfse.asmx</Url>
         </Item>
         <Item>
           <TipoUrl>Autenticacao</TipoUrl>

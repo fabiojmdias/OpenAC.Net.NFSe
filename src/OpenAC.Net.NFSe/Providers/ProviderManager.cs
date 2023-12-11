@@ -77,7 +77,7 @@ namespace OpenAC.Net.NFSe.Providers
                 {NFSeProvider.Goiania, typeof(ProviderGoiania)},
                 {NFSeProvider.IPM, typeof(ProviderIPM)},
                 {NFSeProvider.ISSe, typeof(ProviderISSe)},
-                {NFSeProvider.ISSNet, typeof(ProviderISSNet)},
+                {NFSeProvider.ISSNet, typeof(ProviderISSNet204)},
                 {NFSeProvider.Mitra, typeof(ProviderMitra)},
                 {NFSeProvider.NFeCidades, typeof(ProviderNFeCidades)},
                 {NFSeProvider.NotaCarioca, typeof(ProviderNotaCarioca)},
