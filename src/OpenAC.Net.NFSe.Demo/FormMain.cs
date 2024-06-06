@@ -121,7 +121,7 @@ namespace OpenAC.Net.NFSe.Demo
             ExecuteSafe(() =>
             {
                 //var ret = openNFSe.ConsultaNFSePeriodo(DateTime.Today.AddDays(-7), DateTime.Today);
-                DateTime dtbase = new DateTime(2023, 03, 15);
+                DateTime dtbase = new DateTime(2024, 05, 01);
                 var ret = openNFSe.ConsultaNFSePeriodo(dtbase, dtbase.AddDays(7), 1);
                 ProcessarRetorno(ret);
             });
@@ -482,7 +482,7 @@ namespace OpenAC.Net.NFSe.Demo
                     break;
 
                 default:
-                    nfSe.IdentificacaoRps.Serie = "NFS";  //Teste rondonopolis Agili
+                    nfSe.IdentificacaoRps.Serie = "23";  //Teste fisslex
                     break;
             }
 
@@ -528,7 +528,7 @@ namespace OpenAC.Net.NFSe.Demo
                 nfSe.Servico.MunicipioIncidencia = nfSe.Servico.CodigoMunicipio;
             }
 
-            nfSe.Servico.Valores.ValorServicos = 1;
+            nfSe.Servico.Valores.ValorServicos = 100;
             nfSe.Servico.Valores.ValorDeducoes = 0;
             nfSe.Servico.Valores.ValorPis = 0;
             nfSe.Servico.Valores.ValorCofins = 0;
@@ -536,7 +536,7 @@ namespace OpenAC.Net.NFSe.Demo
             nfSe.Servico.Valores.ValorIr = 0;
             nfSe.Servico.Valores.ValorCsll = 0;
             nfSe.Servico.Valores.IssRetido = SituacaoTributaria.Normal;
-            nfSe.Servico.Valores.ValorIss = municipio.Provedor == NFSeProvider.SIAPNet ? 2 : 0;
+            nfSe.Servico.Valores.ValorIss = 2;
             nfSe.Servico.Valores.ValorOutrasRetencoes = 0;
             nfSe.Servico.Valores.BaseCalculo = 1;
             nfSe.Servico.Valores.Aliquota = 2;

@@ -31,6 +31,7 @@
 
 using System;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 using OpenAC.Net.Core.Extensions;
 
@@ -38,6 +39,10 @@ namespace OpenAC.Net.NFSe.Providers
 {
     internal sealed class FissLexServiceClient : NFSeSoapServiceClient, IServiceClient
     {
+
+        private static readonly string[] escapedCharacters = ["&amp;", "&lt;", "&gt;", "&quot;", "&apos;"];
+        private static readonly string[] unescapedCharacters = ["&", "<", ">", "\"", "\'"];
+
         #region Constructors
 
         public FissLexServiceClient(ProviderFissLex provider, TipoUrl tipoUrl) : base(provider, tipoUrl, SoapVersion.Soap11)
@@ -50,8 +55,14 @@ namespace OpenAC.Net.NFSe.Providers
 
         public string Enviar(string cabec, string msg)
         {
-            return Execute("FISS-LEXaction/AWS_RECEPCIONARLOTERPS.Execute", msg,
-                   new[] { "WS_RecepcionarLoteRps.ExecuteResponse", "Enviarloterpsresposta" });
+            var message = new StringBuilder();
+            message.Append("<fiss:WS_RecepcionarLoteRps.Execute>");
+            message.Append("<fiss:Enviarloterpsenvio>");
+            message.Append(EscaparCaracteres(msg));
+            message.Append("</fiss:Enviarloterpsenvio>");
+            message.Append("</fiss:WS_RecepcionarLoteRps.Execute>");
+            return Execute("FISS-LEXaction/AWS_RECEPCIONARLOTERPS.Execute", message.ToString(),
+                   new[] { "WS_RecepcionarLoteRps.ExecuteResponse", "Enviarloterpsresposta" }, ["xmlns:fiss=\"FISS-LEX\""]);
         }
 
         public string EnviarSincrono(string cabec, string msg)
@@ -62,12 +73,12 @@ namespace OpenAC.Net.NFSe.Providers
         public string ConsultarSituacao(string cabec, string msg)
         {
             return Execute("FISS-LEXaction/AWS_CONSULTARSITUACAOLOTERPS.Execute", msg,
-                   new[] { "WS_ConsultarSituacaoLoteRps.ExecuteResponse" });
+                   new[] { "WS_ConsultarSituacaoLoteRps.ExecuteResponse", "Consultarsituacaoloterpsresposta" });
         }
 
         public string ConsultarLoteRps(string cabec, string msg)
         {
-            return Execute("FISS-LEXaction/AWS_CONSULTALOTERPS.Execute", msg, new string[0]);
+            return Execute("FISS-LEXaction/AWS_CONSULTALOTERPS.Execute", msg, new[] { "WS_ConsultaLoteRps.ExecuteResponse" });
         }
 
         public string ConsultarSequencialRps(string cabec, string msg)
@@ -77,12 +88,12 @@ namespace OpenAC.Net.NFSe.Providers
 
         public string ConsultarNFSeRps(string cabec, string msg)
         {
-            return Execute("FISS-LEXaction/AWS_CONSULTANFSEPORRPS.Execute", msg, new string[0]);
+            return Execute("FISS-LEXaction/AWS_CONSULTANFSEPORRPS.Execute", msg, new[] { "WS_ConsultaNfsePorRps.ExecuteResponse" });
         }
 
         public string ConsultarNFSe(string cabec, string msg)
         {
-            return Execute("FISS-LEXaction/AWS_CONSULTANFSE.Execute", msg, new string[0]);
+            return Execute("FISS-LEXaction/AWS_CONSULTANFSE.Execute", msg, new[] { "WS_ConsultaNfse.ExecuteResponse" });
         }
 
         public string CancelarNFSe(string cabec, string msg)
@@ -103,6 +114,8 @@ namespace OpenAC.Net.NFSe.Providers
 
         protected override string TratarRetorno(XElement xmlDocument, string[] responseTag)
         {
+            string xmlAjustado = AjustarRetorno(xmlDocument.ToString());
+            xmlDocument = XElement.Parse(xmlAjustado);
             var element = responseTag.Aggregate(xmlDocument, (current, tag) => current.ElementAnyNs(tag));
             return element.ToString();
         }
@@ -110,6 +123,26 @@ namespace OpenAC.Net.NFSe.Providers
         public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
         {
             throw new NotImplementedException();
+        }
+
+        private static string AjustarRetorno(string retorno)
+        {
+            for (var i = 0; i < escapedCharacters.Length; i++)
+            {
+                retorno = retorno.Replace(escapedCharacters[i], unescapedCharacters[i]);
+            }
+            retorno = retorno.Replace("xmlns=\"\"", "");
+            retorno = retorno.Replace("xmlns=\"FISS-LEX\"", "");
+            return retorno;
+        }
+
+        private static string EscaparCaracteres(string retorno)
+        {
+            for (var i = 0; i < escapedCharacters.Length; i++)
+            {
+                retorno = retorno.Replace(unescapedCharacters[i], escapedCharacters[i]);
+            }
+            return retorno;
         }
 
         #endregion Methods

@@ -74,8 +74,9 @@ namespace OpenAC.Net.NFSe.Providers
             }
 
             var xmlLote = new StringBuilder();
+
             xmlLote.Append("<EnviarLoteRpsEnvio>");
-            xmlLote.Append($"<LoteRps Id=\"L{retornoWebservice.Lote}\">");
+            xmlLote.Append($"<LoteRps Id=\"Lote{retornoWebservice.Lote}\">");
             xmlLote.Append($"<NumeroLote>{retornoWebservice.Lote}</NumeroLote>");
             xmlLote.Append($"<Cnpj>{Configuracoes.PrestadorPadrao.CpfCnpj.ZeroFill(14)}</Cnpj>");
             xmlLote.Append($"<InscricaoMunicipal>{Configuracoes.PrestadorPadrao.InscricaoMunicipal}</InscricaoMunicipal>");
@@ -92,21 +93,21 @@ namespace OpenAC.Net.NFSe.Providers
         {
             // Analisa mensagem de retorno
             var xmlRet = XDocument.Parse(AjustarRetorno(retornoWebservice.XmlRetorno));
-
-            MensagemErro(retornoWebservice, xmlRet.Root);
+            var elResposta = xmlRet?.Root?.ElementAnyNs("EnviarLoteRpsResposta") ?? xmlRet.Root;
+            MensagemErro(retornoWebservice, elResposta);
             if (retornoWebservice.Erros.Count > 0) return;
 
-            retornoWebservice.Lote = xmlRet?.ElementAnyNs("NumeroLote")?.GetValue<int>() ?? 0;
-            retornoWebservice.Data = xmlRet?.ElementAnyNs("DataRecebimento")?.GetValue<DateTime>() ?? DateTime.MinValue;
-            retornoWebservice.Protocolo = xmlRet?.ElementAnyNs("Protocolo")?.GetValue<string>() ?? string.Empty;
+            retornoWebservice.Lote = elResposta?.ElementAnyNs("NumeroLote")?.GetValue<int>() ?? 0;
+            retornoWebservice.Data = elResposta?.ElementAnyNs("DataRecebimento")?.GetValue<DateTime>() ?? DateTime.MinValue;
+            retornoWebservice.Protocolo = elResposta?.ElementAnyNs("Protocolo")?.GetValue<string>() ?? string.Empty;
             retornoWebservice.Sucesso = retornoWebservice.Lote > 0;
 
             if (!retornoWebservice.Sucesso) return;
 
-            // ReSharper disable once SuggestVarOrType_SimpleTypes
             foreach (NotaServico nota in notas)
             {
                 nota.NumeroLote = retornoWebservice.Lote;
+                nota.Protocolo = retornoWebservice.Protocolo;
             }
         }
 
@@ -135,6 +136,7 @@ namespace OpenAC.Net.NFSe.Providers
         {
             // Analisa mensagem de retorno
             var xmlRet = XDocument.Parse(AjustarRetorno(retornoWebservice.XmlRetorno));
+            MensagemErro(retornoWebservice, xmlRet.Root);
 
             retornoWebservice.Lote = xmlRet?.ElementAnyNs("NumeroLote")?.GetValue<int>() ?? 0;
             retornoWebservice.Situacao = xmlRet?.ElementAnyNs("Situacao")?.GetValue<string>() ?? "0";
@@ -159,7 +161,7 @@ namespace OpenAC.Net.NFSe.Providers
         protected override void TratarRetornoConsultarLoteRps(RetornoConsultarLoteRps retornoWebservice, NotaServicoCollection notas)
         {
             var xmlRet = XDocument.Parse(AjustarRetorno(retornoWebservice.XmlRetorno));
-            MensagemErro(retornoWebservice, xmlRet.Root);
+            MensagemErro(retornoWebservice, xmlRet.Root, "Listamensagemretorno", "tcMensagemRetorno");
             if (retornoWebservice.Erros.Any()) return;
 
             var rootElement = xmlRet.ElementAnyNs("WS_ConsultaLoteRps.ExecuteResponse").ElementAnyNs("Consultarloterpsresposta");
