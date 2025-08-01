@@ -40,6 +40,7 @@ using OpenAC.Net.DFe.Core.Common;
 using OpenAC.Net.NFSe.Commom.Model;
 using OpenAC.Net.NFSe.Commom.Types;
 using OpenAC.Net.NFSe.Configuracao;
+using OpenAC.Net.NFSe.Providers.Centi;
 
 namespace OpenAC.Net.NFSe.Providers;
 
@@ -104,6 +105,7 @@ public static class ProviderManager
             {NFSeProvider.ISSRecife, new Dictionary<VersaoNFSe, Type> {{VersaoNFSe.ve100, typeof(ProviderISSRecife)}}},
             {NFSeProvider.FintelISS, new Dictionary<VersaoNFSe, Type> {{VersaoNFSe.ve204, typeof(ProviderFintelISS204)}}},
             {NFSeProvider.GISS, new Dictionary<VersaoNFSe, Type> {{VersaoNFSe.ve204, typeof(ProviderGISS)}}},
+            {NFSeProvider.Centi, new Dictionary<VersaoNFSe, Type> {{VersaoNFSe.ve200, typeof(ProviderCenti)}}},
         };
 
         Load();
