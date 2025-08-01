@@ -64,7 +64,7 @@ public sealed class OpenNFSe : OpenDisposable, IOpenLog
         Configuracoes = ConfigNFSe.Default;
         NotasServico = new NotaServicoCollection(Configuracoes);
     }
-    
+
     public OpenNFSe(ConfigNFSe configuracoes)
     {
         Configuracoes = configuracoes;
@@ -579,32 +579,32 @@ public sealed class OpenNFSe : OpenDisposable, IOpenLog
         }
     }
 
-        public RetornoConsultarUrlVisualizacaoNfse ConsultarUrlVisualizacaoNfse(string numeroNFSe, string codigoTributacaoMunicipio)
-        {
-            Guard.Against<OpenException>(numeroNFSe.IsEmpty(), "O Numero da nota não pode ser vazio.");
-            Guard.Against<OpenException>(codigoTributacaoMunicipio.IsEmpty(), "O código de tributação não pode ser vazio.");
+    //public RetornoConsultarUrlVisualizacaoNfse ConsultarUrlVisualizacaoNfse(string numeroNFSe, string codigoTributacaoMunicipio)
+    //{
+    //    Guard.Against<OpenException>(numeroNFSe.IsEmpty(), "O Numero da nota não pode ser vazio.");
+    //    Guard.Against<OpenException>(codigoTributacaoMunicipio.IsEmpty(), "O código de tributação não pode ser vazio.");
 
-            var provider = ProviderManager.GetProvider(Configuracoes);
-            var oldProtocol = ServicePointManager.SecurityProtocol;
+    //    var provider = ProviderManager.GetProvider(Configuracoes);
+    //    var oldProtocol = ServicePointManager.SecurityProtocol;
 
-            try
-            {
-                ServicePointManager.SecurityProtocol = Configuracoes.WebServices.Protocolos;
-  
-                return provider.ConsultarUrlVisualizacaoNfse(numeroNFSe, codigoTributacaoMunicipio);
-            }
-            catch (Exception exception)
-            {
-                this.Log().Error("[ConsultarUrlVisualizacaoNfse]", exception);
-                throw;
-            }
-            finally
-            {
-                ServicePointManager.SecurityProtocol = oldProtocol;
-                provider.Dispose();
-            }
-        }
+    //    try
+    //    {
+    //        ServicePointManager.SecurityProtocol = Configuracoes.WebServices.Protocolos;
 
-        #endregion Methods
-    }
+    //        return provider.ConsultarUrlVisualizacaoNfse(numeroNFSe, codigoTributacaoMunicipio);
+    //    }
+    //    catch (Exception exception)
+    //    {
+    //        this.Log().Error("[ConsultarUrlVisualizacaoNfse]", exception);
+    //        throw;
+    //    }
+    //    finally
+    //    {
+    //        ServicePointManager.SecurityProtocol = oldProtocol;
+    //        provider.Dispose();
+    //    }
+    //}
+
+    #endregion Methods
+
 }

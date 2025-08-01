@@ -231,11 +231,7 @@ internal sealed class CoplanServiceClient : NFSeSoapServiceClient, IServiceClien
             throw new OpenDFeCommunicationException(exMessage);
         }
 
-        public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
-        {
-            throw new NotImplementedException();
-        }
-
+        return xmlDocument.ElementAnyNs(responseTag[0]).ElementAnyNs(responseTag[1]).ElementAnyNs("outputXML").Value;
     }
 
     #endregion Methods
