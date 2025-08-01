@@ -41,8 +41,6 @@ namespace OpenAC.Net.NFSe.Demo
             btnGerarEnviarLoteRps = new System.Windows.Forms.Button();
             btnGerarRps = new System.Windows.Forms.Button();
             tabPage15 = new System.Windows.Forms.TabPage();
-            btnConsultarUrlImpressao = new System.Windows.Forms.Button();
-            btnConsultarNFSePeloNumero = new System.Windows.Forms.Button();
             btnConsultarNFSeRps = new System.Windows.Forms.Button();
             btnConsultarLote = new System.Windows.Forms.Button();
             btnConsultarNFSePeriodo = new System.Windows.Forms.Button();
@@ -72,11 +70,10 @@ namespace OpenAC.Net.NFSe.Demo
             btnSalvarConfig = new System.Windows.Forms.Button();
             tbcConfiguracoes = new System.Windows.Forms.TabControl();
             tabPage2 = new System.Windows.Forms.TabPage();
-            label22 = new System.Windows.Forms.Label();
+            txtVersao = new System.Windows.Forms.TextBox();
+            btnEditCidade = new System.Windows.Forms.Button();
             txtProvedor = new System.Windows.Forms.TextBox();
-            label7 = new System.Windows.Forms.Label();
             label8 = new System.Windows.Forms.Label();
-            txtCodSiafi = new System.Windows.Forms.TextBox();
             txtCodCidade = new System.Windows.Forms.TextBox();
             label5 = new System.Windows.Forms.Label();
             cmbCidades = new System.Windows.Forms.ComboBox();
@@ -101,8 +98,6 @@ namespace OpenAC.Net.NFSe.Demo
             txtIM = new System.Windows.Forms.TextBox();
             txtCPFCNPJ = new System.Windows.Forms.TextBox();
             tabPage4 = new System.Windows.Forms.TabPage();
-            txtChaveDigital = new System.Windows.Forms.TextBox();
-            label23 = new System.Windows.Forms.Label();
             label21 = new System.Windows.Forms.Label();
             btnGetCertificate = new System.Windows.Forms.Button();
             txtNumeroSerie = new System.Windows.Forms.TextBox();
@@ -125,6 +120,9 @@ namespace OpenAC.Net.NFSe.Demo
             label12 = new System.Windows.Forms.Label();
             tabPage6 = new System.Windows.Forms.TabPage();
             groupBox3 = new System.Windows.Forms.GroupBox();
+            label24 = new System.Windows.Forms.Label();
+            txtWebserviceChavePrivada = new System.Windows.Forms.TextBox();
+            label23 = new System.Windows.Forms.Label();
             txtWebserviceSenha = new System.Windows.Forms.TextBox();
             label6 = new System.Windows.Forms.Label();
             txtWebserviceUsuario = new System.Windows.Forms.TextBox();
@@ -142,19 +140,19 @@ namespace OpenAC.Net.NFSe.Demo
             cmbAmbiente = new System.Windows.Forms.ComboBox();
             tabPage7 = new System.Windows.Forms.TabPage();
             tabPage3 = new System.Windows.Forms.TabPage();
+            dgvCidades = new System.Windows.Forms.DataGridView();
             btnCopiar = new System.Windows.Forms.Button();
             btnDeletar = new System.Windows.Forms.Button();
             btnAdicionar = new System.Windows.Forms.Button();
             btnSalvar = new System.Windows.Forms.Button();
             btnCarregar = new System.Windows.Forms.Button();
-            lstMunicipios = new System.Windows.Forms.ListView();
-            cmhCidade = new System.Windows.Forms.ColumnHeader();
-            cmhUF = new System.Windows.Forms.ColumnHeader();
-            cmhCodigo = new System.Windows.Forms.ColumnHeader();
-            cmhCodigoSiafi = new System.Windows.Forms.ColumnHeader();
-            cmhProvedor = new System.Windows.Forms.ColumnHeader();
             lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             statusStrip1 = new System.Windows.Forms.StatusStrip();
+            dgcCodigoIBGE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dgcCidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dgcUF = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dgcProvedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dgcVersao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabControl2.SuspendLayout();
@@ -179,6 +177,7 @@ namespace OpenAC.Net.NFSe.Demo
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCidades).BeginInit();
             statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -326,8 +325,6 @@ namespace OpenAC.Net.NFSe.Demo
             // 
             // tabPage15
             // 
-            tabPage15.Controls.Add(btnConsultarUrlImpressao);
-            tabPage15.Controls.Add(btnConsultarNFSePeloNumero);
             tabPage15.Controls.Add(btnConsultarNFSeRps);
             tabPage15.Controls.Add(btnConsultarLote);
             tabPage15.Controls.Add(btnConsultarNFSePeriodo);
@@ -340,28 +337,6 @@ namespace OpenAC.Net.NFSe.Demo
             tabPage15.TabIndex = 1;
             tabPage15.Text = "Consultas";
             tabPage15.UseVisualStyleBackColor = true;
-            // 
-            // btnConsultarUrlImpressao
-            // 
-            btnConsultarUrlImpressao.Location = new System.Drawing.Point(434, 40);
-            btnConsultarUrlImpressao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            btnConsultarUrlImpressao.Name = "btnConsultarUrlImpressao";
-            btnConsultarUrlImpressao.Size = new System.Drawing.Size(207, 26);
-            btnConsultarUrlImpressao.TabIndex = 35;
-            btnConsultarUrlImpressao.Text = "Consultar Url";
-            btnConsultarUrlImpressao.UseVisualStyleBackColor = true;
-            btnConsultarUrlImpressao.Click += btnConsultarUrlImpressao_Click;
-            // 
-            // btnConsultarNFSePeloNumero
-            // 
-            btnConsultarNFSePeloNumero.Location = new System.Drawing.Point(221, 40);
-            btnConsultarNFSePeloNumero.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            btnConsultarNFSePeloNumero.Name = "btnConsultarNFSePeloNumero";
-            btnConsultarNFSePeloNumero.Size = new System.Drawing.Size(207, 26);
-            btnConsultarNFSePeloNumero.TabIndex = 34;
-            btnConsultarNFSePeloNumero.Text = "Consultar NFSe pelo Numero";
-            btnConsultarNFSePeloNumero.UseVisualStyleBackColor = true;
-            btnConsultarNFSePeloNumero.Click += btnConsultarNFSePeloNumero_Click;
             // 
             // btnConsultarNFSeRps
             // 
@@ -694,11 +669,10 @@ namespace OpenAC.Net.NFSe.Demo
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(label22);
+            tabPage2.Controls.Add(txtVersao);
+            tabPage2.Controls.Add(btnEditCidade);
             tabPage2.Controls.Add(txtProvedor);
-            tabPage2.Controls.Add(label7);
             tabPage2.Controls.Add(label8);
-            tabPage2.Controls.Add(txtCodSiafi);
             tabPage2.Controls.Add(txtCodCidade);
             tabPage2.Controls.Add(label5);
             tabPage2.Controls.Add(cmbCidades);
@@ -731,14 +705,25 @@ namespace OpenAC.Net.NFSe.Demo
             tabPage2.Text = "Emitente";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label22
+            // txtVersao
             // 
-            label22.AutoSize = true;
-            label22.Location = new System.Drawing.Point(6, 376);
-            label22.Name = "label22";
-            label22.Size = new System.Drawing.Size(55, 15);
-            label22.TabIndex = 47;
-            label22.Text = "Provedor";
+            txtVersao.BackColor = System.Drawing.SystemColors.Control;
+            txtVersao.Location = new System.Drawing.Point(160, 395);
+            txtVersao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            txtVersao.Name = "txtVersao";
+            txtVersao.ReadOnly = true;
+            txtVersao.Size = new System.Drawing.Size(146, 23);
+            txtVersao.TabIndex = 51;
+            // 
+            // btnEditCidade
+            // 
+            btnEditCidade.Location = new System.Drawing.Point(273, 301);
+            btnEditCidade.Name = "btnEditCidade";
+            btnEditCidade.Size = new System.Drawing.Size(33, 25);
+            btnEditCidade.TabIndex = 50;
+            btnEditCidade.Text = "...";
+            btnEditCidade.UseVisualStyleBackColor = true;
+            btnEditCidade.Click += btnEditCidade_Click;
             // 
             // txtProvedor
             // 
@@ -750,15 +735,6 @@ namespace OpenAC.Net.NFSe.Demo
             txtProvedor.Size = new System.Drawing.Size(146, 23);
             txtProvedor.TabIndex = 48;
             // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(156, 330);
-            label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(57, 15);
-            label7.TabIndex = 44;
-            label7.Text = "Cód. Siafi";
-            // 
             // label8
             // 
             label8.AutoSize = true;
@@ -767,16 +743,6 @@ namespace OpenAC.Net.NFSe.Demo
             label8.Size = new System.Drawing.Size(72, 15);
             label8.TabIndex = 41;
             label8.Text = "Cód. Cidade";
-            // 
-            // txtCodSiafi
-            // 
-            txtCodSiafi.BackColor = System.Drawing.SystemColors.Control;
-            txtCodSiafi.Location = new System.Drawing.Point(160, 349);
-            txtCodSiafi.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            txtCodSiafi.Name = "txtCodSiafi";
-            txtCodSiafi.ReadOnly = true;
-            txtCodSiafi.Size = new System.Drawing.Size(146, 23);
-            txtCodSiafi.TabIndex = 43;
             // 
             // txtCodCidade
             // 
@@ -804,7 +770,7 @@ namespace OpenAC.Net.NFSe.Demo
             cmbCidades.Location = new System.Drawing.Point(7, 302);
             cmbCidades.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             cmbCidades.Name = "cmbCidades";
-            cmbCidades.Size = new System.Drawing.Size(298, 23);
+            cmbCidades.Size = new System.Drawing.Size(264, 23);
             cmbCidades.TabIndex = 37;
             cmbCidades.SelectedValueChanged += cmbCidades_SelectedValueChanged;
             // 
@@ -991,8 +957,6 @@ namespace OpenAC.Net.NFSe.Demo
             // 
             // tabPage4
             // 
-            tabPage4.Controls.Add(txtChaveDigital);
-            tabPage4.Controls.Add(label23);
             tabPage4.Controls.Add(label21);
             tabPage4.Controls.Add(btnGetCertificate);
             tabPage4.Controls.Add(txtNumeroSerie);
@@ -1010,24 +974,6 @@ namespace OpenAC.Net.NFSe.Demo
             tabPage4.TabIndex = 1;
             tabPage4.Text = "Certificado";
             tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // txtChaveDigital
-            // 
-            txtChaveDigital.Location = new System.Drawing.Point(7, 199);
-            txtChaveDigital.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            txtChaveDigital.Name = "txtChaveDigital";
-            txtChaveDigital.Size = new System.Drawing.Size(264, 23);
-            txtChaveDigital.TabIndex = 17;
-            txtChaveDigital.TextChanged += txtChaveDigital_TextChanged;
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Location = new System.Drawing.Point(7, 181);
-            label23.Name = "label23";
-            label23.Size = new System.Drawing.Size(77, 15);
-            label23.TabIndex = 16;
-            label23.Text = "Chave Digital";
             // 
             // label21
             // 
@@ -1253,6 +1199,9 @@ namespace OpenAC.Net.NFSe.Demo
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(label24);
+            groupBox3.Controls.Add(txtWebserviceChavePrivada);
+            groupBox3.Controls.Add(label23);
             groupBox3.Controls.Add(txtWebserviceSenha);
             groupBox3.Controls.Add(label6);
             groupBox3.Controls.Add(txtWebserviceUsuario);
@@ -1261,10 +1210,37 @@ namespace OpenAC.Net.NFSe.Demo
             groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             groupBox3.Name = "groupBox3";
             groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            groupBox3.Size = new System.Drawing.Size(299, 154);
+            groupBox3.Size = new System.Drawing.Size(299, 196);
             groupBox3.TabIndex = 40;
             groupBox3.TabStop = false;
             groupBox3.Text = "Autenticação do webservice";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new System.Drawing.Point(7, 122);
+            label24.Name = "label24";
+            label24.Size = new System.Drawing.Size(82, 15);
+            label24.TabIndex = 21;
+            label24.Text = "Chave Privada";
+            // 
+            // txtWebserviceChavePrivada
+            // 
+            txtWebserviceChavePrivada.Location = new System.Drawing.Point(7, 139);
+            txtWebserviceChavePrivada.Margin = new System.Windows.Forms.Padding(2);
+            txtWebserviceChavePrivada.Name = "txtWebserviceChavePrivada";
+            txtWebserviceChavePrivada.Size = new System.Drawing.Size(284, 23);
+            txtWebserviceChavePrivada.TabIndex = 19;
+            txtWebserviceChavePrivada.UseSystemPasswordChar = true;
+            txtWebserviceChavePrivada.TextChanged += txtWebserviceChavePrivada_TextChanged;
+            // 
+            // label23
+            // 
+            label23.Location = new System.Drawing.Point(0, 0);
+            label23.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label23.Name = "label23";
+            label23.Size = new System.Drawing.Size(70, 14);
+            label23.TabIndex = 20;
             // 
             // txtWebserviceSenha
             // 
@@ -1424,12 +1400,12 @@ namespace OpenAC.Net.NFSe.Demo
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(dgvCidades);
             tabPage3.Controls.Add(btnCopiar);
             tabPage3.Controls.Add(btnDeletar);
             tabPage3.Controls.Add(btnAdicionar);
             tabPage3.Controls.Add(btnSalvar);
             tabPage3.Controls.Add(btnCarregar);
-            tabPage3.Controls.Add(lstMunicipios);
             tabPage3.Location = new System.Drawing.Point(4, 24);
             tabPage3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             tabPage3.Name = "tabPage3";
@@ -1439,13 +1415,37 @@ namespace OpenAC.Net.NFSe.Demo
             tabPage3.Text = "Gerenciador de Cidades";
             tabPage3.UseVisualStyleBackColor = true;
             // 
+            // dgvCidades
+            // 
+            dgvCidades.AllowUserToAddRows = false;
+            dgvCidades.AllowUserToDeleteRows = false;
+            dgvCidades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCidades.ColumnHeadersHeight = 34;
+            dgvCidades.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { dgcCodigoIBGE, dgcCidade, dgcUF, dgcProvedor, dgcVersao });
+            dgvCidades.Dock = System.Windows.Forms.DockStyle.Top;
+            dgvCidades.Location = new System.Drawing.Point(3, 4);
+            dgvCidades.Margin = new System.Windows.Forms.Padding(2);
+            dgvCidades.MultiSelect = false;
+            dgvCidades.Name = "dgvCidades";
+            dgvCidades.ReadOnly = true;
+            dgvCidades.RowHeadersVisible = false;
+            dgvCidades.RowHeadersWidth = 62;
+            dgvCidades.RowTemplate.Height = 33;
+            dgvCidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            dgvCidades.ShowEditingIcon = false;
+            dgvCidades.Size = new System.Drawing.Size(989, 491);
+            dgvCidades.TabIndex = 6;
+            dgvCidades.VirtualMode = true;
+            dgvCidades.CellDoubleClick += dgvCidades_CellDoubleClick;
+            dgvCidades.CellFormatting += dgvCidades_CellFormatting;
+            // 
             // btnCopiar
             // 
             btnCopiar.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnCopiar.Location = new System.Drawing.Point(803, 501);
             btnCopiar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnCopiar.Name = "btnCopiar";
-            btnCopiar.Size = new System.Drawing.Size(87, 33);
+            btnCopiar.Size = new System.Drawing.Size(87, 31);
             btnCopiar.TabIndex = 5;
             btnCopiar.Text = "Copiar";
             btnCopiar.UseVisualStyleBackColor = true;
@@ -1457,7 +1457,7 @@ namespace OpenAC.Net.NFSe.Demo
             btnDeletar.Location = new System.Drawing.Point(708, 501);
             btnDeletar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnDeletar.Name = "btnDeletar";
-            btnDeletar.Size = new System.Drawing.Size(87, 33);
+            btnDeletar.Size = new System.Drawing.Size(87, 31);
             btnDeletar.TabIndex = 4;
             btnDeletar.Text = "Deletar";
             btnDeletar.UseVisualStyleBackColor = true;
@@ -1469,7 +1469,7 @@ namespace OpenAC.Net.NFSe.Demo
             btnAdicionar.Location = new System.Drawing.Point(898, 501);
             btnAdicionar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnAdicionar.Name = "btnAdicionar";
-            btnAdicionar.Size = new System.Drawing.Size(87, 33);
+            btnAdicionar.Size = new System.Drawing.Size(87, 31);
             btnAdicionar.TabIndex = 3;
             btnAdicionar.Text = "Adicionar";
             btnAdicionar.UseVisualStyleBackColor = true;
@@ -1478,10 +1478,10 @@ namespace OpenAC.Net.NFSe.Demo
             // btnSalvar
             // 
             btnSalvar.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnSalvar.Location = new System.Drawing.Point(98, 501);
+            btnSalvar.Location = new System.Drawing.Point(101, 501);
             btnSalvar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnSalvar.Name = "btnSalvar";
-            btnSalvar.Size = new System.Drawing.Size(87, 33);
+            btnSalvar.Size = new System.Drawing.Size(87, 31);
             btnSalvar.TabIndex = 2;
             btnSalvar.Text = "Salvar";
             btnSalvar.UseVisualStyleBackColor = true;
@@ -1490,56 +1490,14 @@ namespace OpenAC.Net.NFSe.Demo
             // btnCarregar
             // 
             btnCarregar.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnCarregar.Location = new System.Drawing.Point(3, 501);
+            btnCarregar.Location = new System.Drawing.Point(8, 501);
             btnCarregar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnCarregar.Name = "btnCarregar";
-            btnCarregar.Size = new System.Drawing.Size(87, 33);
+            btnCarregar.Size = new System.Drawing.Size(87, 31);
             btnCarregar.TabIndex = 1;
             btnCarregar.Text = "Carregar";
             btnCarregar.UseVisualStyleBackColor = true;
             btnCarregar.Click += btnCarregar_Click;
-            // 
-            // lstMunicipios
-            // 
-            lstMunicipios.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { cmhCidade, cmhUF, cmhCodigo, cmhCodigoSiafi, cmhProvedor });
-            lstMunicipios.Dock = System.Windows.Forms.DockStyle.Top;
-            lstMunicipios.FullRowSelect = true;
-            lstMunicipios.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            lstMunicipios.HoverSelection = true;
-            lstMunicipios.Location = new System.Drawing.Point(3, 4);
-            lstMunicipios.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            lstMunicipios.MultiSelect = false;
-            lstMunicipios.Name = "lstMunicipios";
-            lstMunicipios.Size = new System.Drawing.Size(989, 490);
-            lstMunicipios.TabIndex = 0;
-            lstMunicipios.UseCompatibleStateImageBehavior = false;
-            lstMunicipios.View = System.Windows.Forms.View.Details;
-            lstMunicipios.MouseDoubleClick += lstMunicipios_MouseDoubleClick;
-            // 
-            // cmhCidade
-            // 
-            cmhCidade.Text = "Cidade";
-            cmhCidade.Width = 471;
-            // 
-            // cmhUF
-            // 
-            cmhUF.Text = "UF";
-            cmhUF.Width = 91;
-            // 
-            // cmhCodigo
-            // 
-            cmhCodigo.Text = "Codigo";
-            cmhCodigo.Width = 101;
-            // 
-            // cmhCodigoSiafi
-            // 
-            cmhCodigoSiafi.Text = "CodigoSiafi";
-            cmhCodigoSiafi.Width = 96;
-            // 
-            // cmhProvedor
-            // 
-            cmhProvedor.Text = "Provedor";
-            cmhProvedor.Width = 86;
             // 
             // lblStatus
             // 
@@ -1556,6 +1514,46 @@ namespace OpenAC.Net.NFSe.Demo
             statusStrip1.Size = new System.Drawing.Size(1003, 22);
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
+            // 
+            // dgcCodigoIBGE
+            // 
+            dgcCodigoIBGE.FillWeight = 40F;
+            dgcCodigoIBGE.HeaderText = "Código";
+            dgcCodigoIBGE.MinimumWidth = 8;
+            dgcCodigoIBGE.Name = "dgcCodigoIBGE";
+            dgcCodigoIBGE.ReadOnly = true;
+            // 
+            // dgcCidade
+            // 
+            dgcCidade.FillWeight = 200F;
+            dgcCidade.HeaderText = "Cidade";
+            dgcCidade.MinimumWidth = 8;
+            dgcCidade.Name = "dgcCidade";
+            dgcCidade.ReadOnly = true;
+            // 
+            // dgcUF
+            // 
+            dgcUF.FillWeight = 27.27273F;
+            dgcUF.HeaderText = "UF";
+            dgcUF.MinimumWidth = 8;
+            dgcUF.Name = "dgcUF";
+            dgcUF.ReadOnly = true;
+            // 
+            // dgcProvedor
+            // 
+            dgcProvedor.FillWeight = 50F;
+            dgcProvedor.HeaderText = "Provedor";
+            dgcProvedor.MinimumWidth = 8;
+            dgcProvedor.Name = "dgcProvedor";
+            dgcProvedor.ReadOnly = true;
+            // 
+            // dgcVersao
+            // 
+            dgcVersao.FillWeight = 30F;
+            dgcVersao.HeaderText = "Versão";
+            dgcVersao.MinimumWidth = 8;
+            dgcVersao.Name = "dgcVersao";
+            dgcVersao.ReadOnly = true;
             // 
             // FormMain
             // 
@@ -1601,6 +1599,7 @@ namespace OpenAC.Net.NFSe.Demo
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvCidades).EndInit();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             ResumeLayout(false);
@@ -1626,12 +1625,6 @@ namespace OpenAC.Net.NFSe.Demo
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.ListView lstMunicipios;
-        private System.Windows.Forms.ColumnHeader cmhCidade;
-        private System.Windows.Forms.ColumnHeader cmhUF;
-        private System.Windows.Forms.ColumnHeader cmhCodigo;
-        private System.Windows.Forms.ColumnHeader cmhCodigoSiafi;
-        private System.Windows.Forms.ColumnHeader cmhProvedor;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCarregar;
         private System.Windows.Forms.Button btnAdicionar;
@@ -1680,9 +1673,7 @@ namespace OpenAC.Net.NFSe.Demo
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cmbAmbiente;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtCodSiafi;
         private System.Windows.Forms.TextBox txtCodCidade;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmbCidades;
@@ -1730,12 +1721,18 @@ namespace OpenAC.Net.NFSe.Demo
         private System.Windows.Forms.TextBox txtWebserviceUsuario;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox txtProvedor;
-        private System.Windows.Forms.Button btnConsultarNFSePeloNumero;
-        private System.Windows.Forms.Button btnConsultarUrlImpressao;
-        private System.Windows.Forms.TextBox txtChaveDigital;
+        private System.Windows.Forms.Button btnEditCidade;
+        private System.Windows.Forms.DataGridView dgvCidades;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox txtWebserviceChavePrivada;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox txtVersao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgcCodigoIBGE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgcCidade;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgcUF;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgcProvedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgcVersao;
     }
 }
 

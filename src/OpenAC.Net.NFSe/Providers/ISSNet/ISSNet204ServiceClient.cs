@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : OpenAC.Net.NFSe
 // Author           : Rafael Dias
 // Created          : 05-22-2018
@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="ISSNetServiceClient.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		    Copyright (c) 2014 - 2023 Projeto OpenAC .Net
+//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -29,13 +29,17 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml.Linq;
 using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.DFe.Core;
 using OpenAC.Net.DFe.Core.Common;
+using OpenAC.Net.NFSe.Commom;
+using OpenAC.Net.NFSe.Commom.Client;
+using OpenAC.Net.NFSe.Commom.Interface;
+using OpenAC.Net.NFSe.Commom.Types;
+
 namespace OpenAC.Net.NFSe.Providers;
 
 internal sealed class ISSNet204ServiceClient : NFSeSoapServiceClient, IServiceClient
@@ -170,7 +174,7 @@ internal sealed class ISSNet204ServiceClient : NFSeSoapServiceClient, IServiceCl
 
     private string Execute(string soapAction, string message, string responseTag)
     {
-        return Execute(soapAction, message, "", responseTag, "xmlns:nfse=\"http://nfse.abrasf.org.br\"");
+        return Execute(soapAction, message, "", [responseTag], ["xmlns:nfse=\"http://nfse.abrasf.org.br\""]);
     }
 
     protected override bool ValidarCertificadoServidor()
@@ -190,20 +194,6 @@ internal sealed class ISSNet204ServiceClient : NFSeSoapServiceClient, IServiceCl
         var reader = xmlDocument.ElementAnyNs(responseTag[0]).CreateReader();
         reader.MoveToContent();
         return reader.ReadInnerXml();
-    }
-
-    public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
-    {
-        var message = new StringBuilder();
-        message.Append("<nfse:ConsultarUrlNfse>");
-        message.Append("<nfseCabecMsg>");
-        message.Append(cabec);
-        message.Append("</nfseCabecMsg>");
-        message.Append("<nfseDadosMsg>");
-        message.Append(msg);
-        message.Append("</nfseDadosMsg>");
-        message.Append("</nfse:ConsultarUrlNfse>");
-        return Execute("http://nfse.abrasf.org.br/ConsultarUrlNfse", message.ToString(), "ConsultarUrlNfseResponse");
     }
 
     #endregion Methods

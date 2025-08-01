@@ -28,14 +28,24 @@ namespace OpenAC.Net.NFSe.Demo
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormEdtMunicipio));
+            components = new System.ComponentModel.Container();
             btnSalvar = new System.Windows.Forms.Button();
             btnCancelar = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             txtMunicipio = new System.Windows.Forms.TextBox();
             label2 = new System.Windows.Forms.Label();
+            nudCodIBGE = new System.Windows.Forms.NumericUpDown();
+            cmbProvedor = new System.Windows.Forms.ComboBox();
+            label22 = new System.Windows.Forms.Label();
+            label24 = new System.Windows.Forms.Label();
+            cmbUf = new System.Windows.Forms.ComboBox();
+            label21 = new System.Windows.Forms.Label();
+            cmbVersao = new System.Windows.Forms.ComboBox();
+            tabControl2 = new System.Windows.Forms.TabControl();
+            tabPage3 = new System.Windows.Forms.TabPage();
             tabControl1 = new System.Windows.Forms.TabControl();
             tabPage1 = new System.Windows.Forms.TabPage();
+            btnAtualizarHom = new System.Windows.Forms.Button();
             label28 = new System.Windows.Forms.Label();
             txtHAutenticacao = new System.Windows.Forms.TextBox();
             label26 = new System.Windows.Forms.Label();
@@ -59,7 +69,7 @@ namespace OpenAC.Net.NFSe.Demo
             label3 = new System.Windows.Forms.Label();
             txtHEnviar = new System.Windows.Forms.TextBox();
             tabPage2 = new System.Windows.Forms.TabPage();
-            btnAtualizar = new System.Windows.Forms.Button();
+            btnAtualizarProd = new System.Windows.Forms.Button();
             label29 = new System.Windows.Forms.Label();
             txtPAutenticacao = new System.Windows.Forms.TextBox();
             label27 = new System.Windows.Forms.Label();
@@ -82,33 +92,22 @@ namespace OpenAC.Net.NFSe.Demo
             txtPCancelaNFSe = new System.Windows.Forms.TextBox();
             label20 = new System.Windows.Forms.Label();
             txtPEnviar = new System.Windows.Forms.TextBox();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            nudCodSiafi = new System.Windows.Forms.NumericUpDown();
-            nudCodIBGE = new System.Windows.Forms.NumericUpDown();
-            cmbProvedor = new System.Windows.Forms.ComboBox();
-            label22 = new System.Windows.Forms.Label();
-            label23 = new System.Windows.Forms.Label();
-            label24 = new System.Windows.Forms.Label();
-            cmbUf = new System.Windows.Forms.ComboBox();
-            label25 = new System.Windows.Forms.Label();
-            nudIdEntidade = new System.Windows.Forms.NumericUpDown();
-            txtMunicipioCnpj = new System.Windows.Forms.TextBox();
-            label21 = new System.Windows.Forms.Label();
+            tbpParametros = new System.Windows.Forms.TabPage();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            ((System.ComponentModel.ISupportInitialize)nudCodIBGE).BeginInit();
+            tabControl2.SuspendLayout();
+            tabPage3.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
-            groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nudCodSiafi).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudCodIBGE).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudIdEntidade).BeginInit();
             SuspendLayout();
             // 
             // btnSalvar
             // 
-            btnSalvar.Location = new System.Drawing.Point(732, 457);
-            btnSalvar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSalvar.Location = new System.Drawing.Point(754, 470);
+            btnSalvar.Margin = new System.Windows.Forms.Padding(4);
             btnSalvar.Name = "btnSalvar";
-            btnSalvar.Size = new System.Drawing.Size(88, 27);
+            btnSalvar.Size = new System.Drawing.Size(88, 26);
             btnSalvar.TabIndex = 0;
             btnSalvar.Text = "Salvar";
             btnSalvar.UseVisualStyleBackColor = true;
@@ -116,10 +115,10 @@ namespace OpenAC.Net.NFSe.Demo
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new System.Drawing.Point(637, 457);
-            btnCancelar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnCancelar.Location = new System.Drawing.Point(658, 470);
+            btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new System.Drawing.Size(88, 27);
+            btnCancelar.Size = new System.Drawing.Size(88, 26);
             btnCancelar.TabIndex = 1;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
@@ -138,35 +137,128 @@ namespace OpenAC.Net.NFSe.Demo
             // txtMunicipio
             // 
             txtMunicipio.Location = new System.Drawing.Point(14, 29);
-            txtMunicipio.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtMunicipio.Margin = new System.Windows.Forms.Padding(4);
             txtMunicipio.Name = "txtMunicipio";
-            txtMunicipio.Size = new System.Drawing.Size(297, 23);
+            txtMunicipio.Size = new System.Drawing.Size(638, 23);
             txtMunicipio.TabIndex = 3;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(312, 10);
+            label2.Location = new System.Drawing.Point(660, 10);
             label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(21, 15);
             label2.TabIndex = 5;
             label2.Text = "UF";
             // 
+            // nudCodIBGE
+            // 
+            nudCodIBGE.Location = new System.Drawing.Point(730, 29);
+            nudCodIBGE.Margin = new System.Windows.Forms.Padding(4);
+            nudCodIBGE.Maximum = new decimal(new int[] { 99999999, 0, 0, 0 });
+            nudCodIBGE.Name = "nudCodIBGE";
+            nudCodIBGE.Size = new System.Drawing.Size(89, 23);
+            nudCodIBGE.TabIndex = 11;
+            // 
+            // cmbProvedor
+            // 
+            cmbProvedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbProvedor.FormattingEnabled = true;
+            cmbProvedor.Location = new System.Drawing.Point(14, 81);
+            cmbProvedor.Margin = new System.Windows.Forms.Padding(4);
+            cmbProvedor.Name = "cmbProvedor";
+            cmbProvedor.Size = new System.Drawing.Size(178, 23);
+            cmbProvedor.TabIndex = 12;
+            cmbProvedor.SelectedValueChanged += cmbProvedor_SelectedValueChanged;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new System.Drawing.Point(730, 10);
+            label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label22.Name = "label22";
+            label22.Size = new System.Drawing.Size(59, 15);
+            label22.TabIndex = 14;
+            label22.Text = "Cod. IBGE";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new System.Drawing.Point(12, 62);
+            label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label24.Name = "label24";
+            label24.Size = new System.Drawing.Size(55, 15);
+            label24.TabIndex = 16;
+            label24.Text = "Provedor";
+            // 
+            // cmbUf
+            // 
+            cmbUf.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbUf.FormattingEnabled = true;
+            cmbUf.Items.AddRange(new object[] { "DSF", "Ginfes", "Porto Alegre", "São Paulo", "WebISS" });
+            cmbUf.Location = new System.Drawing.Point(660, 29);
+            cmbUf.Margin = new System.Windows.Forms.Padding(4);
+            cmbUf.Name = "cmbUf";
+            cmbUf.Size = new System.Drawing.Size(65, 23);
+            cmbUf.TabIndex = 17;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new System.Drawing.Point(195, 62);
+            label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label21.Name = "label21";
+            label21.Size = new System.Drawing.Size(41, 15);
+            label21.TabIndex = 21;
+            label21.Text = "Versão";
+            // 
+            // cmbVersao
+            // 
+            cmbVersao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbVersao.FormattingEnabled = true;
+            cmbVersao.Location = new System.Drawing.Point(197, 81);
+            cmbVersao.Margin = new System.Windows.Forms.Padding(4);
+            cmbVersao.Name = "cmbVersao";
+            cmbVersao.Size = new System.Drawing.Size(178, 23);
+            cmbVersao.TabIndex = 20;
+            // 
+            // tabControl2
+            // 
+            tabControl2.Controls.Add(tabPage3);
+            tabControl2.Controls.Add(tbpParametros);
+            tabControl2.Location = new System.Drawing.Point(12, 111);
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
+            tabControl2.Size = new System.Drawing.Size(831, 352);
+            tabControl2.TabIndex = 22;
+            // 
+            // tabPage3
+            // 
+            tabPage3.Controls.Add(tabControl1);
+            tabPage3.Location = new System.Drawing.Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            tabPage3.Size = new System.Drawing.Size(823, 324);
+            tabPage3.TabIndex = 0;
+            tabPage3.Text = "Webservices";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            tabControl1.Location = new System.Drawing.Point(4, 19);
-            tabControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabControl1.Location = new System.Drawing.Point(3, 3);
+            tabControl1.Margin = new System.Windows.Forms.Padding(4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(797, 321);
-            tabControl1.TabIndex = 0;
+            tabControl1.Size = new System.Drawing.Size(817, 318);
+            tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(btnAtualizarHom);
             tabPage1.Controls.Add(label28);
             tabPage1.Controls.Add(txtHAutenticacao);
             tabPage1.Controls.Add(label26);
@@ -190,18 +282,29 @@ namespace OpenAC.Net.NFSe.Demo
             tabPage1.Controls.Add(label3);
             tabPage1.Controls.Add(txtHEnviar);
             tabPage1.Location = new System.Drawing.Point(4, 24);
-            tabPage1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPage1.Margin = new System.Windows.Forms.Padding(4);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage1.Size = new System.Drawing.Size(789, 293);
+            tabPage1.Padding = new System.Windows.Forms.Padding(4);
+            tabPage1.Size = new System.Drawing.Size(809, 290);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Homologação";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // btnAtualizarHom
+            // 
+            btnAtualizarHom.Location = new System.Drawing.Point(640, 249);
+            btnAtualizarHom.Margin = new System.Windows.Forms.Padding(4);
+            btnAtualizarHom.Name = "btnAtualizarHom";
+            btnAtualizarHom.Size = new System.Drawing.Size(141, 26);
+            btnAtualizarHom.TabIndex = 22;
+            btnAtualizarHom.Text = "Atualizar Endereços";
+            btnAtualizarHom.UseVisualStyleBackColor = true;
+            btnAtualizarHom.Click += btnAtualizarHom_Click;
+            // 
             // label28
             // 
             label28.AutoSize = true;
-            label28.Location = new System.Drawing.Point(4, 228);
+            label28.Location = new System.Drawing.Point(16, 241);
             label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label28.Name = "label28";
             label28.Size = new System.Drawing.Size(113, 15);
@@ -211,7 +314,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtHAutenticacao
             // 
             txtHAutenticacao.Location = new System.Drawing.Point(7, 247);
-            txtHAutenticacao.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtHAutenticacao.Margin = new System.Windows.Forms.Padding(4);
             txtHAutenticacao.Name = "txtHAutenticacao";
             txtHAutenticacao.Size = new System.Drawing.Size(382, 23);
             txtHAutenticacao.TabIndex = 21;
@@ -219,7 +322,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label26
             // 
             label26.AutoSize = true;
-            label26.Location = new System.Drawing.Point(4, 93);
+            label26.Location = new System.Drawing.Point(16, 106);
             label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label26.Name = "label26";
             label26.Size = new System.Drawing.Size(105, 15);
@@ -229,7 +332,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtHCancelaNFSeLote
             // 
             txtHCancelaNFSeLote.Location = new System.Drawing.Point(7, 112);
-            txtHCancelaNFSeLote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtHCancelaNFSeLote.Margin = new System.Windows.Forms.Padding(4);
             txtHCancelaNFSeLote.Name = "txtHCancelaNFSeLote";
             txtHCancelaNFSeLote.Size = new System.Drawing.Size(382, 23);
             txtHCancelaNFSeLote.TabIndex = 9;
@@ -237,7 +340,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new System.Drawing.Point(393, 138);
+            label11.Location = new System.Drawing.Point(405, 151);
             label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label11.Name = "label11";
             label11.Size = new System.Drawing.Size(140, 15);
@@ -247,7 +350,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtHConsultarSequencialRps
             // 
             txtHConsultarSequencialRps.Location = new System.Drawing.Point(397, 157);
-            txtHConsultarSequencialRps.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtHConsultarSequencialRps.Margin = new System.Windows.Forms.Padding(4);
             txtHConsultarSequencialRps.Name = "txtHConsultarSequencialRps";
             txtHConsultarSequencialRps.Size = new System.Drawing.Size(382, 23);
             txtHConsultarSequencialRps.TabIndex = 15;
@@ -255,7 +358,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new System.Drawing.Point(393, 183);
+            label9.Location = new System.Drawing.Point(405, 196);
             label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(87, 15);
@@ -265,7 +368,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtHSubstituirNFSe
             // 
             txtHSubstituirNFSe.Location = new System.Drawing.Point(397, 202);
-            txtHSubstituirNFSe.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtHSubstituirNFSe.Margin = new System.Windows.Forms.Padding(4);
             txtHSubstituirNFSe.Name = "txtHSubstituirNFSe";
             txtHSubstituirNFSe.Size = new System.Drawing.Size(382, 23);
             txtHSubstituirNFSe.TabIndex = 19;
@@ -273,7 +376,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new System.Drawing.Point(4, 183);
+            label10.Location = new System.Drawing.Point(16, 196);
             label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label10.Name = "label10";
             label10.Size = new System.Drawing.Size(106, 15);
@@ -283,7 +386,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtHConsultarSituacao
             // 
             txtHConsultarSituacao.Location = new System.Drawing.Point(7, 202);
-            txtHConsultarSituacao.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtHConsultarSituacao.Margin = new System.Windows.Forms.Padding(4);
             txtHConsultarSituacao.Name = "txtHConsultarSituacao";
             txtHConsultarSituacao.Size = new System.Drawing.Size(382, 23);
             txtHConsultarSituacao.TabIndex = 17;
@@ -291,7 +394,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(393, 93);
+            label6.Location = new System.Drawing.Point(405, 106);
             label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(106, 15);
@@ -301,7 +404,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtHConsultrLoteRps
             // 
             txtHConsultrLoteRps.Location = new System.Drawing.Point(397, 112);
-            txtHConsultrLoteRps.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtHConsultrLoteRps.Margin = new System.Windows.Forms.Padding(4);
             txtHConsultrLoteRps.Name = "txtHConsultrLoteRps";
             txtHConsultrLoteRps.Size = new System.Drawing.Size(382, 23);
             txtHConsultrLoteRps.TabIndex = 11;
@@ -309,7 +412,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(393, 48);
+            label7.Location = new System.Drawing.Point(405, 61);
             label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(84, 15);
@@ -319,7 +422,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtHConsultaNFSe
             // 
             txtHConsultaNFSe.Location = new System.Drawing.Point(397, 67);
-            txtHConsultaNFSe.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtHConsultaNFSe.Margin = new System.Windows.Forms.Padding(4);
             txtHConsultaNFSe.Name = "txtHConsultaNFSe";
             txtHConsultaNFSe.Size = new System.Drawing.Size(382, 23);
             txtHConsultaNFSe.TabIndex = 7;
@@ -327,7 +430,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(393, 3);
+            label8.Location = new System.Drawing.Point(405, 16);
             label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(89, 15);
@@ -337,7 +440,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtHEnviarSincrono
             // 
             txtHEnviarSincrono.Location = new System.Drawing.Point(397, 22);
-            txtHEnviarSincrono.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtHEnviarSincrono.Margin = new System.Windows.Forms.Padding(4);
             txtHEnviarSincrono.Name = "txtHEnviarSincrono";
             txtHEnviarSincrono.Size = new System.Drawing.Size(382, 23);
             txtHEnviarSincrono.TabIndex = 3;
@@ -345,7 +448,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(4, 138);
+            label5.Location = new System.Drawing.Point(16, 151);
             label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(106, 15);
@@ -355,7 +458,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtHConsultaNFSeRps
             // 
             txtHConsultaNFSeRps.Location = new System.Drawing.Point(7, 157);
-            txtHConsultaNFSeRps.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtHConsultaNFSeRps.Margin = new System.Windows.Forms.Padding(4);
             txtHConsultaNFSeRps.Name = "txtHConsultaNFSeRps";
             txtHConsultaNFSeRps.Size = new System.Drawing.Size(382, 23);
             txtHConsultaNFSeRps.TabIndex = 13;
@@ -363,7 +466,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(4, 48);
+            label4.Location = new System.Drawing.Point(16, 61);
             label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(79, 15);
@@ -373,7 +476,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtHCancelaNFSe
             // 
             txtHCancelaNFSe.Location = new System.Drawing.Point(7, 67);
-            txtHCancelaNFSe.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtHCancelaNFSe.Margin = new System.Windows.Forms.Padding(4);
             txtHCancelaNFSe.Name = "txtHCancelaNFSe";
             txtHCancelaNFSe.Size = new System.Drawing.Size(382, 23);
             txtHCancelaNFSe.TabIndex = 5;
@@ -381,7 +484,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(4, 3);
+            label3.Location = new System.Drawing.Point(16, 16);
             label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(39, 15);
@@ -391,14 +494,14 @@ namespace OpenAC.Net.NFSe.Demo
             // txtHEnviar
             // 
             txtHEnviar.Location = new System.Drawing.Point(7, 22);
-            txtHEnviar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtHEnviar.Margin = new System.Windows.Forms.Padding(4);
             txtHEnviar.Name = "txtHEnviar";
             txtHEnviar.Size = new System.Drawing.Size(382, 23);
             txtHEnviar.TabIndex = 1;
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(btnAtualizar);
+            tabPage2.Controls.Add(btnAtualizarProd);
             tabPage2.Controls.Add(label29);
             tabPage2.Controls.Add(txtPAutenticacao);
             tabPage2.Controls.Add(label27);
@@ -422,29 +525,29 @@ namespace OpenAC.Net.NFSe.Demo
             tabPage2.Controls.Add(label20);
             tabPage2.Controls.Add(txtPEnviar);
             tabPage2.Location = new System.Drawing.Point(4, 24);
-            tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPage2.Margin = new System.Windows.Forms.Padding(4);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage2.Size = new System.Drawing.Size(790, 289);
+            tabPage2.Padding = new System.Windows.Forms.Padding(4);
+            tabPage2.Size = new System.Drawing.Size(809, 290);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Produção";
             tabPage2.UseVisualStyleBackColor = true;
             // 
             // btnAtualizar
             // 
-            btnAtualizar.Location = new System.Drawing.Point(638, 243);
-            btnAtualizar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnAtualizar.Name = "btnAtualizar";
-            btnAtualizar.Size = new System.Drawing.Size(141, 27);
-            btnAtualizar.TabIndex = 20;
-            btnAtualizar.Text = "Atualizar Endereços";
-            btnAtualizar.UseVisualStyleBackColor = true;
-            btnAtualizar.Click += btnAtualizar_Click;
+            btnAtualizarProd.Location = new System.Drawing.Point(638, 244);
+            btnAtualizarProd.Margin = new System.Windows.Forms.Padding(4);
+            btnAtualizarProd.Name = "btnAtualizarProd";
+            btnAtualizarProd.Size = new System.Drawing.Size(141, 26);
+            btnAtualizarProd.TabIndex = 20;
+            btnAtualizarProd.Text = "Atualizar Endereços";
+            btnAtualizarProd.UseVisualStyleBackColor = true;
+            btnAtualizarProd.Click += btnAtualizarProd_Click;
             // 
             // label29
             // 
             label29.AutoSize = true;
-            label29.Location = new System.Drawing.Point(4, 228);
+            label29.Location = new System.Drawing.Point(16, 241);
             label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label29.Name = "label29";
             label29.Size = new System.Drawing.Size(113, 15);
@@ -454,7 +557,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtPAutenticacao
             // 
             txtPAutenticacao.Location = new System.Drawing.Point(7, 247);
-            txtPAutenticacao.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtPAutenticacao.Margin = new System.Windows.Forms.Padding(4);
             txtPAutenticacao.Name = "txtPAutenticacao";
             txtPAutenticacao.Size = new System.Drawing.Size(382, 23);
             txtPAutenticacao.TabIndex = 21;
@@ -462,7 +565,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label27
             // 
             label27.AutoSize = true;
-            label27.Location = new System.Drawing.Point(4, 93);
+            label27.Location = new System.Drawing.Point(16, 106);
             label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label27.Name = "label27";
             label27.Size = new System.Drawing.Size(105, 15);
@@ -472,7 +575,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtPCancelaNFSeLote
             // 
             txtPCancelaNFSeLote.Location = new System.Drawing.Point(7, 112);
-            txtPCancelaNFSeLote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtPCancelaNFSeLote.Margin = new System.Windows.Forms.Padding(4);
             txtPCancelaNFSeLote.Name = "txtPCancelaNFSeLote";
             txtPCancelaNFSeLote.Size = new System.Drawing.Size(382, 23);
             txtPCancelaNFSeLote.TabIndex = 9;
@@ -480,7 +583,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new System.Drawing.Point(393, 138);
+            label12.Location = new System.Drawing.Point(405, 151);
             label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label12.Name = "label12";
             label12.Size = new System.Drawing.Size(140, 15);
@@ -490,7 +593,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtPConsultarSequencialRps
             // 
             txtPConsultarSequencialRps.Location = new System.Drawing.Point(397, 157);
-            txtPConsultarSequencialRps.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtPConsultarSequencialRps.Margin = new System.Windows.Forms.Padding(4);
             txtPConsultarSequencialRps.Name = "txtPConsultarSequencialRps";
             txtPConsultarSequencialRps.Size = new System.Drawing.Size(382, 23);
             txtPConsultarSequencialRps.TabIndex = 15;
@@ -498,7 +601,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new System.Drawing.Point(393, 183);
+            label13.Location = new System.Drawing.Point(405, 196);
             label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label13.Name = "label13";
             label13.Size = new System.Drawing.Size(87, 15);
@@ -508,7 +611,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtPSubstituirNFSe
             // 
             txtPSubstituirNFSe.Location = new System.Drawing.Point(397, 202);
-            txtPSubstituirNFSe.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtPSubstituirNFSe.Margin = new System.Windows.Forms.Padding(4);
             txtPSubstituirNFSe.Name = "txtPSubstituirNFSe";
             txtPSubstituirNFSe.Size = new System.Drawing.Size(382, 23);
             txtPSubstituirNFSe.TabIndex = 19;
@@ -516,7 +619,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new System.Drawing.Point(4, 183);
+            label14.Location = new System.Drawing.Point(16, 196);
             label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label14.Name = "label14";
             label14.Size = new System.Drawing.Size(106, 15);
@@ -526,7 +629,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtPConsultarSituacao
             // 
             txtPConsultarSituacao.Location = new System.Drawing.Point(7, 202);
-            txtPConsultarSituacao.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtPConsultarSituacao.Margin = new System.Windows.Forms.Padding(4);
             txtPConsultarSituacao.Name = "txtPConsultarSituacao";
             txtPConsultarSituacao.Size = new System.Drawing.Size(382, 23);
             txtPConsultarSituacao.TabIndex = 17;
@@ -534,7 +637,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new System.Drawing.Point(393, 93);
+            label15.Location = new System.Drawing.Point(405, 106);
             label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label15.Name = "label15";
             label15.Size = new System.Drawing.Size(106, 15);
@@ -544,7 +647,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtPConsultrLoteRps
             // 
             txtPConsultrLoteRps.Location = new System.Drawing.Point(397, 112);
-            txtPConsultrLoteRps.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtPConsultrLoteRps.Margin = new System.Windows.Forms.Padding(4);
             txtPConsultrLoteRps.Name = "txtPConsultrLoteRps";
             txtPConsultrLoteRps.Size = new System.Drawing.Size(382, 23);
             txtPConsultrLoteRps.TabIndex = 11;
@@ -552,7 +655,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new System.Drawing.Point(393, 48);
+            label16.Location = new System.Drawing.Point(405, 61);
             label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label16.Name = "label16";
             label16.Size = new System.Drawing.Size(84, 15);
@@ -562,7 +665,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtPConsultaNFSe
             // 
             txtPConsultaNFSe.Location = new System.Drawing.Point(397, 67);
-            txtPConsultaNFSe.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtPConsultaNFSe.Margin = new System.Windows.Forms.Padding(4);
             txtPConsultaNFSe.Name = "txtPConsultaNFSe";
             txtPConsultaNFSe.Size = new System.Drawing.Size(382, 23);
             txtPConsultaNFSe.TabIndex = 7;
@@ -570,7 +673,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new System.Drawing.Point(393, 3);
+            label17.Location = new System.Drawing.Point(405, 16);
             label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label17.Name = "label17";
             label17.Size = new System.Drawing.Size(89, 15);
@@ -580,7 +683,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtPEnviarSincrono
             // 
             txtPEnviarSincrono.Location = new System.Drawing.Point(397, 22);
-            txtPEnviarSincrono.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtPEnviarSincrono.Margin = new System.Windows.Forms.Padding(4);
             txtPEnviarSincrono.Name = "txtPEnviarSincrono";
             txtPEnviarSincrono.Size = new System.Drawing.Size(382, 23);
             txtPEnviarSincrono.TabIndex = 3;
@@ -588,7 +691,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new System.Drawing.Point(4, 138);
+            label18.Location = new System.Drawing.Point(16, 151);
             label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label18.Name = "label18";
             label18.Size = new System.Drawing.Size(106, 15);
@@ -598,7 +701,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtPConsultaNFSeRps
             // 
             txtPConsultaNFSeRps.Location = new System.Drawing.Point(7, 157);
-            txtPConsultaNFSeRps.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtPConsultaNFSeRps.Margin = new System.Windows.Forms.Padding(4);
             txtPConsultaNFSeRps.Name = "txtPConsultaNFSeRps";
             txtPConsultaNFSeRps.Size = new System.Drawing.Size(382, 23);
             txtPConsultaNFSeRps.TabIndex = 13;
@@ -606,7 +709,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new System.Drawing.Point(4, 48);
+            label19.Location = new System.Drawing.Point(16, 61);
             label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label19.Name = "label19";
             label19.Size = new System.Drawing.Size(79, 15);
@@ -616,7 +719,7 @@ namespace OpenAC.Net.NFSe.Demo
             // txtPCancelaNFSe
             // 
             txtPCancelaNFSe.Location = new System.Drawing.Point(7, 67);
-            txtPCancelaNFSe.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtPCancelaNFSe.Margin = new System.Windows.Forms.Padding(4);
             txtPCancelaNFSe.Name = "txtPCancelaNFSe";
             txtPCancelaNFSe.Size = new System.Drawing.Size(382, 23);
             txtPCancelaNFSe.TabIndex = 5;
@@ -624,7 +727,7 @@ namespace OpenAC.Net.NFSe.Demo
             // label20
             // 
             label20.AutoSize = true;
-            label20.Location = new System.Drawing.Point(4, 3);
+            label20.Location = new System.Drawing.Point(16, 16);
             label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label20.Name = "label20";
             label20.Size = new System.Drawing.Size(39, 15);
@@ -634,168 +737,54 @@ namespace OpenAC.Net.NFSe.Demo
             // txtPEnviar
             // 
             txtPEnviar.Location = new System.Drawing.Point(7, 22);
-            txtPEnviar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtPEnviar.Margin = new System.Windows.Forms.Padding(4);
             txtPEnviar.Name = "txtPEnviar";
             txtPEnviar.Size = new System.Drawing.Size(382, 23);
             txtPEnviar.TabIndex = 1;
             // 
-            // groupBox1
+            // tbpParametros
             // 
-            groupBox1.Controls.Add(tabControl1);
-            groupBox1.Location = new System.Drawing.Point(14, 108);
-            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Size = new System.Drawing.Size(805, 343);
-            groupBox1.TabIndex = 7;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "URL";
-            // 
-            // nudCodSiafi
-            // 
-            nudCodSiafi.Location = new System.Drawing.Point(481, 29);
-            nudCodSiafi.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudCodSiafi.Maximum = new decimal(new int[] { 9999999, 0, 0, 0 });
-            nudCodSiafi.Name = "nudCodSiafi";
-            nudCodSiafi.Size = new System.Drawing.Size(74, 23);
-            nudCodSiafi.TabIndex = 10;
-            // 
-            // nudCodIBGE
-            // 
-            nudCodIBGE.Location = new System.Drawing.Point(386, 29);
-            nudCodIBGE.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudCodIBGE.Maximum = new decimal(new int[] { 99999999, 0, 0, 0 });
-            nudCodIBGE.Name = "nudCodIBGE";
-            nudCodIBGE.Size = new System.Drawing.Size(89, 23);
-            nudCodIBGE.TabIndex = 11;
-            // 
-            // cmbProvedor
-            // 
-            cmbProvedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cmbProvedor.FormattingEnabled = true;
-            cmbProvedor.Location = new System.Drawing.Point(640, 29);
-            cmbProvedor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cmbProvedor.Name = "cmbProvedor";
-            cmbProvedor.Size = new System.Drawing.Size(178, 23);
-            cmbProvedor.TabIndex = 12;
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Location = new System.Drawing.Point(386, 9);
-            label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label22.Name = "label22";
-            label22.Size = new System.Drawing.Size(59, 15);
-            label22.TabIndex = 14;
-            label22.Text = "Cod. IBGE";
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Location = new System.Drawing.Point(477, 9);
-            label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label23.Name = "label23";
-            label23.Size = new System.Drawing.Size(57, 15);
-            label23.TabIndex = 15;
-            label23.Text = "Cod. Siafi";
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Location = new System.Drawing.Point(638, 10);
-            label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label24.Name = "label24";
-            label24.Size = new System.Drawing.Size(55, 15);
-            label24.TabIndex = 16;
-            label24.Text = "Provedor";
-            // 
-            // cmbUf
-            // 
-            cmbUf.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cmbUf.FormattingEnabled = true;
-            cmbUf.Items.AddRange(new object[] { "DSF", "Ginfes", "Porto Alegre", "São Paulo", "WebISS" });
-            cmbUf.Location = new System.Drawing.Point(316, 29);
-            cmbUf.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cmbUf.Name = "cmbUf";
-            cmbUf.Size = new System.Drawing.Size(65, 23);
-            cmbUf.TabIndex = 17;
-            // 
-            // label25
-            // 
-            label25.AutoSize = true;
-            label25.Location = new System.Drawing.Point(556, 9);
-            label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label25.Name = "label25";
-            label25.Size = new System.Drawing.Size(63, 15);
-            label25.TabIndex = 19;
-            label25.Text = "IdEntidade";
-            // 
-            // nudIdEntidade
-            // 
-            nudIdEntidade.Location = new System.Drawing.Point(560, 29);
-            nudIdEntidade.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudIdEntidade.Maximum = new decimal(new int[] { 9999999, 0, 0, 0 });
-            nudIdEntidade.Name = "nudIdEntidade";
-            nudIdEntidade.Size = new System.Drawing.Size(75, 23);
-            nudIdEntidade.TabIndex = 18;
-            // 
-            // txtMunicipioCnpj
-            // 
-            txtMunicipioCnpj.Location = new System.Drawing.Point(13, 79);
-            txtMunicipioCnpj.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            txtMunicipioCnpj.Name = "txtMunicipioCnpj";
-            txtMunicipioCnpj.Size = new System.Drawing.Size(297, 23);
-            txtMunicipioCnpj.TabIndex = 21;
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Location = new System.Drawing.Point(13, 60);
-            label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label21.Name = "label21";
-            label21.Size = new System.Drawing.Size(124, 15);
-            label21.TabIndex = 20;
-            label21.Text = "CNPJ Unidade Gestora";
+            tbpParametros.Location = new System.Drawing.Point(4, 24);
+            tbpParametros.Name = "tbpParametros";
+            tbpParametros.Padding = new System.Windows.Forms.Padding(3);
+            tbpParametros.Size = new System.Drawing.Size(823, 324);
+            tbpParametros.TabIndex = 1;
+            tbpParametros.Text = "Parâmetros";
+            tbpParametros.UseVisualStyleBackColor = true;
             // 
             // FormEdtMunicipio
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(833, 493);
-            Controls.Add(txtMunicipioCnpj);
+            ClientSize = new System.Drawing.Size(855, 509);
+            Controls.Add(tabControl2);
             Controls.Add(label21);
-            Controls.Add(label25);
-            Controls.Add(nudIdEntidade);
+            Controls.Add(cmbVersao);
             Controls.Add(cmbUf);
             Controls.Add(label24);
-            Controls.Add(label23);
             Controls.Add(label22);
             Controls.Add(cmbProvedor);
             Controls.Add(nudCodIBGE);
-            Controls.Add(nudCodSiafi);
-            Controls.Add(groupBox1);
             Controls.Add(label2);
             Controls.Add(txtMunicipio);
             Controls.Add(label1);
             Controls.Add(btnCancelar);
             Controls.Add(btnSalvar);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Margin = new System.Windows.Forms.Padding(4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormEdtMunicipio";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Adicionar Municipio";
+            ((System.ComponentModel.ISupportInitialize)nudCodIBGE).EndInit();
+            tabControl2.ResumeLayout(false);
+            tabPage3.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)nudCodSiafi).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudCodIBGE).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudIdEntidade).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -807,10 +796,23 @@ namespace OpenAC.Net.NFSe.Demo
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtMunicipio;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown nudCodIBGE;
+        private System.Windows.Forms.ComboBox cmbProvedor;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.ComboBox cmbUf;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ComboBox cmbVersao;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tbpParametros;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnAtualizarHom;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox txtHAutenticacao;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox txtHCancelaNFSeLote;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtHConsultarSequencialRps;
         private System.Windows.Forms.Label label9;
@@ -829,6 +831,12 @@ namespace OpenAC.Net.NFSe.Demo
         private System.Windows.Forms.TextBox txtHCancelaNFSe;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtHEnviar;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button btnAtualizarProd;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox txtPAutenticacao;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox txtPCancelaNFSeLote;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtPConsultarSequencialRps;
         private System.Windows.Forms.Label label13;
@@ -847,25 +855,6 @@ namespace OpenAC.Net.NFSe.Demo
         private System.Windows.Forms.TextBox txtPCancelaNFSe;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox txtPEnviar;
-        private System.Windows.Forms.NumericUpDown nudCodSiafi;
-        private System.Windows.Forms.NumericUpDown nudCodIBGE;
-        private System.Windows.Forms.ComboBox cmbProvedor;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.ComboBox cmbUf;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.NumericUpDown nudIdEntidade;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TextBox txtHCancelaNFSeLote;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.TextBox txtPCancelaNFSeLote;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.TextBox txtHAutenticacao;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.TextBox txtPAutenticacao;
-        private System.Windows.Forms.Button btnAtualizar;
-        private System.Windows.Forms.TextBox txtMunicipioCnpj;
-        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
