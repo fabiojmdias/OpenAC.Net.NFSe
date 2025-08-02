@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="DANFSeEventArgs.cs" company="OpenAC.Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -31,33 +31,34 @@
 
 using System;
 
-namespace OpenAC.Net.NFSe.DANFSe.FastReport.OpenSource;
-
-public class DANFSeEventArgs : EventArgs
+namespace OpenAC.Net.NFSe.DANFSe.FastReport.OpenSource
 {
-    #region Constructors
-
-    public DANFSeEventArgs(LayoutImpressao layout)
+    public class DANFSeEventArgs : EventArgs
     {
-        Layout = layout;
-        FilePath = string.Empty;
+        #region Constructors
+
+        public DANFSeEventArgs(LayoutImpressao layout)
+        {
+            Layout = layout;
+            FilePath = string.Empty;
+        }
+
+        #endregion Constructors
+
+        #region Propriedades
+
+        /// <summary>
+        /// Retorna o tipo de arquivo necessario.
+        /// </summary>
+        /// <value>The tipo.</value>
+        public LayoutImpressao Layout { get; internal set; }
+
+        /// <summary>
+        /// Define ou retorna o caminho para o arquivo do FastReport.
+        /// </summary>
+        /// <value>The file path.</value>
+        public string FilePath { get; set; }
+
+        #endregion Propriedades
     }
-
-    #endregion Constructors
-
-    #region Propriedades
-
-    /// <summary>
-    /// Retorna o tipo de arquivo necessario.
-    /// </summary>
-    /// <value>The tipo.</value>
-    public LayoutImpressao Layout { get; internal set; }
-
-    /// <summary>
-    /// Define ou retorna o caminho para o arquivo do FastReport.
-    /// </summary>
-    /// <value>The file path.</value>
-    public string FilePath { get; set; }
-
-    #endregion Propriedades
 }

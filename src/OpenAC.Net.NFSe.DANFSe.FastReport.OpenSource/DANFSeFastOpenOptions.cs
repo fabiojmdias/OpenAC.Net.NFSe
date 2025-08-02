@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="DANFSeFastOpenOptions.cs" company="OpenAC.Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -32,15 +32,16 @@
 using OpenAC.Net.DFe.Core.Common;
 using OpenAC.Net.NFSe.Configuracao;
 
-namespace OpenAC.Net.NFSe.DANFSe.FastReport.OpenSource;
-
-public sealed class DANFSeFastOpenOptions : DANFSeOptions<FiltroDFeReport>
+namespace OpenAC.Net.NFSe.DANFSe.FastReport.OpenSource
 {
-    #region Constructors
-
-    public DANFSeFastOpenOptions(ConfigNFSe configuracoes) : base(configuracoes)
+    public sealed class DANFSeFastOpenOptions : DANFSeOptions<FiltroDFeReport>
     {
-    }
+        #region Constructors
 
-    #endregion Constructors
+        public DANFSeFastOpenOptions(ConfigNFSe configuracoes) : base(configuracoes)
+        {
+        }
+
+        #endregion Constructors
+    }
 }

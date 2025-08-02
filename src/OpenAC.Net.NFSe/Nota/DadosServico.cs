@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="DadosServico.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -32,70 +32,71 @@
 using System.ComponentModel;
 using OpenAC.Net.Core.Generics;
 
-namespace OpenAC.Net.NFSe.Nota;
-
-public sealed class DadosServico : GenericClone<DadosServico>, INotifyPropertyChanged
+namespace OpenAC.Net.NFSe.Nota
 {
-    #region Events
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    #endregion Events
-
-    #region Constructors
-
-    internal DadosServico()
+    public sealed class DadosServico : GenericClone<DadosServico>, INotifyPropertyChanged
     {
-        Valores = new ValoresServico();
-        ItemListaServico = string.Empty;
-        CodigoCnae = string.Empty;
-        CodigoTributacaoMunicipio = string.Empty;
-        Discriminacao = string.Empty;
-        NumeroProcesso = string.Empty;
-        ExigibilidadeIss = ExigibilidadeIss.Exigivel;
-        ItemsServico = new ServicosCollection();
-        Deducoes = new DeducoesCollection();
+        #region Events
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion Events
+
+        #region Constructors
+
+        internal DadosServico()
+        {
+            Valores = new ValoresServico();
+            ItemListaServico = string.Empty;
+            CodigoCnae = string.Empty;
+            CodigoTributacaoMunicipio = string.Empty;
+            Discriminacao = string.Empty;
+            NumeroProcesso = string.Empty;
+            ExigibilidadeIss = ExigibilidadeIss.Exigivel;
+            ItensServico = new ServicosCollection();
+            Deducoes = new DeducoesCollection();
+        }
+
+        #endregion Constructors
+
+        #region Propriedades
+
+        public ValoresServico Valores { get; }
+
+        public string ItemListaServico { get; set; }
+
+        public string CodigoCnae { get; set; }
+
+        public string CodigoTributacaoMunicipio { get; set; }
+
+        public string CodigoNbs { get; set; }
+
+        public string Discriminacao { get; set; }
+
+        public int CodigoMunicipio { get; set; }
+
+        public string Municipio { get; set; }
+
+        public int CodigoPais { get; set; }
+
+        public ExigibilidadeIss ExigibilidadeIss { get; set; }
+
+        public string IdentifNaoExigibilidade { get; set; }
+
+        public int MunicipioIncidencia { get; set; }
+
+        public string UfIncidencia { get; set; }
+
+        public string NumeroProcesso { get; set; }
+
+        public ServicosCollection ItensServico { get; }
+
+        public ResponsavelRetencao? ResponsavelRetencao { get; set; }
+
+        public string Descricao { get; set; }
+
+        public DeducoesCollection Deducoes { get; }
+
+        #endregion Propriedades
     }
-
-    #endregion Constructors
-
-    #region Propriedades
-
-    public ValoresServico Valores { get; }
-
-    public string ItemListaServico { get; set; }
-
-    public string CodigoCnae { get; set; }
-
-    public string CodigoTributacaoMunicipio { get; set; }
-
-    public string CodigoNbs { get; set; }
-
-    public string Discriminacao { get; set; }
-
-    public int CodigoMunicipio { get; set; }
-
-    public string Municipio { get; set; }
-
-    public int CodigoPais { get; set; }
-
-    public ExigibilidadeIss ExigibilidadeIss { get; set; }
-
-    public string IdentifNaoExigibilidade { get; set; }
-
-    public int MunicipioIncidencia { get; set; }
-
-    public string UfIncidencia { get; set; }
-
-    public string NumeroProcesso { get; set; }
-
-    public ServicosCollection ItemsServico { get; }
-
-    public ResponsavelRetencao? ResponsavelRetencao { get; set; }
-
-    public string Descricao { get; set; }
-
-    public DeducoesCollection Deducoes { get; }
-
-    #endregion Propriedades
 }

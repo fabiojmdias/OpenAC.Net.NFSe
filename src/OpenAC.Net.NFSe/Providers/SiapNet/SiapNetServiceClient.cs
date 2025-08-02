@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="SIAPNetServiceClient.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -36,96 +36,98 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml.Linq;
-using OpenAC.Net.NFSe.Commom;
-using OpenAC.Net.NFSe.Commom.Client;
-using OpenAC.Net.NFSe.Commom.Interface;
-using OpenAC.Net.NFSe.Commom.Types;
 
-namespace OpenAC.Net.NFSe.Providers;
-
-internal sealed class SiapNetServiceClient : NFSeSoapServiceClient, IServiceClient
+namespace OpenAC.Net.NFSe.Providers
 {
-    #region Constructors
-
-    public SiapNetServiceClient(ProviderSiapNet provider, TipoUrl tipoUrl, X509Certificate2 certificado) : base(provider, tipoUrl, certificado, SoapVersion.Soap11)
+    internal sealed class SIAPNetServiceClient : NFSeSoapServiceClient, IServiceClient
     {
-            
-    }
+        #region Constructors
 
-    #endregion Constructors
-
-    #region Methods
-
-    private string EmpacotaXml(string conteudo)
-    {
-        return string.Concat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", conteudo);
-    }
-    public string Enviar(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
-
-    public string EnviarSincrono(string cabec, string msg)
-    {
-        var message = new StringBuilder();
-        message.Append("<nfse:RecepcionarLoteRpsSincronoRequest>");
-        message.Append("<nfseCabecMsg>");
-        message.AppendCData(EmpacotaXml(cabec));
-        message.Append("</nfseCabecMsg>");
-        message.Append("<nfseDadosMsg>");
-        message.AppendCData(EmpacotaXml(msg));
-        message.Append("</nfseDadosMsg>");
-        message.Append("</nfse:RecepcionarLoteRpsSincronoRequest>");
-
-        return Execute("http://nfse.abrasf.org.br/RecepcionarLoteRpsSincrono", message.ToString(), "RecepcionarLoteRpsSincronoResponse ");
-    }
-
-    public string ConsultarSituacao(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
-
-    public string ConsultarLoteRps(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
-
-    public string ConsultarSequencialRps(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
-
-    public string ConsultarNFSeRps(string cabec, string msg)
-    {
-        var message = new StringBuilder();
-        message.Append("<nfse:ConsultarNfsePorRpsRequest>");
-        message.Append("<nfseCabecMsg>");
-        message.AppendCData(EmpacotaXml(cabec));
-        message.Append("</nfseCabecMsg>");
-        message.Append("<nfseDadosMsg>");
-        message.AppendCData(EmpacotaXml(msg));
-        message.Append("</nfseDadosMsg>");
-        message.Append("</nfse:ConsultarNfsePorRpsRequest>");
-
-        return Execute("consultarNfsePorRps", message.ToString(), "consultarNfsePorRpsResponse");
-    }
-
-    public string ConsultarNFSe(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
-
-    public string CancelarNFSe(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
-
-    public string CancelarNFSeLote(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
-
-    public string SubstituirNFSe(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
-
-    private string Execute(string soapAction, string message, string responseTag)
-    {
-        return Execute(soapAction, message, "", [responseTag], ["xmlns:nfse=\"http://nfse.abrasf.org.br\""]);
-    }
-
-    protected override string TratarRetorno(XElement xmlDocument, string[] responseTag)
-    {
-        var element = xmlDocument.ElementAnyNs("Fault");
-        if (element == null)
+        public SIAPNetServiceClient(ProviderSIAPNet provider, TipoUrl tipoUrl, X509Certificate2 certificado) : base(provider, tipoUrl, certificado, SoapVersion.Soap11)
         {
-            element = responseTag.Aggregate(xmlDocument, (current, tag) => current.ElementAnyNs(tag));
-            if (element == null)
-                return xmlDocument.ToString();
-
-            return element.ToString();
+            
         }
 
-        var exMessage = $"{element.ElementAnyNs("faultcode").GetValue<string>()} - {element.ElementAnyNs("faultstring").GetValue<string>()}";
-        throw new OpenDFeCommunicationException(exMessage);
-    }
+        #endregion Constructors
 
-    #endregion Methods
+        #region Methods
+
+        private string EmpacotaXml(string conteudo)
+        {
+            return string.Concat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", conteudo);
+        }
+        public string Enviar(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
+
+        public string EnviarSincrono(string cabec, string msg)
+        {
+            var message = new StringBuilder();
+            message.Append("<nfse:RecepcionarLoteRpsSincronoRequest>");
+            message.Append("<nfseCabecMsg>");
+            message.AppendCData(EmpacotaXml(cabec));
+            message.Append("</nfseCabecMsg>");
+            message.Append("<nfseDadosMsg>");
+            message.AppendCData(EmpacotaXml(msg));
+            message.Append("</nfseDadosMsg>");
+            message.Append("</nfse:RecepcionarLoteRpsSincronoRequest>");
+
+            return Execute("http://nfse.abrasf.org.br/RecepcionarLoteRpsSincrono", message.ToString(), "RecepcionarLoteRpsSincronoResponse ");
+        }
+
+        public string ConsultarSituacao(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
+
+        public string ConsultarLoteRps(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
+
+        public string ConsultarSequencialRps(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
+
+        public string ConsultarNFSeRps(string cabec, string msg)
+        {
+            var message = new StringBuilder();
+            message.Append("<nfse:ConsultarNfsePorRpsRequest>");
+            message.Append("<nfseCabecMsg>");
+            message.AppendCData(EmpacotaXml(cabec));
+            message.Append("</nfseCabecMsg>");
+            message.Append("<nfseDadosMsg>");
+            message.AppendCData(EmpacotaXml(msg));
+            message.Append("</nfseDadosMsg>");
+            message.Append("</nfse:ConsultarNfsePorRpsRequest>");
+
+            return Execute("consultarNfsePorRps", message.ToString(), "consultarNfsePorRpsResponse");
+        }
+
+        public string ConsultarNFSe(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
+
+        public string CancelarNFSe(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
+
+        public string CancelarNFSeLote(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
+
+        public string SubstituirNFSe(string cabec, string msg) => throw new NotImplementedException("Função não implementada/suportada neste Provedor !");
+
+        private string Execute(string soapAction, string message, string responseTag)
+        {
+            return Execute(soapAction, message, "", responseTag, "xmlns:nfse=\"http://nfse.abrasf.org.br\"");
+        }
+
+        protected override string TratarRetorno(XElement xmlDocument, string[] responseTag)
+        {
+            var element = xmlDocument.ElementAnyNs("Fault");
+            if (element == null)
+            {
+                element = responseTag.Aggregate(xmlDocument, (current, tag) => current.ElementAnyNs(tag));
+                if (element == null)
+                    return xmlDocument.ToString();
+
+                return element.ToString();
+            }
+
+            var exMessage = $"{element.ElementAnyNs("faultcode").GetValue<string>()} - {element.ElementAnyNs("faultstring").GetValue<string>()}";
+            throw new OpenDFeCommunicationException(exMessage);
+        }
+
+        public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion Methods
+    }
 }

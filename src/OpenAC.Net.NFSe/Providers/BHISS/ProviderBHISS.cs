@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="ProviderBHISS.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -31,67 +31,64 @@
 
 using System.Text;
 using OpenAC.Net.Core.Extensions;
-using OpenAC.Net.NFSe.Commom;
-using OpenAC.Net.NFSe.Commom.Interface;
-using OpenAC.Net.NFSe.Commom.Model;
-using OpenAC.Net.NFSe.Commom.Types;
 using OpenAC.Net.NFSe.Configuracao;
 using OpenAC.Net.NFSe.Nota;
 
-namespace OpenAC.Net.NFSe.Providers;
-
-internal sealed class ProviderBHISS : ProviderABRASF
+namespace OpenAC.Net.NFSe.Providers
 {
-    #region Constructors
-
-    public ProviderBHISS(ConfigNFSe config, OpenMunicipioNFSe municipio) : base(config, municipio)
+    internal sealed class ProviderBHISS : ProviderABRASF
     {
-        Name = "BHISS";
-    }
+        #region Constructors
 
-    #endregion Constructors
-
-    #region Methods
-
-    protected override void PrepararEnviar(RetornoEnviar retornoWebservice, NotaServicoCollection notas)
-    {
-        if (retornoWebservice.Lote == 0) retornoWebservice.Erros.Add(new EventoRetorno { Codigo = "0", Descricao = "Lote nÃ£o informado." });
-        if (notas.Count == 0) retornoWebservice.Erros.Add(new EventoRetorno { Codigo = "0", Descricao = "RPS nÃ£o informado." });
-        if (retornoWebservice.Erros.Count > 0) return;
-
-        var xmlLoteRps = new StringBuilder();
-
-        foreach (var nota in notas)
+        public ProviderBHISS(ConfigNFSe config, OpenMunicipioNFSe municipio) : base(config, municipio)
         {
-            var xmlRps = WriteXmlRps(nota, false, false);
-            xmlLoteRps.Append(xmlRps);
-            GravarRpsEmDisco(xmlRps, $"Rps-{nota.IdentificacaoRps.DataEmissao:yyyyMMdd}-{nota.IdentificacaoRps.Numero}.xml", nota.IdentificacaoRps.DataEmissao);
+            Name = "BHISS";
         }
 
-        var xmlLote = new StringBuilder();
-        xmlLote.Append($"<EnviarLoteRpsEnvio {GetNamespace()}>");
-        xmlLote.Append($"<LoteRps Id=\"L{retornoWebservice.Lote}\" versao=\"1.00\">");
-        xmlLote.Append($"<NumeroLote>{retornoWebservice.Lote}</NumeroLote>");
-        xmlLote.Append($"<Cnpj>{Configuracoes.PrestadorPadrao.CpfCnpj.ZeroFill(14)}</Cnpj>");
-        xmlLote.Append($"<InscricaoMunicipal>{Configuracoes.PrestadorPadrao.InscricaoMunicipal}</InscricaoMunicipal>");
-        xmlLote.Append($"<QuantidadeRps>{notas.Count}</QuantidadeRps>");
-        xmlLote.Append("<ListaRps>");
-        xmlLote.Append(xmlLoteRps);
-        xmlLote.Append("</ListaRps>");
-        xmlLote.Append("</LoteRps>");
-        xmlLote.Append("</EnviarLoteRpsEnvio>");
-        retornoWebservice.XmlEnvio = xmlLote.ToString();
-    }
+        #endregion Constructors
 
-    protected override IServiceClient GetClient(TipoUrl tipo)
-    {
-        return new BHISSServiceClient(this, tipo);
-    }
+        #region Methods
 
-    protected override string GetNamespace()
-    {
-        return "xmlns=\"http://www.abrasf.org.br/nfse.xsd\"";
-    }
+        protected override void PrepararEnviar(RetornoEnviar retornoWebservice, NotaServicoCollection notas)
+        {
+            if (retornoWebservice.Lote == 0) retornoWebservice.Erros.Add(new Evento { Codigo = "0", Descricao = "Lote não informado." });
+            if (notas.Count == 0) retornoWebservice.Erros.Add(new Evento { Codigo = "0", Descricao = "RPS não informado." });
+            if (retornoWebservice.Erros.Count > 0) return;
 
-    #endregion Methods
+            var xmlLoteRps = new StringBuilder();
+
+            foreach (var nota in notas)
+            {
+                var xmlRps = WriteXmlRps(nota, false, false);
+                xmlLoteRps.Append(xmlRps);
+                GravarRpsEmDisco(xmlRps, $"Rps-{nota.IdentificacaoRps.DataEmissao:yyyyMMdd}-{nota.IdentificacaoRps.Numero}.xml", nota.IdentificacaoRps.DataEmissao);
+            }
+
+            var xmlLote = new StringBuilder();
+            xmlLote.Append($"<EnviarLoteRpsEnvio {GetNamespace()}>");
+            xmlLote.Append($"<LoteRps Id=\"L{retornoWebservice.Lote}\" versao=\"1.00\">");
+            xmlLote.Append($"<NumeroLote>{retornoWebservice.Lote}</NumeroLote>");
+            xmlLote.Append($"<Cnpj>{Configuracoes.PrestadorPadrao.CpfCnpj.ZeroFill(14)}</Cnpj>");
+            xmlLote.Append($"<InscricaoMunicipal>{Configuracoes.PrestadorPadrao.InscricaoMunicipal}</InscricaoMunicipal>");
+            xmlLote.Append($"<QuantidadeRps>{notas.Count}</QuantidadeRps>");
+            xmlLote.Append("<ListaRps>");
+            xmlLote.Append(xmlLoteRps);
+            xmlLote.Append("</ListaRps>");
+            xmlLote.Append("</LoteRps>");
+            xmlLote.Append("</EnviarLoteRpsEnvio>");
+            retornoWebservice.XmlEnvio = xmlLote.ToString();
+        }
+
+        protected override IServiceClient GetClient(TipoUrl tipo)
+        {
+            return new BHISSServiceClient(this, tipo);
+        }
+
+        protected override string GetNamespace()
+        {
+            return "xmlns=\"http://www.abrasf.org.br/nfse.xsd\"";
+        }
+
+        #endregion Methods
+    }
 }

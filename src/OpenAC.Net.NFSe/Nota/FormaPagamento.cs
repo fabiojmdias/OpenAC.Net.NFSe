@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="FormaPagamento.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -29,16 +29,14 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace OpenAC.Net.NFSe.Nota;
-
-public enum FormaPagamento
+namespace OpenAC.Net.NFSe.Nota
 {
-    AVista,
-    NaApresentacao,
-    APrazo,
-    CartaoCredito,
-    CartaoDebito,
-    Deposito,
-    Cheque,
-    PIX
+    public enum FormaPagamento
+    {
+        AVista,
+        NaApresentacao,
+        APrazo,
+        CartaoCredito,
+        CartaoDebito
+    }
 }

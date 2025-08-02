@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="ProviderMetropolisWeb.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -29,40 +29,37 @@
 // <summary></summary>
 // ***********************************************************************
 
-using OpenAC.Net.NFSe.Commom;
-using OpenAC.Net.NFSe.Commom.Interface;
-using OpenAC.Net.NFSe.Commom.Model;
-using OpenAC.Net.NFSe.Commom.Types;
 using OpenAC.Net.NFSe.Configuracao;
 
-namespace OpenAC.Net.NFSe.Providers;
-
-internal sealed class ProviderMetropolisWeb : ProviderABRASF
+namespace OpenAC.Net.NFSe.Providers
 {
-    #region Construtor
-
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="ProviderABRASF" /> class.
-    /// </summary>
-    /// <param name="config">The configuration.</param>
-    /// <param name="municipio">The municipio.</param>
-    public ProviderMetropolisWeb(ConfigNFSe config, OpenMunicipioNFSe municipio) : base(config, municipio)
+    internal sealed class ProviderMetropolisWeb : ProviderABRASF
     {
-        Name = "MetropolisWeb";
+        #region Construtor
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ProviderABRASF" /> class.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
+        /// <param name="municipio">The municipio.</param>
+        public ProviderMetropolisWeb(ConfigNFSe config, OpenMunicipioNFSe municipio) : base(config, municipio)
+        {
+            Name = "MetropolisWeb";
+        }
+
+        #endregion Construtor
+
+        #region Methods
+
+        protected override bool PrecisaValidarSchema(TipoUrl tipo) => false;
+
+        /// <summary>
+        ///     Retorna o cliente de comunicação com o webservice.
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
+        protected override IServiceClient GetClient(TipoUrl tipo) => new MetropolisWebClient(this, tipo, Certificado);
+
+        #endregion Methods
     }
-
-    #endregion Construtor
-
-    #region Methods
-
-    protected override bool PrecisaValidarSchema(TipoUrl tipo) => false;
-
-    /// <summary>
-    ///     Retorna o cliente de comunicação com o webservice.
-    /// </summary>
-    /// <param name="tipo"></param>
-    /// <returns></returns>
-    protected override IServiceClient GetClient(TipoUrl tipo) => new MetropolisWebClient(this, tipo, Certificado);
-
-    #endregion Methods
 }

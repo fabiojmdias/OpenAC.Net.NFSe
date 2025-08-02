@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="ConfigNFSe.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -32,35 +32,34 @@
 using OpenAC.Net.DFe.Core.Common;
 using OpenAC.Net.NFSe.Nota;
 
-namespace OpenAC.Net.NFSe.Configuracao;
-
-public sealed class ConfigNFSe : DFeConfigBase<ConfigGeralNFSe, ConfigWebServicesNFSe, ConfigCertificadosNFSe, ConfigArquivosNFSe>
+namespace OpenAC.Net.NFSe.Configuracao
 {
-    #region Constructor
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ConfigNFSe"/> class.
-    /// </summary>
-    public ConfigNFSe()
+    public sealed class ConfigNFSe : DFeConfigBase<ConfigGeralNFSe, ConfigWebServicesNFSe, ConfigCertificadosNFSe, ConfigArquivosNFSe>
     {
-        Geral = new ConfigGeralNFSe();
-        WebServices = new ConfigWebServicesNFSe();
-        Certificados = new ConfigCertificadosNFSe();
-        Arquivos = new ConfigArquivosNFSe();
-        PrestadorPadrao = new DadosPrestador();
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConfigNFSe"/> class.
+        /// </summary>
+        public ConfigNFSe()
+        {
+            Geral = new ConfigGeralNFSe();
+            WebServices = new ConfigWebServicesNFSe();
+            Certificados = new ConfigCertificadosNFSe();
+            Arquivos = new ConfigArquivosNFSe();
+            PrestadorPadrao = new DadosPrestador();
+        }
+
+        #endregion Constructor
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the prestado padr„o.
+        /// </summary>
+        /// <value>The prestado padr„o.</value>
+        public DadosPrestador PrestadorPadrao { get; set; }
+
+        #endregion Properties
     }
-
-    #endregion Constructor
-
-    #region Properties
-    
-    public static ConfigNFSe Default { get; } = new();
-
-    /// <summary>
-    /// Gets the prestado padr√£o.
-    /// </summary>
-    /// <value>The prestado padr√£o.</value>
-    public DadosPrestador PrestadorPadrao { get; set; }
-
-    #endregion Properties
 }

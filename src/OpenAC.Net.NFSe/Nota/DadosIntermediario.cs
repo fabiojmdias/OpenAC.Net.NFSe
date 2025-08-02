@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="DadosIntermediario.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -32,37 +32,38 @@
 using System.ComponentModel;
 using OpenAC.Net.Core.Generics;
 
-namespace OpenAC.Net.NFSe.Nota;
-
-public sealed class DadosIntermediario : GenericClone<DadosIntermediario>, INotifyPropertyChanged
+namespace OpenAC.Net.NFSe.Nota
 {
-    #region Events
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    #endregion Events
-
-    #region Contructors
-
-    internal DadosIntermediario()
+    public sealed class DadosIntermediario : GenericClone<DadosIntermediario>, INotifyPropertyChanged
     {
+        #region Events
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion Events
+
+        #region Contructors
+
+        internal DadosIntermediario()
+        {
+        }
+
+        #endregion Contructors
+
+        #region Propriedades
+
+        public string RazaoSocial { get; set; }
+
+        public string CpfCnpj { get; set; }
+
+        public string InscricaoMunicipal { get; set; }
+
+        public string CodigoMunicipio { get; set; }
+
+        public SituacaoTributaria IssRetido { get; set; }
+
+        public string EMail { get; set; }
+
+        #endregion Propriedades
     }
-
-    #endregion Contructors
-
-    #region Propriedades
-
-    public string RazaoSocial { get; set; }
-
-    public string CpfCnpj { get; set; }
-
-    public string InscricaoMunicipal { get; set; }
-
-    public string CodigoMunicipio { get; set; }
-
-    public SituacaoTributaria IssRetido { get; set; }
-
-    public string EMail { get; set; }
-
-    #endregion Propriedades
 }

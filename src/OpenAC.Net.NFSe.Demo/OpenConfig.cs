@@ -4,83 +4,84 @@ using System.Globalization;
 using System.IO;
 using OpenAC.Net.Core.Extensions;
 
-namespace OpenAC.Net.NFSe.Demo;
-
-public class OpenConfig
+namespace OpenAC.Net.NFSe.Demo
 {
-    #region Fields
-
-    private readonly Configuration config;
-
-    #endregion Fields
-
-    #region Constructors
-
-    private OpenConfig(Configuration config)
+    public class OpenConfig
     {
-        this.config = config;
-    }
+        #region Fields
 
-    #endregion Constructors
+        private readonly Configuration config;
 
-    #region Methods
+        #endregion Fields
 
-    public void Set(string setting, object value)
-    {
-        var valor = string.Format(CultureInfo.InvariantCulture, "{0}", value);
+        #region Constructors
 
-        if (config.AppSettings.Settings[setting]?.Value != null)
-            config.AppSettings.Settings[setting].Value = valor;
-        else
-            config.AppSettings.Settings.Add(setting, valor);
-    }
-
-    public T Get<T>(string setting, T defaultValue)
-    {
-        var type = typeof(T);
-        var value = config.AppSettings.Settings[setting]?.Value;
-        if (value.IsEmpty()) return defaultValue;
-
-        try
+        private OpenConfig(Configuration config)
         {
-            if (type.IsEnum || type.IsGenericType && type.GetGenericArguments()[0].IsEnum)
+            this.config = config;
+        }
+
+        #endregion Constructors
+
+        #region Methods
+
+        public void Set(string setting, object value)
+        {
+            var valor = string.Format(CultureInfo.InvariantCulture, "{0}", value);
+
+            if (config.AppSettings.Settings[setting]?.Value != null)
+                config.AppSettings.Settings[setting].Value = valor;
+            else
+                config.AppSettings.Settings.Add(setting, valor);
+        }
+
+        public T Get<T>(string setting, T defaultValue)
+        {
+            var type = typeof(T);
+            var value = config.AppSettings.Settings[setting]?.Value;
+            if (value.IsEmpty()) return defaultValue;
+
+            try
             {
-                return (T)Enum.Parse(type, value);
+                if (type.IsEnum || type.IsGenericType && type.GetGenericArguments()[0].IsEnum)
+                {
+                    return (T)Enum.Parse(type, value);
+                }
+
+                return (T)Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
+            }
+            catch (Exception)
+            {
+                return defaultValue;
+            }
+        }
+
+        public void Save()
+        {
+            config.Save(ConfigurationSaveMode.Minimal, true);
+        }
+
+        public static OpenConfig CreateOrLoad(string fileName = "opennfse.config")
+        {
+            if (!File.Exists(fileName))
+            {
+                var config = "<?xml version='1.0' encoding='utf-8' ?>" + Environment.NewLine +
+                             "<configuration>" + Environment.NewLine +
+                             "    <appSettings>" + Environment.NewLine +
+                             "    </appSettings>" + Environment.NewLine +
+                             "</configuration>";
+                File.WriteAllText(fileName, config);
             }
 
-            return (T)Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
-        }
-        catch (Exception)
-        {
-            return defaultValue;
-        }
-    }
+            var configFileMap = new ExeConfigurationFileMap
+            {
+                ExeConfigFilename = fileName
+            };
 
-    public void Save()
-    {
-        config.Save(ConfigurationSaveMode.Minimal, true);
-    }
-
-    public static OpenConfig CreateOrLoad(string fileName = "opennfse.config")
-    {
-        if (!File.Exists(fileName))
-        {
-            var config = "<?xml version='1.0' encoding='utf-8' ?>" + Environment.NewLine +
-                         "<configuration>" + Environment.NewLine +
-                         "    <appSettings>" + Environment.NewLine +
-                         "    </appSettings>" + Environment.NewLine +
-                         "</configuration>";
-            File.WriteAllText(fileName, config);
+            var configuration = ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None);
+            return new OpenConfig(configuration);
         }
 
-        var configFileMap = new ExeConfigurationFileMap
-        {
-            ExeConfigFilename = fileName
-        };
-
-        var configuration = ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None);
-        return new OpenConfig(configuration);
+        #endregion Methods
     }
-
-    #endregion Methods
 }

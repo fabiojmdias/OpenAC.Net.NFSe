@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="ProviderISSe.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -30,45 +30,42 @@
 // ***********************************************************************
 
 using OpenAC.Net.DFe.Core;
-using OpenAC.Net.NFSe.Commom;
-using OpenAC.Net.NFSe.Commom.Interface;
-using OpenAC.Net.NFSe.Commom.Model;
-using OpenAC.Net.NFSe.Commom.Types;
 using OpenAC.Net.NFSe.Configuracao;
 
-namespace OpenAC.Net.NFSe.Providers;
-
-internal sealed class ProviderISSe : ProviderABRASF201
+namespace OpenAC.Net.NFSe.Providers
 {
-    #region Constructors
-
-    public ProviderISSe(ConfigNFSe config, OpenMunicipioNFSe municipio) : base(config, municipio)
+    internal sealed class ProviderISSe : ProviderABRASF201
     {
-        Name = "ISSe";
+        #region Constructors
+
+        public ProviderISSe(ConfigNFSe config, OpenMunicipioNFSe municipio) : base(config, municipio)
+        {
+            Name = "ISSe";
+        }
+
+        #endregion Constructors
+
+        #region Methods
+
+        #region Protected Methods
+
+        protected override void AssinarEnviar(RetornoEnviar retornoWebservice)
+        {
+            retornoWebservice.XmlEnvio = XmlSigning.AssinarXml(retornoWebservice.XmlEnvio, "EnviarLoteRpsEnvio", "LoteRps", Certificado);
+        }
+
+        protected override void AssinarEnviarSincrono(RetornoEnviar retornoWebservice)
+        {
+            retornoWebservice.XmlEnvio = XmlSigning.AssinarXml(retornoWebservice.XmlEnvio, "EnviarLoteRpsSincronoEnvio", "LoteRps", Certificado);
+        }
+
+        protected override IServiceClient GetClient(TipoUrl tipo)
+        {
+            return new ISSeServiceClient(this, tipo);
+        }
+
+        #endregion Protected Methods
+
+        #endregion Methods
     }
-
-    #endregion Constructors
-
-    #region Methods
-
-    #region Protected Methods
-
-    protected override void AssinarEnviar(RetornoEnviar retornoWebservice)
-    {
-        retornoWebservice.XmlEnvio = XmlSigning.AssinarXml(retornoWebservice.XmlEnvio, "EnviarLoteRpsEnvio", "LoteRps", Certificado);
-    }
-
-    protected override void AssinarEnviarSincrono(RetornoEnviar retornoWebservice)
-    {
-        retornoWebservice.XmlEnvio = XmlSigning.AssinarXml(retornoWebservice.XmlEnvio, "EnviarLoteRpsSincronoEnvio", "LoteRps", Certificado);
-    }
-
-    protected override IServiceClient GetClient(TipoUrl tipo)
-    {
-        return new ISSeServiceClient(this, tipo);
-    }
-
-    #endregion Protected Methods
-
-    #endregion Methods
 }

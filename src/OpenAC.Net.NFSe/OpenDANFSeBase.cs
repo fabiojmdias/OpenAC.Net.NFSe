@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="OpenDANFSeBase.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -32,49 +32,51 @@
 using System;
 using System.IO;
 using OpenAC.Net.Core.Logging;
+using OpenAC.Net.DFe.Core;
 using OpenAC.Net.NFSe.Nota;
 
-namespace OpenAC.Net.NFSe;
-
-/// <summary>
-/// Classe base para impress√£o de DANFSe
-/// </summary>
-public abstract class OpenDANFSeBase<TOptions, TFiltro> : IOpenLog
-    where TFiltro : Enum
-    where TOptions : DANFSeOptions<TFiltro>
+namespace OpenAC.Net.NFSe
 {
-    #region Properties
-
-    public TOptions Configuracoes { get; protected set; }
-
-    #endregion Properties
-
-    #region Methods
-
     /// <summary>
-    /// Imprime as NFSe/RPS.
+    /// Classe base para impress„o de DANFSe
     /// </summary>
-    public abstract void Imprimir(NotaServico[] notas);
+    public abstract class OpenDANFSeBase<TOptions, TFiltro> : IOpenLog
+        where TFiltro : Enum
+        where TOptions : DANFSeOptions<TFiltro>
+    {
+        #region Properties
 
-    /// <summary>
-    /// Imprimirs the PDF.
-    /// </summary>
-    public abstract void ImprimirPDF(NotaServico[] notas);
+        public TOptions Configuracoes { get; protected set; }
 
-    /// <summary>
-    /// Imprimirs the PDF.
-    /// </summary>
-    public abstract void ImprimirPDF(NotaServico[] notas, Stream stream);
+        #endregion Properties
 
-    /// <summary>
-    /// Imprimirs the PDF.
-    /// </summary>
-    public abstract void ImprimirHTML(NotaServico[] notas);
+        #region Methods
 
-    /// <summary>
-    /// Imprimirs the PDF.
-    /// </summary>
-    public abstract void ImprimirHTML(NotaServico[] notas, Stream stream);
+        /// <summary>
+        /// Imprime as NFSe/RPS.
+        /// </summary>
+        public abstract void Imprimir(NotaServico[] notas);
 
-    #endregion Methods
+        /// <summary>
+        /// Imprimirs the PDF.
+        /// </summary>
+        public abstract void ImprimirPDF(NotaServico[] notas);
+
+        /// <summary>
+        /// Imprimirs the PDF.
+        /// </summary>
+        public abstract void ImprimirPDF(NotaServico[] notas, Stream stream);
+
+        /// <summary>
+        /// Imprimirs the PDF.
+        /// </summary>
+        public abstract void ImprimirHTML(NotaServico[] notas);
+
+        /// <summary>
+        /// Imprimirs the PDF.
+        /// </summary>
+        public abstract void ImprimirHTML(NotaServico[] notas, Stream stream);
+
+        #endregion Methods
+    }
 }

@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="ConfigGeralNFSe.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -31,18 +31,19 @@
 
 using OpenAC.Net.DFe.Core.Common;
 
-namespace OpenAC.Net.NFSe.Configuracao;
-
-public sealed class ConfigGeralNFSe : DFeGeralConfigBase
+namespace OpenAC.Net.NFSe.Configuracao
 {
-    #region Constructor
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ConfigGeralNFSe"/> class.
-    /// </summary>
-    internal ConfigGeralNFSe()
+    public sealed class ConfigGeralNFSe : DFeGeralConfigBase
     {
-    }
+        #region Constructor
 
-    #endregion Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConfigGeralNFSe"/> class.
+        /// </summary>
+        internal ConfigGeralNFSe()
+        {
+        }
+
+        #endregion Constructor
+    }
 }

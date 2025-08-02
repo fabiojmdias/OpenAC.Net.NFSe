@@ -8,7 +8,7 @@
 // ***********************************************************************
 // <copyright file="RegimeEspecialTributacao.cs" company="OpenAC .Net">
 //		        		   The MIT License (MIT)
-//	     		Copyright (c) 2014 - 2024 Projeto OpenAC .Net
+//	     		    Copyright (c) 2014 - 2022 Projeto OpenAC .Net
 //
 //	 Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the "Software"),
@@ -29,18 +29,19 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace OpenAC.Net.NFSe.Nota;
-
-public enum RegimeEspecialTributacao
+namespace OpenAC.Net.NFSe.Nota
 {
-    Nenhum,
-    MicroEmpresaMunicipal,
-    Estimativa,
-    SociedadeProfissionais,
-    Cooperativa,
-    MicroEmpresarioIndividual,
-    MicroEmpresarioEmpresaPP,
-    LucroReal,
-    LucroPresumido,
-    SimplesNacional
+    public enum RegimeEspecialTributacao
+    {
+        Nenhum,
+        MicroEmpresaMunicipal,
+        Estimativa,
+        SociedadeProfissionais,
+        Cooperativa,
+        MicroEmpresarioIndividual,
+        MicroEmpresarioEmpresaPP,
+        LucroReal,
+        LucroPresumido,
+        SimplesNacional
+    }
 }

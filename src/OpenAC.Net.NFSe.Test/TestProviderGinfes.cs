@@ -1,60 +1,52 @@
-using System.Reflection;
+﻿using System.IO;
 using System.Xml.Linq;
 using OpenAC.Net.Core.Extensions;
 using Xunit;
 
-namespace OpenAC.Net.NFSe.Test;
-
-public class TestProviderGinfes : IDisposable
+namespace OpenAC.Net.NFSe.Test
 {
-    private readonly Stream rps;
-    
-    public TestProviderGinfes()
+    public class TestProviderGinfes
     {
-        var assembly = Assembly.GetExecutingAssembly();
-        rps = assembly.GetManifestResourceStream("OpenAC.Net.NFSe.Test.Resources.RpsGinfes.xml") ?? new MemoryStream();
-    }
+        [Fact]
+        public void TestarGeracaoLeituraRps()
+        {
+            var openNFSe = SetupOpenNFSe.Ginfes;
 
-    [Fact]
-    public void TestarGeracaoLeituraRps()
-    {
-        var openNFSe = SetupOpenNFSe.Ginfes;
+            openNFSe.NotasServico.Clear();
 
-        openNFSe.NotasServico.Clear();
-        openNFSe.NotasServico.Load(rps);
+            var dados = new MemoryStream(Properties.Resources.Exemplo_Rps_Ginfes);
+            openNFSe.NotasServico.Load(dados);
 
-        Assert.True(openNFSe.NotasServico.Count == 1, "Erro ao carregar a Rps");
+            Assert.True(openNFSe.NotasServico.Count == 1, "Erro ao carregar a Rps");
 
-        var rpsGerada = openNFSe.NotasServico[0].GetXml();
+            var rpsGerada = openNFSe.NotasServico[0].GetXml();
 
-        rps.Position = 0;
-        var xml = XDocument.Load(rps);
-        var rpsOriginal = xml.AsString(true);
+            dados.Position = 0;
+            var xml = XDocument.Load(dados);
+            var rpsOriginal = xml.AsString(true);
 
-        Assert.True(rpsGerada == rpsOriginal, "Erro na Geração do Xml da Rps");
-    }
+            Assert.True(rpsGerada == rpsOriginal, "Erro na Geração do Xml da Rps");
+        }
 
-    [Fact]
-    public void TestarGeracaoLeituraNFSe()
-    {
-        var openNFSe = SetupOpenNFSe.Ginfes;
+        [Fact]
+        public void TestarGeracaoLeituraNFSe()
+        {
+            var openNFSe = SetupOpenNFSe.Ginfes;
 
-        openNFSe.NotasServico.Clear();
-        openNFSe.NotasServico.Load(rps);
+            openNFSe.NotasServico.Clear();
 
-        Assert.True(openNFSe.NotasServico.Count == 1, "Erro ao carregar a NFSe");
+            var dados = new MemoryStream(Properties.Resources.Exemplo_Rps_Ginfes);
+            openNFSe.NotasServico.Load(dados);
 
-        var nfseGerada = openNFSe.NotasServico[0].GetXml();
+            Assert.True(openNFSe.NotasServico.Count == 1, "Erro ao carregar a NFSe");
 
-        rps.Position = 0;
-        var xml = XDocument.Load(rps);
-        var nfseOriginal = xml.AsString(true);
+            var nfseGerada = openNFSe.NotasServico[0].GetXml();
 
-        Assert.True(nfseGerada == nfseOriginal, "Erro na Geração do Xml da NFSe");
-    }
+            dados.Position = 0;
+            var xml = XDocument.Load(dados);
+            var nfseOriginal = xml.AsString(true);
 
-    public void Dispose()
-    {
-        rps.Dispose();
+            Assert.True(nfseGerada == nfseOriginal, "Erro na Geração do Xml da NFSe");
+        }
     }
 }
