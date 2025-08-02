@@ -27,15 +27,22 @@
 // <summary></summary>
 // ***********************************************************************
 
+using OpenAC.Net.Core.Extensions;
+using OpenAC.Net.DFe.Core;
+using OpenAC.Net.DFe.Core.Document;
+using OpenAC.Net.NFSe.Commom;
 using OpenAC.Net.NFSe.Commom.Interface;
 using OpenAC.Net.NFSe.Commom.Model;
 using OpenAC.Net.NFSe.Commom.Types;
 using OpenAC.Net.NFSe.Configuracao;
+using OpenAC.Net.NFSe.Nota;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace OpenAC.Net.NFSe.Providers.Centi;
 
@@ -48,6 +55,183 @@ internal sealed class ProviderCenti : ProviderABRASF200
     }
 
     protected override IServiceClient GetClient(TipoUrl tipo) => new CentiServiceClient(this, tipo);
+
+    protected override void TratarRetornoConsultarNFSeRps(RetornoConsultarNFSeRps retornoWebservice, NotaServicoCollection notas)
+    {
+        // Analisa mensagem de retorno
+        string textRet = retornoWebservice.XmlRetorno.HtmlDecode();
+        if (!textRet.Contains("ConsultarNfseRpsResposta"))
+        {
+            Match? match = Regex.Match(textRet, @"<body[^>]*>(.*?)</body>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            string erro = match.Success ? match.Groups[1].Value.Trim() : textRet;
+            retornoWebservice.Erros.Add(new EventoRetorno
+            {
+                Codigo = "999",
+                Descricao = erro,
+            });
+            return;
+        }
+        var xmlRet = XDocument.Parse(textRet);
+        MensagemErro(retornoWebservice, xmlRet, "ConsultarNfseRpsResposta");
+        if (retornoWebservice.Erros.Any()) return;
+        var compNfse = xmlRet.ElementAnyNs("ConsultarNfseRpsResposta")?.ElementAnyNs("CompNfse");
+        if (compNfse == null)
+        {
+            retornoWebservice.Erros.Add(new EventoRetorno { Codigo = "0", Descricao = "Nota Fiscal não encontrada! (CompNfse)" });
+            return;
+        }
+        var nfse = compNfse.ElementAnyNs("Nfse").ElementAnyNs("InfNfse");
+        var numeroNFSe = nfse.ElementAnyNs("Numero")?.GetValue<string>() ?? string.Empty;
+        var chaveNFSe = nfse.ElementAnyNs("CodigoVerificacao")?.GetValue<string>() ?? string.Empty;
+        var dataNFSe = nfse.ElementAnyNs("DataEmissao")?.GetValue<DateTime>() ?? DateTime.Now;
+        var numeroRps = nfse.ElementAnyNs("DeclaracaoPrestacaoServico")?
+            .ElementAnyNs("InfDeclaracaoPrestacaoServico")?
+            .ElementAnyNs("Rps")?
+            .ElementAnyNs("IdentificacaoRps")?
+            .ElementAnyNs("Numero").GetValue<string>() ?? string.Empty;
+
+        GravarNFSeEmDisco(compNfse.AsString(true), $"NFSe-{numeroNFSe}-{chaveNFSe}-.xml", dataNFSe);
+
+        // Carrega a nota fiscal na coleção de Notas Fiscais
+        var nota = notas.FirstOrDefault(x => x.IdentificacaoRps.Numero == numeroRps);
+
+        if (nota == null)
+        {
+            nota = notas.Load(compNfse.ToString());
+        }
+        else
+        {
+            nota.IdentificacaoNFSe.Numero = numeroNFSe;
+            nota.IdentificacaoNFSe.Chave = chaveNFSe;
+            nota.IdentificacaoNFSe.DataEmissao = dataNFSe;
+            nota.XmlOriginal = compNfse.ToString();
+
+            var nfseCancelamento = compNfse.ElementAnyNs("NfseCancelamento");
+
+            if (nfseCancelamento != null)
+            {
+                nota.Situacao = SituacaoNFSeRps.Cancelado;
+
+                var confirmacaoCancelamento = nfseCancelamento
+                    .ElementAnyNs("Confirmacao");
+
+                if (confirmacaoCancelamento != null)
+                {
+                    var pedido = confirmacaoCancelamento.ElementAnyNs("Pedido");
+
+                    if (pedido != null)
+                    {
+                        var codigoCancelamento = pedido
+                            .ElementAnyNs("InfPedidoCancelamento")
+                            .ElementAnyNs("CodigoCancelamento")
+                            .GetValue<string>();
+
+                        nota.Cancelamento.Pedido.CodigoCancelamento = codigoCancelamento;
+
+                        nota.Cancelamento.Signature = DFeSignature.Load(pedido.ElementAnyNs("Signature").ToString());
+                    }
+                }
+
+                nota.Cancelamento.DataHora = confirmacaoCancelamento
+                    .ElementAnyNs("DataHora")
+                    .GetValue<DateTime>();
+            }
+        }
+
+        retornoWebservice.Nota = nota;
+        retornoWebservice.Sucesso = true;
+    }
+
+    protected override void TratarRetornoEnviarSincrono(RetornoEnviar retornoWebservice, NotaServicoCollection notas)
+    {
+        // Analisa mensagem de retorno
+        string textRet = retornoWebservice.XmlRetorno.HtmlDecode();
+        if (!textRet.Contains("ConsultarNfseRpsResposta"))
+        {
+            Match? match = Regex.Match(textRet, @"<body[^>]*>(.*?)</body>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            string erro = match.Success ? match.Groups[1].Value.Trim() : textRet;
+            retornoWebservice.Erros.Add(new EventoRetorno
+            {
+                Codigo = "999",
+                Descricao = erro,
+            });
+            return;
+        }
+        var xmlRet = XDocument.Parse(textRet);
+        MensagemErro(retornoWebservice, xmlRet, "EnviarLoteRpsSincronoResposta");
+        if (retornoWebservice.Erros.Any()) return;
+
+        retornoWebservice.Data = xmlRet.Root?.ElementAnyNs("DataRecebimento")?.GetValue<DateTime>() ?? DateTime.MinValue;
+        retornoWebservice.Protocolo = xmlRet.Root?.ElementAnyNs("Protocolo")?.GetValue<string>() ?? string.Empty;
+        retornoWebservice.Sucesso = !retornoWebservice.Protocolo.IsEmpty();
+        MensagemErro(retornoWebservice, xmlRet, "EnviarLoteRpsSincronoResposta");
+
+        if (!retornoWebservice.Sucesso) return;
+
+        var listaNfse = xmlRet.Root.ElementAnyNs("ListaNfse");
+
+        if (listaNfse == null)
+        {
+            retornoWebservice.Erros.Add(new EventoRetorno { Codigo = "0", Descricao = "Lista de NFSe não encontrada! (ListaNfse)" });
+            return;
+        }
+
+        foreach (var compNfse in listaNfse.ElementsAnyNs("CompNfse"))
+        {
+            var nfse = compNfse.ElementAnyNs("Nfse").ElementAnyNs("InfNfse");
+            var numeroNFSe = nfse.ElementAnyNs("Numero")?.GetValue<string>() ?? string.Empty;
+            var chaveNFSe = nfse.ElementAnyNs("CodigoVerificacao")?.GetValue<string>() ?? string.Empty;
+            var dataNFSe = nfse.ElementAnyNs("DataEmissao")?.GetValue<DateTime>() ?? DateTime.Now;
+            var numeroRps = nfse.ElementAnyNs("DeclaracaoPrestacaoServico")?
+                .ElementAnyNs("InfDeclaracaoPrestacaoServico")?
+                .ElementAnyNs("Rps")?
+                .ElementAnyNs("IdentificacaoRps")?
+                .ElementAnyNs("Numero").GetValue<string>() ?? string.Empty;
+
+            GravarNFSeEmDisco(compNfse.AsString(true), $"NFSe-{numeroNFSe}-{chaveNFSe}-.xml", dataNFSe);
+
+            var nota = notas.FirstOrDefault(x => x.IdentificacaoRps.Numero == numeroRps);
+            if (nota == null)
+            {
+                nota = notas.Load(compNfse.ToString());
+            }
+            else
+            {
+                nota.IdentificacaoNFSe.Numero = numeroNFSe;
+                nota.IdentificacaoNFSe.Chave = chaveNFSe;
+                nota.IdentificacaoNFSe.DataEmissao = dataNFSe;
+                nota.XmlOriginal = compNfse.ToString();
+            }
+
+            nota.Protocolo = retornoWebservice.Protocolo;
+        }
+    }
+
+
+    protected override void PrepararEnviarSincrono(RetornoEnviar retornoWebservice, NotaServicoCollection notas)
+    {
+        if (retornoWebservice.Lote == 0) retornoWebservice.Erros.Add(new EventoRetorno { Codigo = "0", Descricao = "Lote não informado." });
+        if (notas.Count == 0) retornoWebservice.Erros.Add(new EventoRetorno { Codigo = "0", Descricao = "RPS não informado." });
+        if (retornoWebservice.Erros.Any()) return;
+        var xmlLoteRps = new StringBuilder();
+        foreach (var nota in notas)
+        {
+            var xmlRps = WriteXmlRps(nota, false, false);
+            xmlLoteRps.Append(xmlRps);
+            GravarRpsEmDisco(xmlRps, $"Rps-{nota.IdentificacaoRps.DataEmissao:yyyyMMdd}-{nota.IdentificacaoRps.Numero}.xml", nota.IdentificacaoRps.DataEmissao);
+        }
+
+        var xmlLote = new StringBuilder();
+        xmlLote.Append($"<GerarNfseEnvio {GetNamespace()}>");
+        xmlLote.Append(xmlLoteRps);
+        xmlLote.Append("</GerarNfseEnvio>");
+        retornoWebservice.XmlEnvio = xmlLote.ToString();
+    }
+
+    protected override void AssinarEnviarSincrono(RetornoEnviar retornoWebservice)
+    {
+        retornoWebservice.XmlEnvio = XmlSigning.AssinarXmlTodos(retornoWebservice.XmlEnvio, "Rps", "", Certificado);
+    }
 
 }
 

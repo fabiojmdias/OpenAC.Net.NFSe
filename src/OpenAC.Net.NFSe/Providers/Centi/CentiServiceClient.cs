@@ -47,6 +47,8 @@ internal sealed class CentiServiceClient : NFSeRestServiceClient, IServiceClient
     }
     #endregion
 
+    #region Methods
+
     public string CancelarNFSe(string? cabec, string msg)
     {
         throw new NotImplementedException();
@@ -69,7 +71,9 @@ internal sealed class CentiServiceClient : NFSeRestServiceClient, IServiceClient
 
     public string ConsultarNFSeRps(string? cabec, string msg)
     {
-        throw new NotImplementedException();
+        string json = "{\"xml\": \"" + msg + "\", \"usuario\": \"" + Provider.Configuracoes.WebServices.Usuario +
+            "\", \"senha\": \"" + Provider.Configuracoes.WebServices.Senha + "\" }";
+        return Post("", json);
     }
 
     public string ConsultarSequencialRps(string? cabec, string msg)
@@ -89,15 +93,17 @@ internal sealed class CentiServiceClient : NFSeRestServiceClient, IServiceClient
 
     public string EnviarSincrono(string? cabec, string msg)
     {
-        //msg já deve ser o json formatado.
-
-        throw new NotImplementedException();
+        string json = "{\"xml\": \"" + msg + "\", \"usuario\": \"" + Provider.Configuracoes.WebServices.Usuario +
+            "\", \"senha\": \"" + Provider.Configuracoes.WebServices.Senha + "\" }";
+        return Post("", json);
     }
 
     public string SubstituirNFSe(string? cabec, string msg)
     {
         throw new NotImplementedException();
     }
+
+    #endregion
 }
 
 /*

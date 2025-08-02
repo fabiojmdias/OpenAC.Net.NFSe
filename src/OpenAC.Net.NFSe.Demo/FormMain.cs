@@ -126,7 +126,7 @@ public partial class FormMain : Form, IOpenLog
             var numero = 10;
             if (InputBox.Show("Numero da RPS", "Digite o numero da RPS.", ref numero).Equals(DialogResult.Cancel)) return;
 
-            var serie = "0";
+            var serie = "1";
             if (InputBox.Show("Serie da RPS", "Digite o numero da serie da RPS.", ref serie).Equals(DialogResult.Cancel)) return;
 
             var ret = openNFSe.ConsultaNFSeRps(numero, serie, TipoRps.RPS);
