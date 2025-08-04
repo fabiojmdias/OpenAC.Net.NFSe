@@ -105,8 +105,3 @@ internal sealed class CentiServiceClient : NFSeRestServiceClient, IServiceClient
 
     #endregion
 }
-
-/*
- 
- 
- */

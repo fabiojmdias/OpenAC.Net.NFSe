@@ -38,43 +38,71 @@ using OpenAC.Net.NFSe.Commom.Types;
 
 namespace OpenAC.Net.NFSe.Providers;
 
-internal class AgiliServiceClient : NFSeHttpServiceClient, IServiceClient
+internal class AgiliServiceClient : NFSeRestServiceClient, IServiceClient
 {
-    #region Constructors
-
-    public AgiliServiceClient(ProviderAgili provider, TipoUrl tipoUrl) : base(provider, tipoUrl)
+    private readonly string _contentType;
+    public AgiliServiceClient(ProviderBase provider, TipoUrl tipoUrl) : base(provider, tipoUrl)
     {
+        _contentType = "application/xml";
     }
 
-    #endregion Constructors
-
-    #region Methods
-
-    public string Enviar(string cabec, string msg) => Execute(msg);
-
-    public string EnviarSincrono(string cabec, string msg) => Execute(msg);
-
-    public string ConsultarSituacao(string cabec, string msg) => throw new NotImplementedException();
-
-    public string ConsultarLoteRps(string cabec, string msg) => Execute(msg);
-
-    public string ConsultarSequencialRps(string cabec, string msg) => throw new NotImplementedException();
-
-    public string ConsultarNFSeRps(string cabec, string msg) => Execute(msg);
-
-    public string ConsultarNFSe(string cabec, string msg) => Execute(msg);
-
-    public string CancelarNFSe(string cabec, string msg) => Execute(msg);
-
-    public string CancelarNFSeLote(string cabec, string msg) => throw new NotImplementedException();
-
-    public string SubstituirNFSe(string cabec, string msg) => throw new NotImplementedException();
-
-    private string Execute(string msg)
+    public string ConsultarNFSeRps(string cabec, string msg)
     {
-        Execute(new StringContent(msg, Charset, HttpContentType.ApplicationXml), HttpMethod.Post);
-        return EnvelopeRetorno;
+        return Post("ConsultarNfseRps", msg, _contentType);
     }
 
-    #endregion Methods
+    public string ConsultarNFSe(string cabec, string msg)
+    {
+        return Post("ConsultarNfseFaixa", msg, _contentType);
+    }
+
+    public string EnviarSincrono(string cabec, string msg)
+    {
+        return Post("GerarNfse", msg, _contentType);
+    }
+
+    #region not implemented
+
+    public string CancelarNFSe(string cabec, string msg)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string CancelarNFSeLote(string cabec, string msg)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string ConsultarLoteRps(string cabec, string msg)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string ConsultarSequencialRps(string cabec, string msg)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string ConsultarSituacao(string cabec, string msg)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string ConsultarUrlVisualizacaoNfse(string cabec, string msg)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string Enviar(string cabec, string msg)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string SubstituirNFSe(string cabec, string msg)
+    {
+        throw new NotImplementedException();
+    }
+
+    #endregion
+
 }

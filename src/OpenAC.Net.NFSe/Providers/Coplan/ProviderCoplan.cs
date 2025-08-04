@@ -83,6 +83,60 @@ internal sealed class ProviderCoplan : ProviderABRASF201
         return valores;
     }
 
+    protected override XElement WriteTomadorRps(NotaServico nota)
+    {
+        var tomador = new XElement("Tomador");
+
+        if (!nota.Tomador.CpfCnpj.IsEmpty())
+        {
+            var ideTomador = new XElement("IdentificacaoTomador");
+            tomador.Add(ideTomador);
+
+            var cpfCnpjTomador = new XElement("CpfCnpj");
+            ideTomador.Add(cpfCnpjTomador);
+
+            cpfCnpjTomador.AddChild(AdicionarTagCNPJCPF("", "Cpf", "Cnpj", nota.Tomador.CpfCnpj));
+            ideTomador.AddChild(AddTag(TipoCampo.Str, "", "InscricaoMunicipal", 1, 15, Ocorrencia.NaoObrigatoria, nota.Tomador.InscricaoMunicipal));
+            ideTomador.AddChild(AddTag(TipoCampo.Str, "", "InscricaoEstadual", 1, 30, Ocorrencia.NaoObrigatoria, nota.Tomador.InscricaoEstadual));
+        }
+
+        tomador.AddChild(AddTag(TipoCampo.Str, "", "RazaoSocial", 1, 115, Ocorrencia.NaoObrigatoria, nota.Tomador.RazaoSocial));
+
+        if (!nota.Tomador.Endereco.Logradouro.IsEmpty() ||
+            !nota.Tomador.Endereco.Numero.IsEmpty() ||
+            !nota.Tomador.Endereco.Complemento.IsEmpty() ||
+            !nota.Tomador.Endereco.Bairro.IsEmpty() ||
+            nota.Tomador.Endereco.CodigoMunicipio > 0 ||
+            !nota.Tomador.Endereco.Uf.IsEmpty() ||
+            nota.Tomador.Endereco.CodigoPais > 0 ||
+            !nota.Tomador.Endereco.Cep.IsEmpty())
+        {
+            var endereco = new XElement("Endereco");
+            tomador.Add(endereco);
+
+            endereco.AddChild(AddTag(TipoCampo.Str, "", "Endereco", 1, 125, Ocorrencia.NaoObrigatoria, nota.Tomador.Endereco.Logradouro));
+            endereco.AddChild(AddTag(TipoCampo.Str, "", "Numero", 1, 10, Ocorrencia.NaoObrigatoria, nota.Tomador.Endereco.Numero));
+            endereco.AddChild(AddTag(TipoCampo.Str, "", "Complemento", 1, 60, Ocorrencia.NaoObrigatoria, nota.Tomador.Endereco.Complemento));
+            endereco.AddChild(AddTag(TipoCampo.Str, "", "Bairro", 1, 60, Ocorrencia.NaoObrigatoria, nota.Tomador.Endereco.Bairro));
+            endereco.AddChild(AddTag(TipoCampo.Int, "", "CodigoMunicipio", 7, 7, Ocorrencia.MaiorQueZero, nota.Tomador.Endereco.CodigoMunicipio));
+            endereco.AddChild(AddTag(TipoCampo.Str, "", "Uf", 2, 2, Ocorrencia.NaoObrigatoria, nota.Tomador.Endereco.Uf));
+            endereco.AddChild(AddTag(TipoCampo.Int, "", "CodigoPais", 4, 4, Ocorrencia.MaiorQueZero, nota.Tomador.Endereco.CodigoPais));
+            endereco.AddChild(AddTag(TipoCampo.StrNumber, "", "Cep", 8, 8, Ocorrencia.NaoObrigatoria, nota.Tomador.Endereco.Cep));
+        }
+
+        if (!nota.Tomador.DadosContato.Telefone.IsEmpty() ||
+            !nota.Tomador.DadosContato.Email.IsEmpty())
+        {
+            var contato = new XElement("Contato");
+            tomador.Add(contato);
+
+            contato.AddChild(AddTag(TipoCampo.StrNumber, "", "Telefone", 1, 11, Ocorrencia.NaoObrigatoria, nota.Tomador.DadosContato.DDD + nota.Tomador.DadosContato.Telefone));
+            contato.AddChild(AddTag(TipoCampo.Str, "", "Email", 1, 80, Ocorrencia.NaoObrigatoria, nota.Tomador.DadosContato.Email));
+        }
+
+        return tomador;
+    }
+
     #endregion Protected Methods
 
     #endregion Methods
