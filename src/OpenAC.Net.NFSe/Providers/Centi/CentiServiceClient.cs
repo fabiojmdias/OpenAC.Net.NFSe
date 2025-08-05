@@ -71,7 +71,7 @@ internal sealed class CentiServiceClient : NFSeRestServiceClient, IServiceClient
 
     public string ConsultarNFSeRps(string? cabec, string msg)
     {
-        string json = "{\"xml\": \"" + msg + "\", \"usuario\": \"" + Provider.Configuracoes.WebServices.Usuario +
+        string json = "{\"xml\": \"" + msg.Replace("\"", "\\\"") + "\", \"usuario\": \"" + Provider.Configuracoes.WebServices.Usuario +
             "\", \"senha\": \"" + Provider.Configuracoes.WebServices.Senha + "\" }";
         return Post("", json);
     }
@@ -93,7 +93,7 @@ internal sealed class CentiServiceClient : NFSeRestServiceClient, IServiceClient
 
     public string EnviarSincrono(string? cabec, string msg)
     {
-        string json = "{\"xml\": \"" + msg + "\", \"usuario\": \"" + Provider.Configuracoes.WebServices.Usuario +
+        string json = "{\"xml\": \"" + msg.Replace("\"", "\\\"") + "\", \"usuario\": \"" + Provider.Configuracoes.WebServices.Usuario +
             "\", \"senha\": \"" + Provider.Configuracoes.WebServices.Senha + "\" }";
         return Post("", json);
     }

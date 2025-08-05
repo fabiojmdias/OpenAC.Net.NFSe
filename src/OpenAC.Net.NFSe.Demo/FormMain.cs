@@ -588,13 +588,15 @@ public partial class FormMain : Form, IOpenLog
 
         var CodigoTributacaoMunicipio = municipio.Provedor.IsIn(NFSeProvider.SiapNet, NFSeProvider.ABase) ? "5211701" :
             municipio.Provedor.IsIn(NFSeProvider.GISS) ? "8121400" :
-            municipio.Provedor.IsIn(NFSeProvider.Sigep) ? "1" : "01.07.00 / 00010700";
+            municipio.Provedor.IsIn(NFSeProvider.Sigep) ? "1" :
+            municipio.Provedor.IsIn(NFSeProvider.Centi) ? municipio.Codigo.ToString() : "01.07.00 / 00010700";
 
         nfSe.Servico.ItemListaServico = itemListaServico;
         nfSe.Servico.CodigoTributacaoMunicipio = CodigoTributacaoMunicipio;
         nfSe.Servico.Discriminacao = "MANUTENCAO TÉCNICA";
         nfSe.Servico.CodigoMunicipio = municipio.Codigo;
         nfSe.Servico.Municipio = municipio.Nome;
+        nfSe.Servico.MunicipioIncidencia = municipio.Codigo;
         nfSe.OutrasInformacoes = "VOCÊ PAGOU APROXIMADAMENTE R$ 41,15 DE TRIBUTOS FEDERAIS, R$ 8,26 DE TRIBUTOS MUNICIPAIS, R$ 256,57 PELOS PRODUTOS/SERVICOS, FONTE: IBPT.";
         if (municipio.Provedor.IsIn(NFSeProvider.SiapNet))
         {
