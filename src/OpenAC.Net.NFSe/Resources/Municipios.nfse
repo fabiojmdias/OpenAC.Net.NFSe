@@ -11558,96 +11558,98 @@
       <Codigo>5107040</Codigo>
       <Nome>Primavera do Leste</Nome>
       <UF>MT</UF>
-      <Provedor>AssessorPublico</Provedor>
-      <Versao>1.00</Versao>
+      <Provedor>RLZ</Provedor>
+      <Versao>2.03</Versao>
       <UrlHomologacao>
         <Item>
           <TipoUrl>Enviar</TipoUrl>
-          <Url>http://s32.asp.srv.br:8180/issonline-homolog/servlet/anfse?wsdl</Url>
+          <Url>https://primaveradoleste.prefeitura.rlz.com.br/api/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>EnviarSincrono</TipoUrl>
-          <Url>http://s32.asp.srv.br:8180/issonline-homolog/servlet/anfse?wsdl</Url>
+          <Url>https://primaveradoleste.prefeitura.rlz.com.br/api/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>CancelarNFSe</TipoUrl>
-          <Url>http://s32.asp.srv.br:8180/issonline-homolog/servlet/anfse?wsdl</Url>
+          <Url>https://primaveradoleste.prefeitura.rlz.com.br/api/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>CancelarNFSeLote</TipoUrl>
-          <Url>http://s32.asp.srv.br:8180/issonline-homolog/servlet/anfse?wsdl</Url>
+          <Url>https://primaveradoleste.prefeitura.rlz.com.br/api/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarNFSe</TipoUrl>
-          <Url>http://s32.asp.srv.br:8180/issonline-homolog/servlet/anfse?wsdl</Url>
+          <Url>https://primaveradoleste.prefeitura.rlz.com.br/api/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarNFSeRps</TipoUrl>
-          <Url>http://s32.asp.srv.br:8180/issonline-homolog/servlet/anfse?wsdl</Url>
+          <Url>https://primaveradoleste.prefeitura.rlz.com.br/api/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarLoteRps</TipoUrl>
-          <Url>http://s32.asp.srv.br:8180/issonline-homolog/servlet/anfse?wsdl</Url>
+          <Url>https://primaveradoleste.prefeitura.rlz.com.br/api/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarSituacao</TipoUrl>
-          <Url>http://s32.asp.srv.br:8180/issonline-homolog/servlet/anfse?wsdl</Url>
+          <Url>https://primaveradoleste.prefeitura.rlz.com.br/api/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarSequencialRps</TipoUrl>
-          <Url>http://s32.asp.srv.br:8180/issonline-homolog/servlet/anfse?wsdl</Url>
+          <Url>https://primaveradoleste.prefeitura.rlz.com.br/api/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>SubstituirNFSe</TipoUrl>
-          <Url>http://s32.asp.srv.br:8180/issonline-homolog/servlet/anfse?wsdl</Url>
+          <Url>https://primaveradoleste.prefeitura.rlz.com.br/api/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>Autenticacao</TipoUrl>
+          <Url>https://primaveradoleste.prefeitura.rlz.com.br/api/webservice/nfse?wsdl</Url>
         </Item>
       </UrlHomologacao>
       <UrlProducao>
         <Item>
           <TipoUrl>Enviar</TipoUrl>
-          <Url>http://s32.asp.srv.br:8080/issonline/servlet/anfse?wsdl</Url>
+          <Url>https://cidadaoonline.primaveradoleste.mt.gov.br/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>EnviarSincrono</TipoUrl>
-          <Url>http://s32.asp.srv.br:8080/issonline/servlet/anfse?wsdl</Url>
+          <Url>https://cidadaoonline.primaveradoleste.mt.gov.br/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>CancelarNFSe</TipoUrl>
-          <Url>http://s32.asp.srv.br:8080/issonline/servlet/anfse?wsdl</Url>
+          <Url>https://cidadaoonline.primaveradoleste.mt.gov.br/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>CancelarNFSeLote</TipoUrl>
-          <Url>http://s32.asp.srv.br:8080/issonline/servlet/anfse?wsdl</Url>
+          <Url>https://cidadaoonline.primaveradoleste.mt.gov.br/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarNFSe</TipoUrl>
-          <Url>http://s32.asp.srv.br:8080/issonline/servlet/anfse?wsdl</Url>
+          <Url>https://cidadaoonline.primaveradoleste.mt.gov.br/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarNFSeRps</TipoUrl>
-          <Url>http://s32.asp.srv.br:8080/issonline/servlet/anfse?wsdl</Url>
+          <Url>https://cidadaoonline.primaveradoleste.mt.gov.br/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarLoteRps</TipoUrl>
-          <Url>http://s32.asp.srv.br:8080/issonline/servlet/anfse?wsdl</Url>
+          <Url>https://cidadaoonline.primaveradoleste.mt.gov.br/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarSituacao</TipoUrl>
-          <Url>http://s32.asp.srv.br:8080/issonline/servlet/anfse?wsdl</Url>
+          <Url>https://cidadaoonline.primaveradoleste.mt.gov.br/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>ConsultarSequencialRps</TipoUrl>
-          <Url>http://s32.asp.srv.br:8080/issonline/servlet/anfse?wsdl</Url>
+          <Url>https://cidadaoonline.primaveradoleste.mt.gov.br/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>SubstituirNFSe</TipoUrl>
-          <Url>http://s32.asp.srv.br:8080/issonline/servlet/anfse?wsdl</Url>
+          <Url>https://cidadaoonline.primaveradoleste.mt.gov.br/webservice/nfse?wsdl</Url>
         </Item>
         <Item>
           <TipoUrl>Autenticacao</TipoUrl>
+          <Url>https://cidadaoonline.primaveradoleste.mt.gov.br/webservice/nfse?wsdl</Url>
         </Item>
       </UrlProducao>
     </Municipio>

@@ -232,6 +232,7 @@ internal class ProviderAgili : ProviderBase
         var listaServico = new XElement("ListaServico");
         var dadosServico = new XElement("DadosServico");
         listaServico.Add(dadosServico);
+        dadosServico.AddChild(AddTag(TipoCampo.Str, "", "CodigoNbs", 1, 9, Ocorrencia.NaoObrigatoria, nota.Servico.CodigoNbs));
         dadosServico.AddChild(AddTag(TipoCampo.Str, "", "Discriminacao", 1, 2000, Ocorrencia.Obrigatoria, nota.Servico.Discriminacao));
         dadosServico.AddChild(AddTag(TipoCampo.Str, "", "CodigoCnae", 1, 140, Ocorrencia.NaoObrigatoria, nota.Servico.CodigoCnae));
         dadosServico.AddChild(AddTag(TipoCampo.De2, "", "Quantidade", 1, 18, Ocorrencia.Obrigatoria, 1)); //Fixo
