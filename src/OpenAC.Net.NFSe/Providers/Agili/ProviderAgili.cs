@@ -232,7 +232,6 @@ internal class ProviderAgili : ProviderBase
         var listaServico = new XElement("ListaServico");
         var dadosServico = new XElement("DadosServico");
         listaServico.Add(dadosServico);
-        dadosServico.AddChild(AddTag(TipoCampo.Str, "", "CodigoNbs", 1, 9, Ocorrencia.NaoObrigatoria, nota.Servico.CodigoNbs));
         dadosServico.AddChild(AddTag(TipoCampo.Str, "", "Discriminacao", 1, 2000, Ocorrencia.Obrigatoria, nota.Servico.Discriminacao));
         dadosServico.AddChild(AddTag(TipoCampo.Str, "", "CodigoCnae", 1, 140, Ocorrencia.NaoObrigatoria, nota.Servico.CodigoCnae));
         dadosServico.AddChild(AddTag(TipoCampo.De2, "", "Quantidade", 1, 18, Ocorrencia.Obrigatoria, 1)); //Fixo
@@ -488,6 +487,7 @@ internal class ProviderAgili : ProviderBase
         xmlRpsEnvio.Append(MontarXmlResponsavelRetencao(notas[0]));
         //xmlRpsEnvio.Append($"<CodigoAtividadeEconomica>{notas[0].Servico.ItemListaServico}</CodigoAtividadeEconomica>"); //Não é obrigatório
         xmlRpsEnvio.Append($"<ItemLei116AtividadeEconomica>{notas[0].Servico.ItemListaServico}</ItemLei116AtividadeEconomica>"); //Não é obrigatório
+        xmlRpsEnvio.Append($"<CodigoNBS>{notas[0].Servico.CodigoNbs}</CodigoNBS>"); //Não é obrigatório
         xmlRpsEnvio.Append(MontarXmlExigibilidadeIssqn(notas[0]));
         xmlRpsEnvio.Append(MontarXmlMunicipioIncidencia(notas[0]));
         xmlRpsEnvio.Append(MontarXmlValoresRps(notas[0]));
