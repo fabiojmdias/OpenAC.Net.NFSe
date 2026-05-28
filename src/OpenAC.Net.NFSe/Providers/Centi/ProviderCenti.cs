@@ -30,6 +30,7 @@
 using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.DFe.Core;
 using OpenAC.Net.DFe.Core.Document;
+using OpenAC.Net.DFe.Core.Serializer;
 using OpenAC.Net.NFSe.Commom.Interface;
 using OpenAC.Net.NFSe.Commom.Model;
 using OpenAC.Net.NFSe.Commom.Types;
@@ -194,4 +195,27 @@ internal sealed class ProviderCenti : ProviderABRASF200
         }
         retornoWebservice.Sucesso = true;
     }
+
+    protected override XElement WritePrestadorRps(NotaServico nota)
+    {
+        if (nota.Prestador.CpfCnpj.IsEmpty() && nota.Prestador.InscricaoMunicipal.IsEmpty()) return null;
+        var prestador = new XElement("Prestador");
+        var cpfCnpjPrestador = new XElement("CpfCnpj");
+        prestador.Add(cpfCnpjPrestador);
+        cpfCnpjPrestador.AddChild(AdicionarTagCNPJCPF("", "Cpf", "Cnpj", nota.Prestador.CpfCnpj));
+        if (nota.ConstrucaoCivil != null && !string.IsNullOrEmpty(nota.ConstrucaoCivil?.LogradouroObra))
+        {
+            var dadosobra = new XElement("DadosObra");
+            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "cnoFild", 1, 125, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.CnoObra));
+            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "cepObraFild", 1, 8, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.CepObra));
+            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "logradouroObraFild", 1, 125, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.LogradouroObra));
+            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "numeroObraFild", 1, 10, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.NumeroObra));
+            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "bairroObraFild", 1, 60, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.BairroObra));
+            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "complementoObraFild", 1, 60, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.ComplementoObra));
+            prestador.Add(dadosobra);
+        }
+        prestador.AddChild(AddTag(TipoCampo.Str, "", "InscricaoMunicipal", 1, 15, Ocorrencia.NaoObrigatoria, nota.Prestador.InscricaoMunicipal));
+        return prestador;
+    }
+
 }
