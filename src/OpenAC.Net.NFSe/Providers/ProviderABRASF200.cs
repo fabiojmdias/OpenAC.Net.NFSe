@@ -187,6 +187,8 @@ public abstract class ProviderABRASF200 : ProviderBase
             nota.Servico.ExigibilidadeIss = (ExigibilidadeIss)(rootServico.ElementAnyNs("ExigibilidadeISS")?.GetValue<int>() - 1 ?? 0);
             nota.Servico.MunicipioIncidencia = rootServico.ElementAnyNs("MunicipioIncidencia")?.GetValue<int>() ?? 0;
             nota.Servico.NumeroProcesso = rootServico.ElementAnyNs("NumeroProcesso")?.GetValue<string>() ?? string.Empty;
+            nota.Servico.CodigoIndicadorOperacao = rootServico.ElementAnyNs("CodigoIndicadorOperacao")?.GetValue<string>() ?? string.Empty;
+            nota.Servico.CodigoClassificacaoTributaria = rootServico.ElementAnyNs("CodigoClassificacaoTributaria")?.GetValue<string>() ?? string.Empty;
         }
 
         // Prestador (RPS)

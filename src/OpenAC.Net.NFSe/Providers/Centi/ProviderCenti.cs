@@ -206,16 +206,38 @@ internal sealed class ProviderCenti : ProviderABRASF200
         if (nota.ConstrucaoCivil != null && !string.IsNullOrEmpty(nota.ConstrucaoCivil?.LogradouroObra))
         {
             var dadosobra = new XElement("DadosObra");
-            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "cnoFild", 1, 125, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.CnoObra));
-            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "cepObraFild", 1, 8, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.CepObra));
-            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "logradouroObraFild", 1, 125, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.LogradouroObra));
-            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "numeroObraFild", 1, 10, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.NumeroObra));
-            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "bairroObraFild", 1, 60, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.BairroObra));
-            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "complementoObraFild", 1, 60, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.ComplementoObra));
+            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "Cno", 1, 125, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.CnoObra));
+            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "CepObra", 1, 8, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.CepObra));
+            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "LogradouroObra", 1, 125, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.LogradouroObra));
+            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "NumeroObra", 1, 10, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.NumeroObra));
+            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "BairroObra", 1, 60, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.BairroObra));
+            dadosobra.AddChild(AddTag(TipoCampo.Str, "", "ComplementoObra", 1, 60, Ocorrencia.NaoObrigatoria, nota.ConstrucaoCivil.ComplementoObra));
             prestador.Add(dadosobra);
         }
         prestador.AddChild(AddTag(TipoCampo.Str, "", "InscricaoMunicipal", 1, 15, Ocorrencia.NaoObrigatoria, nota.Prestador.InscricaoMunicipal));
         return prestador;
     }
 
+    protected override XElement WriteServicosRps(NotaServico nota)
+    {
+        var servico = new XElement("Servico");
+        servico.Add(WriteValoresRps(nota));
+        servico.AddChild(AddTag(TipoCampo.Int, "", "IssRetido", 1, 1, Ocorrencia.Obrigatoria, nota.Servico.Valores.IssRetido == SituacaoTributaria.Retencao ? 1 : 2));
+        if (nota.Servico.ResponsavelRetencao.HasValue)
+            servico.AddChild(AddTag(TipoCampo.Int, "", "ResponsavelRetencao", 1, 1, Ocorrencia.NaoObrigatoria, (int)nota.Servico.ResponsavelRetencao + 1));
+        servico.AddChild(AddTag(TipoCampo.Str, "", "ItemListaServico", 1, 5, Ocorrencia.Obrigatoria, nota.Servico.ItemListaServico));
+        servico.AddChild(AddTag(TipoCampo.Str, "", "CodigoNbs", 1, 9, Ocorrencia.NaoObrigatoria, nota.Servico.CodigoNbs));
+        servico.AddChild(AddTag(TipoCampo.Str, "", "CodigoINDOP", 1, 6, Ocorrencia.NaoObrigatoria, nota.Servico.CodigoIndicadorOperacao));
+        servico.AddChild(AddTag(TipoCampo.Str, "", "CodigoClassTrib", 1, 6, Ocorrencia.NaoObrigatoria, nota.Servico.CodigoClassificacaoTributaria));
+        servico.AddChild(AddTag(TipoCampo.Str, "", "CodigoCnae", 1, 7, Ocorrencia.NaoObrigatoria, nota.Servico.CodigoCnae));
+        servico.AddChild(AddTag(TipoCampo.Str, "", "CodigoTributacaoMunicipio", 1, 20, Ocorrencia.NaoObrigatoria, nota.Servico.CodigoTributacaoMunicipio));
+        servico.AddChild(AddTag(TipoCampo.Str, "", "Discriminacao", 1, 2000, Ocorrencia.Obrigatoria, nota.Servico.Discriminacao));
+        servico.AddChild(AddTag(TipoCampo.Str, "", "CodigoMunicipio", 1, 20, Ocorrencia.Obrigatoria, nota.Servico.CodigoMunicipio));
+        servico.AddChild(AddTag(TipoCampo.Int, "", "CodigoPais", 4, 4, Ocorrencia.MaiorQueZero, nota.Servico.CodigoPais));
+        servico.AddChild(AddTag(TipoCampo.Int, "", "ExigibilidadeISS", 1, 1, Ocorrencia.Obrigatoria, (int)nota.Servico.ExigibilidadeIss + 1));
+        servico.AddChild(AddTag(TipoCampo.Int, "", "MunicipioIncidencia", 7, 7, Ocorrencia.MaiorQueZero, nota.Servico.MunicipioIncidencia));
+        servico.AddChild(AddTag(TipoCampo.Str, "", "NumeroProcesso", 1, 30, Ocorrencia.NaoObrigatoria, nota.Servico.NumeroProcesso));
+
+        return servico;
+    }
 }

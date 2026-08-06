@@ -79,6 +79,8 @@ public sealed class DadosServico : GenericClone<DadosServico>, INotifyPropertyCh
 
     public int CodigoPais { get; set; }
 
+    public int PaisPrestacao { get; set; }
+
     public ExigibilidadeIss ExigibilidadeIss { get; set; }
 
     public string IdentifNaoExigibilidade { get; set; }
@@ -96,6 +98,10 @@ public sealed class DadosServico : GenericClone<DadosServico>, INotifyPropertyCh
     public string Descricao { get; set; }
 
     public DeducoesCollection Deducoes { get; }
+
+    public string CodigoIndicadorOperacao { get; set; }
+
+    public string CodigoClassificacaoTributaria { get; set; }
 
     #endregion Propriedades
 }
